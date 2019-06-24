@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,7 +12,7 @@ use Illuminate\Http\Request;
 */
 
 //平台端接口
-Route::group(['middleware' => 'customer','namespace' => 'api'], function() {
+Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getUserList', 'CustomerController@getUserList');
     Route::post('/saveUser', 'CustomerController@saveUser');
     Route::post('/getUserInfo', 'CustomerController@getUserInfo');

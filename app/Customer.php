@@ -18,7 +18,7 @@ class Customer extends Authenticatable
     protected $fillable = [
         'id', 'role_id', 'name', 'username', 'email', 'tel', 'address', 'logo', 'lat', 'lng',
         'remark', 'isusing', 'deleted', 'deleted_at', 'deleted_user', 'isusing_user', 'update_user',
-        'login_at', 'openid', 'wx_name', 'wx_logo', 'created_at', 'updated_at', 'password',
+        'login_at', 'login_ip', 'openid', 'wx_name', 'wx_logo', 'created_at', 'updated_at', 'password',
     ];
 
     /**

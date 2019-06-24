@@ -9,36 +9,40 @@ use App\Repositories\Eloquent\CustomerRepository as Customer;
 class CustomerController extends Controller
 {
     private $customer;
+
     public function __construct(Customer $customer)
     {
         $this->customer = $customer;
     }
-    
+
     /**
-     * 用户列表
+     * 用户列表.
      */
     public function getUserList(Request $request)
     {
         $result = collect($this->customer->getUserList($request))->toJson();
+
         return $result;
     }
 
     /**
-     * 添加用户
+     * 添加用户.
      */
     public function saveUser(Request $request)
     {
         $result = collect($this->customer->saveUser($request))->toJson();
+
         return $result;
     }
 
     /**
-     * 得到用户信息
+     * 得到用户信息.
      */
     public function getUserInfo(Request $request)
     {
-       
-        $result = 'aaa';
-        return $result;
+        $result = collect($this->customer->getUserInfo($request))->toJson();
+        $user = \Auth::guard('customer')->user();
+
+        return collect($user)->toJson();
     }
 }
