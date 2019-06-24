@@ -13,7 +13,7 @@ class CreateCustomerTable extends Migration
      */
     public function up()
     {
-        Schema::create('lly_customer', function (Blueprint $table) {
+        Schema::create('cms_customer', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer("role_id")->nullable()->comment("角色ID");
             $table->string("name",50)->unique()->comment("真实姓名");
@@ -38,7 +38,7 @@ class CreateCustomerTable extends Migration
             $table->string("wx_logo")->nullable()->comment("微信头像");
             $table->timestamps();
         });
-        DB::statement("ALTER TABLE `lly_customer` comment '用户表'");
+        DB::statement("ALTER TABLE `cms_customer` comment '用户表'");
     }
 
     /**
@@ -48,6 +48,6 @@ class CreateCustomerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lly_customer');
+        Schema::dropIfExists('cms_customer');
     }
 }

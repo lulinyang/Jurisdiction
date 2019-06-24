@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Customer extends Authenticatable
 {
     use HasApiTokens, Notifiable;
-    protected $table = 'lly_customer';
+    protected $table = 'cms_customer';
     /**
      * The attributes that are mass assignable.
      *
