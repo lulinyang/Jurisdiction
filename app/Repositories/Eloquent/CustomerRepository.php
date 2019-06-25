@@ -42,12 +42,35 @@ class CustomerRepository extends Repository
 
     public function saveUser($request)
     {
-        $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-        //dd($data['password']);die();
-        $res = $this->model->create($data);
+        // $data = $request->all();
+        // $data['password'] = bcrypt($data['password']);
+        // //dd($data['password']);die();
+        // $res = $this->model->create($data);
 
-        return $this->respondWith(['created' => (bool) $res, 'customer' => $res]);
+        // return $this->respondWith(['created' => (bool) $res, 'customer' => $res]);
+
+        $data = $request->all();
+        $username = isset($data['username']) ? $data['username'] : '';
+        $res = $this->findBy('username', $username);
+        if (!isset($data['id'])) {
+            if ($res) {
+                return $this->respondWith(['find' => (bool) $res, 'user' => $res]);
+            }
+            $data['password'] = bcrypt($data['password']);
+            $res = $this->model->create($data);
+
+            return $this->respondWith(['created' => (bool) $res, 'user' => $res]);
+        } else {
+            if ($res && $res['id'] != $data['id']) {
+                return $this->respondWith(['find' => (bool) $res, 'user' => $res]);
+            }
+            $arr = [
+                'username' => $data['username'],
+            ];
+            $res = $this->update($arr, $data['id']);
+
+            return $this->respondWith(['updated' => (bool) $res, 'user' => $res]);
+        }
     }
 
     public function getUserInfo($request)

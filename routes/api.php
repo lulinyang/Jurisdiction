@@ -16,4 +16,10 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getUserList', 'CustomerController@getUserList');
     Route::post('/saveUser', 'CustomerController@saveUser');
     Route::post('/getUserInfo', 'CustomerController@getUserInfo');
+
+    Route::get('/getNodes', 'PermissionsController@getNodes');
+    Route::post('/addNode', 'PermissionsController@addNode');
+
+    Route::get('/getRoles', 'RoleController@getRoles');
+    Route::post('/addRole', 'RoleController@addRole');
 });
