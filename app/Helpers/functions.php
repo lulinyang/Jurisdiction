@@ -3,27 +3,29 @@
  * Created by PhpStorm.
  * User: Administrator
  * Date: 2018/8/7
- * Time: 23:58
+ * Time: 23:58.
  */
-
-function guid() {
+function guid()
+{
     $charid = strtoupper(md5(uniqid(mt_rand(), true)));
     $uuid = substr($charid, 0, 8)
         .substr($charid, 8, 4)
-        .substr($charid,12, 4)
-        .substr($charid,16, 4)
-        .substr($charid,20,12);
+        .substr($charid, 12, 4)
+        .substr($charid, 16, 4)
+        .substr($charid, 20, 12);
+
     return $uuid;
 }
 
 /**
- * 获取客户端 ip
- * @return array|false|null|string
+ * 获取客户端 ip.
+ *
+ * @return array|false|string|null
  */
 function get_client_ip()
 {
-    static $realip = NULL;
-    if ($realip !== NULL) {
+    static $realip = null;
+    if ($realip !== null) {
         return $realip;
     }
     //判断服务器是否允许$_SERVER
@@ -37,12 +39,12 @@ function get_client_ip()
         }
     } else {
         //不允许就使用getenv获取
-        if (getenv("HTTP_X_FORWARDED_FOR")) {
-            $realip = getenv("HTTP_X_FORWARDED_FOR");
-        } elseif (getenv("HTTP_CLIENT_IP")) {
-            $realip = getenv("HTTP_CLIENT_IP");
+        if (getenv('HTTP_X_FORWARDED_FOR')) {
+            $realip = getenv('HTTP_X_FORWARDED_FOR');
+        } elseif (getenv('HTTP_CLIENT_IP')) {
+            $realip = getenv('HTTP_CLIENT_IP');
         } else {
-            $realip = getenv("REMOTE_ADDR");
+            $realip = getenv('REMOTE_ADDR');
         }
     }
 
@@ -50,9 +52,11 @@ function get_client_ip()
 }
 
 /**
- * 判断数组的键是否存在，并且值不为空
+ * 判断数组的键是否存在，并且值不为空.
+ *
  * @param $arr
  * @param $column
+ *
  * @return null
  */
 function isset_and_not_empty($arr, $column)
@@ -61,22 +65,26 @@ function isset_and_not_empty($arr, $column)
 }
 
 /**
- * 过滤用户输入数据
- * @param $str
- * @return mixed
+ * 过滤用户输入数据.
  *
+ * @param $str
+ *
+ * @return mixed
  */
 function trimall($str)
 {
-    $qian = array(" ", "　", "\t", "\n", "\r");
-    $qian = array(" ", "　", "\t");
-    $hou = array("", "", "");
+    $qian = array(' ', '　', "\t", "\n", "\r");
+    $qian = array(' ', '　', "\t");
+    $hou = array('', '', '');
+
     return str_replace($qian, $hou, $str);
 }
 
 /**
- * 将时间戳转换成 xx 时\xx 分
+ * 将时间戳转换成 xx 时\xx 分.
+ *
  * @param $time
+ *
  * @return array
  */
 function get_hour_and_min($time)
@@ -85,20 +93,22 @@ function get_hour_and_min($time)
     if ($sec >= 60) {
         $hour = floor($sec / 60);
         $min = $sec % 60;
-
     } else {
         $hour = 0;
         $min = $sec;
     }
+
     return ['hour' => $hour, 'min' => $min];
 }
 
 /**
- * 根据经纬度获取两点间的直线距离，返回 KM
+ * 根据经纬度获取两点间的直线距离，返回 KM.
+ *
  * @param $lon1
  * @param $lat1
  * @param $lon2
  * @param $lat2
+ *
  * @return float
  */
 function get_two_position_distance($lon1, $lat1, $lon2, $lat2)
@@ -138,20 +148,22 @@ if (!function_exists('collection')) {
 }
 
 //对象转数组
-function object2array($object) {
+function object2array($object)
+{
     if (is_object($object)) {
         foreach ($object as $key => $value) {
             $array[$key] = $value;
         }
-    }
-    else {
+    } else {
         $array = $object;
     }
+
     return $array;
 }
 
 //数组转对象
-function array2object($array) {
+function array2object($array)
+{
     $aboutVideoArr = array();
     if (is_array($array)) {
         foreach ($array as $value) {
@@ -164,6 +176,7 @@ function array2object($array) {
     } else {
         $video = $array;
     }
+
     return $aboutVideoArr;
 }
 
@@ -181,31 +194,33 @@ function failed($respond = 'Request failed!')
 }
 
 //生成随机字符串
-function generate_str( $length = 4 ) {
-// 密码字符集，可任意添加你需要的字符
+function generate_str($length = 4)
+{
+    // 密码字符集，可任意添加你需要的字符
     $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_ []{}<>~`+=,.;:/?|';
-    $str = "";
-    for ( $i = 0; $i < $length; $i++ )
-    {
-        $str .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+    $str = '';
+    for ($i = 0; $i < $length; ++$i) {
+        $str .= $chars[mt_rand(0, strlen($chars) - 1)];
     }
+
     return $str;
 }
 
 /**
  * @param $url 请求网址
  * @param bool $params 请求参数
- * @param int $ispost 请求方式
- * @param int $https https协议
+ * @param int  $ispost 请求方式
+ * @param int  $https  https协议
+ *
  * @return bool|mixed
  */
-function do_curl($url, $params = false, $ispost = 0, $https = 0,$type ='')
+function do_curl($url, $params = false, $ispost = 0, $https = 0, $type = '')
 {
     $httpInfo = array();
     $header = [];
-    if($type == 'json'){
-        $params = json_encode($params);//对数组进行json编码
-        $header= array("Content-type: application/json;charset=UTF-8","Accept: application/json","Cache-Control: no-cache", "Pragma: no-cache");
+    if ($type == 'json') {
+        $params = json_encode($params); //对数组进行json编码
+        $header = array('Content-type: application/json;charset=UTF-8', 'Accept: application/json', 'Cache-Control: no-cache', 'Pragma: no-cache');
     }
 
     $ch = curl_init();
@@ -215,149 +230,158 @@ function do_curl($url, $params = false, $ispost = 0, $https = 0,$type ='')
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     if ($https) {
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE); // 对认证证书来源的检查
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // 从证书中检查SSL加密算法是否存在
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 对认证证书来源的检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // 从证书中检查SSL加密算法是否存在
     }
     if ($ispost) {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         curl_setopt($ch, CURLOPT_URL, $url);
-        if($type == 'json'){
-            curl_setopt($ch,CURLOPT_HTTPHEADER,$header);
+        if ($type == 'json') {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
     } else {
         if ($params) {
             if (is_array($params)) {
                 $params = http_build_query($params);
             }
-            curl_setopt($ch, CURLOPT_URL, $url . '?' . $params);
+            curl_setopt($ch, CURLOPT_URL, $url.'?'.$params);
         } else {
             curl_setopt($ch, CURLOPT_URL, $url);
         }
     }
 
     $response = curl_exec($ch);
-    if ($response === FALSE) {
+    if ($response === false) {
         //echo "cURL Error: " . curl_error($ch);
         return false;
     }
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
     curl_close($ch);
+
     return $response;
 }
 
-
-function decryptData($appid,$sessionKey,$encryptedData,$iv)
+function decryptData($appid, $sessionKey, $encryptedData, $iv)
 {
     //dd($appid,$sessionKey,$encryptedData,$iv);
-    $dir = str_replace('\\','/',realpath(dirname(__FILE__).'/'))."/";
-    include_once $dir . "errorCode.php";
-    include_once $dir . "wxBizDataCrypt.php";
+    $dir = str_replace('\\', '/', realpath(dirname(__FILE__).'/')).'/';
+    include_once $dir.'errorCode.php';
+    include_once $dir.'wxBizDataCrypt.php';
     $pc = new WXBizDataCrypt($appid, $sessionKey);
-    $errCode = $pc->decryptData($encryptedData, $iv, $data );
-    if($errCode == 0){
+    $errCode = $pc->decryptData($encryptedData, $iv, $data);
+    if ($errCode == 0) {
         return $data;
-    }else{
+    } else {
         return $errCode;
     }
-
 }
 
 //二进制转图片image/png
 function data_uri($contents, $mime)
 {
-    $base64   = base64_encode($contents);
+    $base64 = base64_encode($contents);
+
     return $base64;
 }
 
-function Asskeytest($appid,$appsecret)
+function Asskeytest($appid, $appsecret)
 {
-    if(Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid)>time()){
+    if (Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid) > time()) {
         return Session::get('access_token_'.$appid);
-    }else{
-        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
+    } else {
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
         $ass_key = do_curl($url);
         $ass_key = json_decode($ass_key);
-        if(isset($ass_key->errcode)){
+        if (isset($ass_key->errcode)) {
             return '';
         }
         $access_token = $ass_key->access_token;
-        Session::put('access_token_'.$appid,$access_token);
-        Session::put('expire_time_'.$appid,time()+7000);
+        Session::put('access_token_'.$appid, $access_token);
+        Session::put('expire_time_'.$appid, time() + 7000);
+
         return $access_token;
     }
 }
 
 /**
  * @author lulinyang <lulingyang@ivtsoft.com>
- * @param String $type
+ *
+ * @param string $type
+ *
  * @return Array
- * Description: 得到本周的开始日期和结束日期
+ *               Description: 得到本周的开始日期和结束日期
  */
 function getWeek(String $type)
 {
-    switch($type) {
-        case 'month': 
-            $y = date("Y",time());
-            $m = date("m",time());
-            $d = date("d",time());
-            $t = date("t",time());
-            $start = date('Y-m-d',mktime(0,0,0,$m,1,$y));// 创建本月开始时间
-            $end = date('Y-m-d',mktime(23,59,59,$m,$t,$y));//创建本月结束时间
+    switch ($type) {
+        case 'month':
+            $y = date('Y', time());
+            $m = date('m', time());
+            $d = date('d', time());
+            $t = date('t', time());
+            $start = date('Y-m-d', mktime(0, 0, 0, $m, 1, $y)); // 创建本月开始时间
+            $end = date('Y-m-d', mktime(23, 59, 59, $m, $t, $y)); //创建本月结束时间
         break;
-        case 'week': 
+        case 'week':
             //当前日期
-            $sdefaultDate = date("Y-m-d");
+            $sdefaultDate = date('Y-m-d');
             //$first =1 表示每周星期一为开始日期 0表示每周日为开始日期
             $first = 1;
             //获取当前周的第几天 周日是 0 周一到周六是 1 - 6
-            $w = date('w',strtotime($sdefaultDate));
+            $w = date('w', strtotime($sdefaultDate));
             //获取本周开始日期，如果$w是0，则表示周日，减去 6 天
-            $start = date('Y-m-d',strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days'));
+            $start = date('Y-m-d', strtotime("$sdefaultDate -".($w ? $w - $first : 6).' days'));
             //本周结束日期
-            $end = date('Y-m-d',strtotime("$start +6 days"));
+            $end = date('Y-m-d', strtotime("$start +6 days"));
         break;
-        case 'day': 
-            $start = date('Y-m-d',mktime (0,0,0, date( "m"), date( "d"), date( "Y"))); //创建日开始时间
-            $end = date('Y-m-d',mktime (23,59,59, date( "m"), date( "d"), date( "Y")));//创建日结束时间
+        case 'day':
+            $start = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d'), date('Y'))); //创建日开始时间
+            $end = date('Y-m-d', mktime(23, 59, 59, date('m'), date('d'), date('Y'))); //创建日结束时间
         break;
-        case 'year': 
-            $start = date('Y-m-d',strtotime(date("Y",time())."-1"."-1")); //本年开始
-            $end = date('Y-m-d',strtotime(date("Y",time())."-12"."-31")); //本年结束
+        case 'year':
+            $start = date('Y-m-d', strtotime(date('Y', time()).'-1'.'-1')); //本年开始
+            $end = date('Y-m-d', strtotime(date('Y', time()).'-12'.'-31')); //本年结束
         break;
     }
+
     return ['start' => $start, 'end' => $end];
 }
 
-function getTree($data) {
-    $tree = [];
-    $newData = [];
-    //循环重新排列
-    foreach ($data as $datum) {
-        $newData[$datum['id']] = $datum;
-    }
-    foreach ($newData as $key => $datum) {
-        if ($datum['pid'] > 0) {
-            //不是根节点的将自己的地址放到父级的child节点
-            $newData[$datum['pid']]['child'][] = &$newData[$key];
-        } else {
-            //根节点直接把地址放到新数组中
-            $tree[] = &$newData[$datum['id']];
+function getTree($data, $pid = 0)
+{
+    $tree = array();
+    foreach ($data as $k => $v) {
+        //父亲找到儿子
+        if ($v['pid'] == $pid) {
+            $v['children'] = getTree($data, $v['id']);
+            $tree[] = $v;
+            //unset($data[$k]);
         }
     }
+
     return $tree;
 }
 
-
-function cateSort($data,$pid=0,$level=0) {
-    static $arr = array();
-    foreach($data as $k => $v) {
-        if($v['pid'] == $pid) {
-            $arr[$k] = $v;
-            $arr[$k]['level'] = $level + 1;
-            cateSort($data,$v['id'],$level+1);
+function cateSort($array, $pid = 0, $level = 0)
+{
+    //声明静态数组,避免递归调用时,多次声明导致数组覆盖
+    static $list = [];
+    foreach ($array as $key => $value) {
+        //第一次遍历,找到父节点为根节点的节点 也就是pid=0的节点
+        if ($value['pid'] == $pid) {
+            //父节点为根节点的节点,级别为0，也就是第一级
+            // $value['level'] = $level;
+            $value['name'] = str_repeat('---', $value['level']).$value['name'];
+            //把数组放到list中
+            $list[] = $value;
+            //把这个节点从数组中移除,减少后续递归消耗
+            unset($array[$key]);
+            //开始递归,查找父ID为该节点ID的节点,级别则为原级别+1
+            cateSort($array, $value['id'], $level + 1);
         }
     }
-    return $arr;
+
+    return $list;
 }

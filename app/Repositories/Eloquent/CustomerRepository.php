@@ -6,6 +6,7 @@ namespace App\Repositories\Eloquent;
 
 use GuzzleHttp\Client;
 use Illuminate\Container\Container as App;
+use DB;
 
 class CustomerRepository extends Repository
 {
@@ -28,14 +29,15 @@ class CustomerRepository extends Repository
     public function getUserList($request)
     {
         $data = $request->all();
-        $keyword = isset($data['keyword']) ? $data['keyword'] : '';
-        $paginate = $this->model->where(['deleted' => 0])
-            ->when($keyword, function ($query) use ($keyword) {
-                $query->where(function ($query) use ($keyword) {
-                    return $query->orWhere('username', 'like', "%{$keyword}%")
-                        ->orWhere('email', 'like', "%{$keyword}%");
-                });
-            })->paginate($request->pageSize);
+        $username = isset($data['username']) ? $data['username'] : '';
+        $email = isset($data['email']) ? $data['email'] : '';
+        $paginate = DB::table('cms_customer as c')
+                    ->leftJoin('cms_roles as r', function ($join) {
+                        $join->on('c.role_id', '=', 'r.id');
+                    })->Where('username', 'like', "%{$username}%")
+                    ->Where('email', 'like', "%{$email}%")
+                    ->select('c.*', 'r.name as rolen_ame')
+                    ->paginate(8);
 
         return collection($paginate);
     }
@@ -44,10 +46,15 @@ class CustomerRepository extends Repository
     {
         $data = $request->all();
         $username = isset($data['username']) ? $data['username'] : '';
+        $email = isset($data['email']) ? $data['email'] : '';
         $res = $this->findBy('username', $username);
+        $res_email = $this->findBy('email', $email);
         if (!isset($data['id'])) {
             if ($res) {
-                return $this->respondWith(['find' => (bool) $res, 'user' => $res]);
+                return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
+            }
+            if ($res_email) {
+                return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
             }
             $data['password'] = bcrypt($data['password']);
             $res = $this->model->create($data);
@@ -55,11 +62,14 @@ class CustomerRepository extends Repository
             return $this->respondWith(['created' => (bool) $res, 'user' => $res]);
         } else {
             if ($res && $res['id'] != $data['id']) {
-                return $this->respondWith(['find' => (bool) $res, 'user' => $res]);
+                return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
+            }
+            if ($res_email && $res_email['id'] != $data['id']) {
+                return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
             }
             $arr = [
                 'username' => $data['username'],
-                'role_id' => $data['role_id']
+                'role_id' => $data['role_id'],
             ];
             $res = $this->update($arr, $data['id']);
 

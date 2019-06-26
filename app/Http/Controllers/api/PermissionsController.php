@@ -29,6 +29,13 @@ class PermissionsController extends Controller
         return $result;
     }
 
+    public function getNodesGetTree(Request $request)
+    {
+        $result = collect($this->permissions->getNodesGetTree($request))->toJson();
+
+        return $result;
+    }
+
     public function addNode(Request $request)
     {
         $result = collect($this->permissions->addNode($request))->toJson();

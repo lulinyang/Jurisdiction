@@ -69,4 +69,16 @@ class RoleRepository extends Repository
             return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
         }
     }
+
+    public function updateRolePower($request)
+    {
+        $data = $request->all();
+        $arr = [
+            'permission_id' => $data['permission_id'],
+        ];
+
+        $res = $this->update($arr, $data['id']);
+
+        return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
+    }
 }

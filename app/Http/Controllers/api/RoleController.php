@@ -35,4 +35,11 @@ class RoleController extends Controller
 
         return $result;
     }
+
+    public function updateRolePower(Request $request)
+    {
+        $result = collect($this->role->updateRolePower($request))->toJson();
+
+        return $result;
+    }
 }
