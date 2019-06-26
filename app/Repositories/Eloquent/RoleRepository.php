@@ -39,6 +39,11 @@ class RoleRepository extends Repository
         return collection($paginate);
     }
 
+    public function getRolesAll($request)
+    {
+        return collection($this->all());
+    }
+
     public function addRole($request)
     {
         $data = $request->all();

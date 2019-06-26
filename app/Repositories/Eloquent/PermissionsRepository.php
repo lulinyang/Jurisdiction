@@ -39,9 +39,17 @@ class PermissionsRepository extends Repository
         return collection($paginate);
     }
 
+    public function getNodesAll($request)
+    {
+        return collection($this->all());
+    }
+
     public function addNode($request)
     {
         $data = $request->all();
+        $pidLevel = explode("-", $data['pidLevel']);
+        $data['pid'] = $pidLevel[0];
+        $data['level'] = $pidLevel[1];
         if (!isset($data['id'])) {
             $res = $this->model->create($data);
 
@@ -51,6 +59,7 @@ class PermissionsRepository extends Repository
                 'name' => $data['name'],
                 'router' => $data['router'],
                 'pid' => $data['pid'],
+                'level' => $data['level']
             ];
 
             $res = $this->update($arr, $data['id']);

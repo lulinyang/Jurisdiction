@@ -42,13 +42,6 @@ class CustomerRepository extends Repository
 
     public function saveUser($request)
     {
-        // $data = $request->all();
-        // $data['password'] = bcrypt($data['password']);
-        // //dd($data['password']);die();
-        // $res = $this->model->create($data);
-
-        // return $this->respondWith(['created' => (bool) $res, 'customer' => $res]);
-
         $data = $request->all();
         $username = isset($data['username']) ? $data['username'] : '';
         $res = $this->findBy('username', $username);
@@ -66,6 +59,7 @@ class CustomerRepository extends Repository
             }
             $arr = [
                 'username' => $data['username'],
+                'role_id' => $data['role_id']
             ];
             $res = $this->update($arr, $data['id']);
 

@@ -264,166 +264,6 @@ function decryptData($appid,$sessionKey,$encryptedData,$iv)
 
 }
 
-function createQrImg($data)
-{
-    $appid = $data['appid'] ?? getenv("KHD_APP_ID");
-    $appsecret = $data['appsecret'] ?? getenv("KHD_APP_SECRET");
-
-    $size = $data['size'];
-    $img = $data['img'];
-    $xcx_x = $data['xcx_x'];
-    $xcx_y = $data['xcx_y'];
-    $text1 = $data['text1'];
-    $text1_size = $data['text1_size'];
-    $text1_x = $data['text1_x'];
-    $text1_y = $data['text1_y'];
-    $text1_algin = $data['text1_algin'];
-    $text2 = $data['text2'];
-    $text2_size = $data['text2_size'];
-    $text2_x = $data['text2_x'];
-    $text2_y = $data['text2_y'];
-    $text2_algin = $data['text2_algin'];
-    $text3 = $data['text3'];
-    $text3_size = $data['text3_size'];
-    $text3_x = $data['text3_x'];
-    $text3_y = $data['text3_y'];
-    $text3_algin = $data['text3_algin'];
-
-    $res = [
-        'width' => 0,
-        'height' => 0,
-    ];
-
-    //获取图像的尺寸信息
-    $imgData       = file_get_contents($img);
-    $size_info = getimagesizefromstring($imgData);
-    if($size_info){
-        $res['width'] = $size_info[0];
-        $res['height'] = $size_info[1];
-    }
-
-    $bgImg = createCanvas($img);
-
-    $string_color = imagecolorallocate($bgImg,0x00,0x00,0x00);
-
-    $font = __DIR__ . "/simsun.ttc";
-    if($text1){
-        //创建文字1
-        imagettftext($bgImg,$text1_size,0,$text1_x,$text1_y,$string_color,$font,$text1);
-
-    }
-
-    if($text2){
-        //创建文字1
-        imagettftext($bgImg,$text2_size,0,$text2_x,$text2_y,$string_color,$font,$text2);
-
-    }
-
-    if($text3){
-        //创建文字1
-        imagettftext($bgImg,$text3_size,0,$text3_x,$text3_y,$string_color,$font,$text3);
-
-    }
-
-    //获取小程序码
-    $xcodePath = xcxCode($appid,$appsecret,$size);
-    if($xcodePath){
-        if($size < 280 || $size > 1280){
-            $codeImg = createCanvas(thumb($appid,$xcodePath,$size,$img));
-        }else{
-            $codeImg = createCanvas($xcodePath);
-        }
-
-        imagecopymerge ($bgImg, $codeImg, $xcx_x, $xcx_y, 0, 0, $size, $size, 100);
-    }
-
-
-
-
-    header("Content-type: image/png");
-    imagepng($bgImg);
-    imagedestroy($bgImg);
-}
-
-function createCanvas($img)
-{
-    $size = getimagesize($img);
-    switch ($size['mime']) {
-        case "image/gif":
-            $res = imagecreatefromgif($img);
-            break;
-        case "image/jpeg":
-            $res = imagecreatefromjpeg($img);
-            break;
-        case "image/png":
-            $res = imagecreatefrompng($img);
-            break;
-        case "image/bmp":
-            $res = imagecreatefromwbmp($img);
-            break;
-    }
-    return $res;
-}
-
-function xcxCode($appid,$appsecret,$size)
-{
-    //获取token
-    $access_token = Asskeytest($appid,$appsecret);
-    //调取接口生成二维码
-    $url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=".$access_token;
-    if($size < 280 || $size > 1280){
-        $size = 1280;
-    }
-
-    $post_data=
-        array(
-            'page'=>'',
-            'scene'=>'34,S853EE4QRP',
-            'width' => $size,
-            'is_hyaline' => true
-        );
-    $post_data=json_encode($post_data);
-    $data=do_curl($url,$post_data,1);
-    //$result = data_uri($data,'image/png');
-    //dd($result);
-    //生成图片
-    $file_name = $appid. ".png";
-    $path = __DIR__ . "/code/" . $file_name;
-    header("Content-Type: image/png");
-    //$r = file_put_contents($path, $data);
-    $file = fopen($path,"w");//打开文件准备写入
-    fwrite($file,$data);//写入
-    fclose($file);//关闭
-    return $path;
-}
-
-//压缩图片
-function thumb($appid,$filename,$size,$img){
-    $file_name = md5($img) . $appid . "-" . $size . "*" . $size . ".png";
-    $path = __DIR__ . "/code/" . $file_name;
-    if(file_exists($path)){
-        return $path;
-    }
-
-    //原图
-    $image = imagecreatefrompng($filename);
-    //新图
-    $image_p = imagecreatetruecolor($size, $size);
-
-
-    $alpha = imagecolorallocatealpha($image_p, 255, 255, 255, 127);
-
-
-    imagefill($image_p, 0, 0, $alpha);
-
-    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $size, $size, 1280, 1280);
-
-    imagesavealpha($image_p, true);
-
-    imagepng($image_p, $path);
-    return $path;
-}
-
 //二进制转图片image/png
 function data_uri($contents, $mime)
 {
@@ -488,4 +328,36 @@ function getWeek(String $type)
         break;
     }
     return ['start' => $start, 'end' => $end];
+}
+
+function getTree($data) {
+    $tree = [];
+    $newData = [];
+    //循环重新排列
+    foreach ($data as $datum) {
+        $newData[$datum['id']] = $datum;
+    }
+    foreach ($newData as $key => $datum) {
+        if ($datum['pid'] > 0) {
+            //不是根节点的将自己的地址放到父级的child节点
+            $newData[$datum['pid']]['child'][] = &$newData[$key];
+        } else {
+            //根节点直接把地址放到新数组中
+            $tree[] = &$newData[$datum['id']];
+        }
+    }
+    return $tree;
+}
+
+
+function cateSort($data,$pid=0,$level=0) {
+    static $arr = array();
+    foreach($data as $k => $v) {
+        if($v['pid'] == $pid) {
+            $arr[$k] = $v;
+            $arr[$k]['level'] = $level + 1;
+            cateSort($data,$v['id'],$level+1);
+        }
+    }
+    return $arr;
 }

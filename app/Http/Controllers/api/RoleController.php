@@ -22,6 +22,13 @@ class RoleController extends Controller
         return $result;
     }
 
+    public function getRolesAll(Request $request)
+    {
+        $result = collect($this->role->getRolesAll($request))->toJson();
+
+        return $result;
+    }
+
     public function addRole(Request $request)
     {
         $result = collect($this->role->addRole($request))->toJson();
