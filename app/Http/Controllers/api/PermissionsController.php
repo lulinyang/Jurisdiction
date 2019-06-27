@@ -42,4 +42,11 @@ class PermissionsController extends Controller
 
         return $result;
     }
+
+    public function deleteNode(Request $request)
+    {
+        $result = collect($this->permissions->deleteNode($request))->toJson();
+
+        return $result;
+    }
 }

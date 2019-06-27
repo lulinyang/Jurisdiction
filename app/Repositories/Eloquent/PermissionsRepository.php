@@ -28,13 +28,9 @@ class PermissionsRepository extends Repository
     public function getNodes($request)
     {
         $data = $request->all();
-        $keyword = isset($data['keyword']) ? $data['keyword'] : '';
-        $paginate = $this->model->where(['deleted' => 0])
-            ->when($keyword, function ($query) use ($keyword) {
-                $query->where(function ($query) use ($keyword) {
-                    return $query->orWhere('name', 'like', "%{$keyword}%");
-                });
-            })->paginate($request->pageSize);
+        $name = isset($data['name']) ? $data['name'] : '';
+        $paginate = $this->model->where('name', 'like', "%{$name}%")
+                    ->paginate($request->pageSize);
 
         return collection($paginate);
     }
@@ -75,5 +71,20 @@ class PermissionsRepository extends Repository
 
             return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
         }
+    }
+
+    public function deleteNode($request)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+        $res = $this->findBy('pid', $id);
+        if ($res) {
+            return $this->respondWith(['result' => false, 'message' => '还有子节点，不能删除！']);
+        }
+
+        $res = $this->delete($id);
+        $msg = $res ? '删除成功！' : '还有子节点，不能删除！';
+
+        return collection(['result' => (bool) $res, 'message' => $msg]);
     }
 }

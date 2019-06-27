@@ -28,13 +28,9 @@ class RoleRepository extends Repository
     public function getRoles($request)
     {
         $data = $request->all();
-        $keyword = isset($data['keyword']) ? $data['keyword'] : '';
-        $paginate = $this->model->where(['deleted' => 0])
-            ->when($keyword, function ($query) use ($keyword) {
-                $query->where(function ($query) use ($keyword) {
-                    return $query->orWhere('name', 'like', "%{$keyword}%");
-                });
-            })->paginate($request->pageSize);
+        $name = isset($data['name']) ? $data['name'] : '';
+        $paginate = $this->model->where('name', 'like', "%{$name}%")
+                ->paginate(8);
 
         return collection($paginate);
     }
@@ -80,5 +76,14 @@ class RoleRepository extends Repository
         $res = $this->update($arr, $data['id']);
 
         return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
+    }
+
+    public function deleteRole($request)
+    {
+        $data = $request->all();
+        $res = $this->delete($data['id']);
+        $msg = $res ? '删除成功！' : '还有子节点，不能删除！';
+
+        return collection(['result' => (bool) $res, 'message' => $msg]);
     }
 }

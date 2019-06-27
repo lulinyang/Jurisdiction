@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 27/06/2019 00:11:12
+ Date: 27/06/2019 23:26:57
 */
 
 SET NAMES utf8mb4;
@@ -24,6 +24,9 @@ DROP TABLE IF EXISTS `cms_customer`;
 CREATE TABLE `cms_customer`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_id` int(11) NULL DEFAULT NULL COMMENT '角色ID',
+  `orgroot` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '顶级机构',
+  `orgcode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '机构号',
+  `orgname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '机构名',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '真实姓名',
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '用户名-登录名',
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '邮箱',
@@ -51,24 +54,30 @@ CREATE TABLE `cms_customer`  (
   UNIQUE INDEX `cms_customer_username_unique`(`username`) USING BTREE,
   UNIQUE INDEX `cms_customer_email_unique`(`email`) USING BTREE,
   UNIQUE INDEX `cms_customer_name_unique`(`name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_customer
 -- ----------------------------
-INSERT INTO `cms_customer` VALUES (1, 1, 'admin', 'admin', '15655569098@163.com', '$2y$10$ISSY/gn2g2dZ5iTB7vsHv.aqTviyBN5kaLUg3ymIxz0.KgqL0GzjK', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-06-26 19:12:53', '127.0.0.1', NULL, NULL, NULL, '2019-06-24 11:52:03', '2019-06-26 19:13:14');
-INSERT INTO `cms_customer` VALUES (2, 2, NULL, 'linyang', '122@qq.com', '$2y$10$QGZfBfyGvNI8eV8ZavB9E.LY6UCZisBRRXrrHtheskoz4C9W0vzHm', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-25 22:50:46', '2019-06-26 19:13:19');
-INSERT INTO `cms_customer` VALUES (3, NULL, NULL, 'admin8', '14555@qq.com', '$2y$10$yHegQ44lAHAShW9ksWeC/eGO3Cd3NolzbWafHAZ6.TITjA141F4VK', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-25 22:51:19', '2019-06-25 23:05:20');
-INSERT INTO `cms_customer` VALUES (4, 1, NULL, 'admin2', '5886886@qq.com', '$2y$10$LnrfJCBHldm8ypEpFFGb.ekkEdlCYkjXeikeXjPUaJaa9cqoHQtkq', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:38:00', '2019-06-26 22:38:00');
-INSERT INTO `cms_customer` VALUES (5, 2, NULL, 'addd', '58ss86886@qq.com', '$2y$10$KGt//hoVUb1RH8G2uGIh4O.ZCzaY6Fb58rflgmb9HXl4NFcfELa62', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:38:16', '2019-06-26 22:38:16');
-INSERT INTO `cms_customer` VALUES (6, 1, NULL, 'advvvv', '5886a4886@qq.com', '$2y$10$LgOsaXnXyKOskqNnPNoZb.HrmbZOkf8Ra3OvV1LvE81ImMe7zQa0C', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:38:28', '2019-06-26 22:38:28');
-INSERT INTO `cms_customer` VALUES (7, 2, NULL, 'advvvvs', '5886344886@qq.com', '$2y$10$8JMewRJxVunhrNWKf3AQruHBUzYyHrl8P3GvTlLzyH7aka7BwgWJO', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:38:48', '2019-06-26 22:38:48');
-INSERT INTO `cms_customer` VALUES (8, 1, NULL, 'saddddd', '5886867886@qq.com', '$2y$10$3X3IUJqXRYR3ZQ5Gg9jhnOlj3yMZ8bLBOPgdEts7QRLxUSiyXE/hO', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:39:02', '2019-06-26 22:39:02');
-INSERT INTO `cms_customer` VALUES (9, 1, NULL, 'rrtggg', '37478@qq.com', '$2y$10$Lw91DSHeoNDVAw92x4rR9eKui0bTvW0911TroScyI7XZGDzSA7ES.', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:40:45', '2019-06-26 22:40:45');
-INSERT INTO `cms_customer` VALUES (10, 1, NULL, 'adminss', '374ss78@qq.com', '$2y$10$p5njkLu4b/kmgw7bf.8UjewcRZMvmuL/yr21GoBJU2Ytw.VZUk5xa', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:41:33', '2019-06-26 22:41:33');
-INSERT INTO `cms_customer` VALUES (11, 1, NULL, 'ssdfff', '3747855@qq.com', '$2y$10$C.H5Z1htVag0jLGWe7pWUOZpWMiFaCvsRzCG.odBMRLo/ofaov/tC', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 22:43:26', '2019-06-26 22:43:26');
-INSERT INTO `cms_customer` VALUES (12, 1, NULL, 'adda', '156555690@163.com', '$2y$10$LHU03HAhzSIpE6wBZ1OWLOkwZRcUSVTyyzyIQO99.JWhIszoVVj0W', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 23:01:05', '2019-06-26 23:01:05');
-INSERT INTO `cms_customer` VALUES (13, 1, NULL, 'sadffff', '156098@163.com', '$2y$10$ksov7WI3oo.qeizbnGSz8ez/vMGOUFQ2TIRj8HlWCWSBmp9LuR5E2', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-26 23:05:26', '2019-06-26 23:05:26');
+INSERT INTO `cms_customer` VALUES (1, 1, '200001', '200001', '顶级机构', 'admin', 'admin', '15655569098@163.com', '$2y$10$ISSY/gn2g2dZ5iTB7vsHv.aqTviyBN5kaLUg3ymIxz0.KgqL0GzjK', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-06-26 19:12:53', '127.0.0.1', NULL, NULL, NULL, '2019-06-24 11:52:03', '2019-06-26 19:13:14');
+
+-- ----------------------------
+-- Table structure for cms_orgcode
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_orgcode`;
+CREATE TABLE `cms_orgcode`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orgcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '机构号',
+  `orgnum` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '记录子机构后两位',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of cms_orgcode
+-- ----------------------------
+INSERT INTO `cms_orgcode` VALUES (1, '200001', '2', '2019-06-27 21:28:58', NULL);
 
 -- ----------------------------
 -- Table structure for cms_permissions
@@ -86,17 +95,16 @@ CREATE TABLE `cms_permissions`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_permissions
 -- ----------------------------
 INSERT INTO `cms_permissions` VALUES (1, '用户中心', '', NULL, '', 0, 0, 0, '2019-06-26 19:16:12', '2019-06-26 19:17:18');
 INSERT INTO `cms_permissions` VALUES (2, '文章管理', '', NULL, '', 0, 0, 0, '2019-06-26 19:17:27', '2019-06-26 19:17:27');
-INSERT INTO `cms_permissions` VALUES (3, '用户管理', '', NULL, '', 1, 1, 0, '2019-06-26 19:17:46', '2019-06-26 19:17:46');
-INSERT INTO `cms_permissions` VALUES (4, '角色管理', '', NULL, '', 1, 1, 0, '2019-06-26 19:18:16', '2019-06-26 19:18:16');
-INSERT INTO `cms_permissions` VALUES (5, '权限管理', '', NULL, '', 1, 1, 0, '2019-06-26 19:18:41', '2019-06-26 19:18:41');
-INSERT INTO `cms_permissions` VALUES (6, '用户列表', '', NULL, '', 3, 2, 0, '2019-06-26 19:59:36', '2019-06-26 19:59:36');
+INSERT INTO `cms_permissions` VALUES (3, '用户管理', '/api/getUserList', NULL, '', 1, 1, 0, '2019-06-26 19:17:46', '2019-06-27 23:19:17');
+INSERT INTO `cms_permissions` VALUES (4, '角色管理', '/api/getRolesAll', NULL, '', 1, 1, 0, '2019-06-26 19:18:16', '2019-06-27 23:19:49');
+INSERT INTO `cms_permissions` VALUES (5, '权限管理', '/api/getNodesGetTree', NULL, '', 1, 1, 0, '2019-06-26 19:18:41', '2019-06-27 23:20:46');
 
 -- ----------------------------
 -- Table structure for cms_role_permissions
@@ -125,16 +133,12 @@ CREATE TABLE `cms_roles`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_roles
 -- ----------------------------
-INSERT INTO `cms_roles` VALUES (1, '管理员', '', '1,3,6,4,5', 0, '2019-06-25 14:08:07', '2019-06-26 22:22:13');
-INSERT INTO `cms_roles` VALUES (2, 'admin', '', '2', 0, '2019-06-25 14:08:27', '2019-06-26 22:36:06');
-INSERT INTO `cms_roles` VALUES (3, '管理员1', '', NULL, 0, '2019-06-25 14:08:44', '2019-06-25 14:13:54');
-INSERT INTO `cms_roles` VALUES (4, 'admin2', '', '3,6', 0, '2019-06-25 14:14:09', '2019-06-26 22:36:15');
-INSERT INTO `cms_roles` VALUES (5, 'admin5', '', '5', 0, '2019-06-25 14:15:18', '2019-06-26 22:36:19');
+INSERT INTO `cms_roles` VALUES (1, '管理员', '', '1,3,4,5,2', 0, '2019-06-25 14:08:07', '2019-06-27 23:22:18');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -278,6 +282,7 @@ INSERT INTO `oauth_access_tokens` VALUES ('6720274bf3375b28cb8c0764ab832ef7b9789
 INSERT INTO `oauth_access_tokens` VALUES ('8701d079a44d32103a566bf6b117f7cb95f73544c5dc22725100f93b7c65c443e780b059f8ab4a46', 1, 2, NULL, '[]', 0, '2019-06-24 15:14:59', '2019-06-24 15:14:59', '2019-07-09 15:14:59');
 INSERT INTO `oauth_access_tokens` VALUES ('99a261a29887153d87b9e249452e913577d836e38ac692a1bd945bdfb47204039d21e4e6ba23f3c5', 1, 2, NULL, '[]', 0, '2019-06-25 11:01:41', '2019-06-25 11:01:41', '2019-07-10 11:01:40');
 INSERT INTO `oauth_access_tokens` VALUES ('9296e4a00986b6c9ba66673222db402c1fb4b12ed3d522a853de6187eb6f4ace43d23fb9c009db6e', 1, 2, NULL, '[]', 0, '2019-06-26 19:12:52', '2019-06-26 19:12:52', '2019-07-11 19:12:51');
+INSERT INTO `oauth_access_tokens` VALUES ('0233ebf2e888d725186e983a97c80675bbab31ea91cb365c146b18e42c849a914da883cec355e68d', 1, 2, NULL, '[]', 0, '2019-06-27 19:01:58', '2019-06-27 19:01:58', '2019-07-12 19:01:58');
 
 -- ----------------------------
 -- Table structure for oauth_auth_codes
@@ -447,6 +452,7 @@ INSERT INTO `oauth_refresh_tokens` VALUES ('040ff02a746d186a2b70b72cba9eaa640aa7
 INSERT INTO `oauth_refresh_tokens` VALUES ('60e7ab42287bcf3351f934efaeeecf23863cc3b32d701e62420226af7e0a5af7a4973eeaa35047d6', '8701d079a44d32103a566bf6b117f7cb95f73544c5dc22725100f93b7c65c443e780b059f8ab4a46', 0, '2019-07-24 15:14:59');
 INSERT INTO `oauth_refresh_tokens` VALUES ('3f77b35f99e6cb5473ab1d56302818eacf6ca2b2635e8c62b866e48d530dffbf29deca4603c914aa', '99a261a29887153d87b9e249452e913577d836e38ac692a1bd945bdfb47204039d21e4e6ba23f3c5', 0, '2019-07-25 11:01:40');
 INSERT INTO `oauth_refresh_tokens` VALUES ('e2234aba6c0c44e496ee1b42008b20104053019ba5062ddade79e8ff72b8c9b308ba19a527d7a483', '9296e4a00986b6c9ba66673222db402c1fb4b12ed3d522a853de6187eb6f4ace43d23fb9c009db6e', 0, '2019-07-26 19:12:51');
+INSERT INTO `oauth_refresh_tokens` VALUES ('bc49641577f4fb2b75fb714007f20bdeaa3ee3a146b3a224b589e86d402278844a34751dbcce08f7', '0233ebf2e888d725186e983a97c80675bbab31ea91cb365c146b18e42c849a914da883cec355e68d', 0, '2019-07-27 19:01:58');
 
 -- ----------------------------
 -- Table structure for password_resets

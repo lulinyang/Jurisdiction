@@ -29,6 +29,7 @@ class CustomerRepository extends Repository
     public function getUserList($request)
     {
         $data = $request->all();
+        $orgcode = \Auth::guard('customer')->user()->orgcode;
         $username = isset($data['username']) ? $data['username'] : '';
         $email = isset($data['email']) ? $data['email'] : '';
         $paginate = DB::table('cms_customer as c')
@@ -36,6 +37,7 @@ class CustomerRepository extends Repository
                         $join->on('c.role_id', '=', 'r.id');
                     })->Where('username', 'like', "%{$username}%")
                     ->Where('email', 'like', "%{$email}%")
+                    ->Where('orgcode', 'like', "{$orgcode}%")
                     ->select('c.*', 'r.name as rolen_ame')
                     ->paginate(8);
 
@@ -50,17 +52,30 @@ class CustomerRepository extends Repository
         $res = $this->findBy('username', $username);
         $res_email = $this->findBy('email', $email);
         if (!isset($data['id'])) {
+            //新增
             if ($res) {
                 return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
             }
             if ($res_email) {
                 return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
             }
+            $orgcode = \Auth::guard('customer')->user()->orgcode;
+            $result = $this->createOrgcode($orgcode);
             $data['password'] = bcrypt($data['password']);
-            $res = $this->model->create($data);
+            $data['orgcode'] = $result['orgcode'];
+            $data['orgroot'] = $orgcode;
+            DB::beginTransaction();
+            try {
+                $res = $this->model->create($data);
+                DB::table('cms_orgcode')->where('orgcode', $orgcode)->update(['orgnum' => $result['orgnum']]);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+            }
 
             return $this->respondWith(['created' => (bool) $res, 'user' => $res]);
         } else {
+            //编辑
             if ($res && $res['id'] != $data['id']) {
                 return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
             }
@@ -70,6 +85,7 @@ class CustomerRepository extends Repository
             $arr = [
                 'username' => $data['username'],
                 'role_id' => $data['role_id'],
+                'orgname' => $data['orgname'],
             ];
             $res = $this->update($arr, $data['id']);
 
@@ -86,5 +102,30 @@ class CustomerRepository extends Repository
         $id = \Auth::guard('customer')->user()->id;
 
         return $this->model::where('id', $id)->update($data);
+    }
+
+    public function deleteUser($request)
+    {
+        $data = $request->all();
+        $orgcode = \Auth::guard('customer')->user()->orgcode;
+        if (strlen($data['orgcode']) <= strlen($orgcode)) {
+            return collection(['result' => false, 'message' => '没有权限删除！']);
+        }
+        $res = $this->delete($data['id']);
+        $msg = $res ? '删除成功！' : '删除失败！';
+
+        return collection(['result' => (bool) $res, 'message' => $msg]);
+    }
+
+    public function createOrgcode($orgcode)
+    {
+        $res = DB::table('cms_orgcode')->where('orgcode', $orgcode)->first();
+        $num = $res->orgnum + 1;
+        if ($num > (36 * 36 - 1)) {
+            return false;
+        }
+        $orgnum = $orgcode.enid($num);
+
+        return ['orgcode' => $orgnum, 'orgnum' => $num];
     }
 }

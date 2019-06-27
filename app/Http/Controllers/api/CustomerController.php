@@ -45,4 +45,11 @@ class CustomerController extends Controller
 
         return collect($user)->toJson();
     }
+
+    public function deleteUser(Request $request)
+    {
+        $result = collect($this->customer->deleteUser($request))->toJson();
+
+        return $result;
+    }
 }
