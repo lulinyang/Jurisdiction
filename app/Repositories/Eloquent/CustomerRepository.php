@@ -68,6 +68,7 @@ class CustomerRepository extends Repository
             try {
                 $res = $this->model->create($data);
                 DB::table('cms_orgcode')->where('orgcode', $orgcode)->update(['orgnum' => $result['orgnum']]);
+                DB::table('cms_orgcode')->insert(['orgnum' => 0, 'orgcode' => $data['orgcode']]);
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();

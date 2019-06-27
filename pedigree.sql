@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 27/06/2019 23:26:57
+ Date: 27/06/2019 23:38:05
 */
 
 SET NAMES utf8mb4;
@@ -54,12 +54,13 @@ CREATE TABLE `cms_customer`  (
   UNIQUE INDEX `cms_customer_username_unique`(`username`) USING BTREE,
   UNIQUE INDEX `cms_customer_email_unique`(`email`) USING BTREE,
   UNIQUE INDEX `cms_customer_name_unique`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_customer
 -- ----------------------------
 INSERT INTO `cms_customer` VALUES (1, 1, '200001', '200001', '顶级机构', 'admin', 'admin', '15655569098@163.com', '$2y$10$ISSY/gn2g2dZ5iTB7vsHv.aqTviyBN5kaLUg3ymIxz0.KgqL0GzjK', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-06-26 19:12:53', '127.0.0.1', NULL, NULL, NULL, '2019-06-24 11:52:03', '2019-06-26 19:13:14');
+INSERT INTO `cms_customer` VALUES (3, 1, '200001', '20000101', '上海', NULL, 'linyang', '1228380958@qq.com', '$2y$10$Tn/SE2dJ./a134sTO.TZ8.kDwh88KxTZyLSj1bJFUTyZ1UBM0TxtC', NULL, NULL, '', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-06-27 23:37:14', '2019-06-27 23:37:14');
 
 -- ----------------------------
 -- Table structure for cms_orgcode
@@ -72,12 +73,13 @@ CREATE TABLE `cms_orgcode`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_orgcode
 -- ----------------------------
-INSERT INTO `cms_orgcode` VALUES (1, '200001', '2', '2019-06-27 21:28:58', NULL);
+INSERT INTO `cms_orgcode` VALUES (1, '200001', '1', '2019-06-27 21:28:58', NULL);
+INSERT INTO `cms_orgcode` VALUES (3, '20000101', '0', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for cms_permissions
@@ -95,7 +97,7 @@ CREATE TABLE `cms_permissions`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_permissions
@@ -133,7 +135,7 @@ CREATE TABLE `cms_roles`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_roles
