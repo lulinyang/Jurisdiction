@@ -13,6 +13,7 @@
 
 //平台端接口
 Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
+    Route::get('/getJurisdiction', 'CommonController@getJurisdiction');
     /*
      * 用户管理
      */

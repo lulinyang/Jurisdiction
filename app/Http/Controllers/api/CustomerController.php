@@ -41,9 +41,9 @@ class CustomerController extends Controller
     public function getUserInfo(Request $request)
     {
         $result = collect($this->customer->getUserInfo($request))->toJson();
-        $user = \Auth::guard('customer')->user();
+        // $user = \Auth::guard('customer')->user();
 
-        return collect($user)->toJson();
+        return $result;
     }
 
     public function deleteUser(Request $request)

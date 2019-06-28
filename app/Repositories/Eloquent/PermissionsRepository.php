@@ -65,6 +65,8 @@ class PermissionsRepository extends Repository
                 'router' => $data['router'],
                 'pid' => $data['pid'],
                 'level' => $data['level'],
+                'index' => $data['index'],
+                'icon' => $data['icon'],
             ];
 
             $res = $this->update($arr, $data['id']);

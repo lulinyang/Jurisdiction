@@ -100,9 +100,13 @@ class CustomerRepository extends Repository
             'login_at' => date('Y-m-d H:i:s', time()),
             'login_ip' => get_client_ip(),
         ];
-        $id = \Auth::guard('customer')->user()->id;
-
-        return $this->model::where('id', $id)->update($data);
+        $user = \Auth::guard('customer')->user();
+        $id = $user->id;
+        $roleId = $user->role_id;
+        $role = DB::table('cms_roles')->where('id', $roleId)->first();
+        $user->role = $role;
+        $this->model::where('id', $id)->update($data);
+        return collection($user);
     }
 
     public function deleteUser($request)
