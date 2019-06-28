@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 
@@ -16,7 +15,10 @@ class CommonController extends Controller
             if ($v['pid'] == $pid) {
                 $v['title'] = $v['name'];
                 $v['index'] = $v['index'] == null ? ' ' : $v['index'];
-                $v['subs'] = $this->getTree($data, $v['id']);
+                $subs = $this->getTree($data, $v['id']);
+                if (!empty($subs)) {
+                    $v['subs'] = $this->getTree($data, $v['id']);
+                }
                 $tree[] = $v;
                 //unset($data[$k]);
             }
@@ -28,21 +30,36 @@ class CommonController extends Controller
     public function getJurisdiction()
     {
         $user = \Auth::guard('customer')->user();
-        $id = $user->id;
-        $roleId = $user->role_id;
-        $role = DB::table('cms_roles')->where('id', $roleId)->first();
-        $user->role = $role;
-        $permIds = $role->permission_id;
+        //admin 账号拥有所有权限
         $perms = [];
-        if($permIds) {
-            $permId_arr = explode(",", $permIds);
-            $perms =  DB::table('cms_permissions')
-                        ->whereIn('id', $permId_arr)
-                        ->get()
-                        ->map(function ($value) {return (array)$value;})
-    		->toArray();
-            $perms = empty($perms) ? false : $this->getTree($perms);
+
+        if ($user->username === 'admin') {
+            $perms = DB::table('cms_permissions')
+                            ->get()
+                            ->map(function ($value) {
+                                return (array) $value;
+                            }
+                            )->toArray();
+
+            $perms = $this->getTree($perms);
+        } else {
+            $roleId = $user->role_id;
+            $role = DB::table('cms_roles')->where('id', $roleId)->first();
+            $permIds = $role->permission_id;
+
+            if ($permIds) {
+                $permId_arr = explode(',', $permIds);
+                $perms = DB::table('cms_permissions')
+                            ->whereIn('id', $permId_arr)
+                            ->get()
+                            ->map(function ($value) {
+                                return (array) $value;
+                            }
+                            )->toArray();
+                $perms = $this->getTree($perms);
+            }
         }
-        return collect(collection($perms))->toJson();;
+
+        return collect(collection($perms))->toJson();
     }
 }

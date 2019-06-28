@@ -6,6 +6,7 @@ namespace App\Repositories\Eloquent;
 
 use GuzzleHttp\Client;
 use Illuminate\Container\Container as App;
+use Illuminate\Support\Facades\Hash;
 use DB;
 
 class CustomerRepository extends Repository
@@ -76,21 +77,32 @@ class CustomerRepository extends Repository
 
             return $this->respondWith(['created' => (bool) $res, 'user' => $res]);
         } else {
-            //编辑
-            if ($res && $res['id'] != $data['id']) {
-                return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
-            }
             if ($res_email && $res_email['id'] != $data['id']) {
                 return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
             }
-            $arr = [
-                'username' => $data['username'],
-                'role_id' => $data['role_id'],
-                'orgname' => $data['orgname'],
-            ];
-            $res = $this->update($arr, $data['id']);
+            // headUrl
+            // tel
+            $newword = isset($data['password']) ? $data['password'] : '';
+            if (!$newword) {
+                $arr = [
+                    'role_id' => $data['role_id'],
+                    'orgname' => $data['orgname'],
+                    'headUrl' => $data['headUrl'],
+                    'tel' => $data['tel'],
+                ];
+                $res = $this->update($arr, $data['id']);
 
-            return $this->respondWith(['updated' => (bool) $res, 'user' => $res]);
+                return $this->respondWith(['updated' => (bool) $res, 'user' => $res]);
+            } else {
+                $password = \Auth::guard('customer')->user()->password;
+                if (!Hash::check($data['oldpwd'], $password)) {
+                    return $this->respondWith(['find' => true, 'message' => '原始密码不正确！']);
+                }
+                $arr['password'] = bcrypt($newword);
+                $res = $this->update($arr, $data['id']);
+
+                return $this->respondWith(['updatepwd' => (bool) $res, 'newpwd' => $res]);
+            }
         }
     }
 
@@ -106,6 +118,7 @@ class CustomerRepository extends Repository
         $role = DB::table('cms_roles')->where('id', $roleId)->first();
         $user->role = $role;
         $this->model::where('id', $id)->update($data);
+
         return collection($user);
     }
 

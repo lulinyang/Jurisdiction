@@ -40,3 +40,5 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::post('/updateRolePower', 'RoleController@updateRolePower');
     Route::post('/deleteRole', 'RoleController@deleteRole');
 });
+
+Route::post('/upImage', 'Controller@upImage');
