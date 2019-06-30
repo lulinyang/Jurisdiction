@@ -13,7 +13,7 @@ class Permissions extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'name', 'router', 'icon', 'index', 'router_web', 'description', 'pid', 'level', 'deleted', 'created_at', 'updated_at',
+        'id', 'name', 'router', 'icon', 'index', 'router_web', 'description', 'pid', 'level', 'top', 'deleted', 'created_at', 'updated_at',
     ];
 
     /**

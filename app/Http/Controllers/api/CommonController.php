@@ -35,11 +35,13 @@ class CommonController extends Controller
 
         if ($user->username === 'admin') {
             $perms = DB::table('cms_permissions')
-                            ->get()
-                            ->map(function ($value) {
-                                return (array) $value;
-                            }
-                            )->toArray();
+                    ->orderBy('top', 'desc')
+                    ->orderBy('sort', 'desc')
+                    ->get()
+                    ->map(function ($value) {
+                        return (array) $value;
+                    }
+                    )->toArray();
 
             $perms = $this->getTree($perms);
         } else {

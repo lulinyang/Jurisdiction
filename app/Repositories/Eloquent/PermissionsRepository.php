@@ -6,6 +6,7 @@ namespace App\Repositories\Eloquent;
 
 use GuzzleHttp\Client;
 use Illuminate\Container\Container as App;
+use DB;
 
 class PermissionsRepository extends Repository
 {
@@ -44,7 +45,15 @@ class PermissionsRepository extends Repository
 
     public function getNodesGetTree($request)
     {
-        $data = getTree($this->all());
+        $perms = DB::table('cms_permissions')
+                ->orderBy('top', 'desc')
+                ->orderBy('sort', 'desc')
+                ->get()
+                ->map(function ($value) {
+                    return (array) $value;
+                }
+                )->toArray();
+        $data = $this->getTree($perms);
 
         return collection($data);
     }
@@ -52,23 +61,32 @@ class PermissionsRepository extends Repository
     public function addNode($request)
     {
         $data = $request->all();
-        $pidLevel = explode('-', $data['pidLevel']);
-        $data['pid'] = $pidLevel[0];
-        $data['level'] = $pidLevel[1];
+        $isTop = isset($data['isTop']) ? $data['isTop'] : false;
+        if (!$isTop) {
+            $pidLevel = explode('-', $data['pidLevel']);
+            $data['pid'] = $pidLevel[0];
+            $data['level'] = $pidLevel[1];
+        }
         if (!isset($data['id'])) {
             $res = $this->model->create($data);
 
             return $this->respondWith(['created' => (bool) $res, 'role' => $res]);
         } else {
-            $arr = [
-                'name' => $data['name'],
-                'router' => $data['router'],
-                'pid' => $data['pid'],
-                'level' => $data['level'],
-                'index' => $data['index'],
-                'icon' => $data['icon'],
-            ];
-
+            if (!$isTop) {
+                $arr = [
+                    'name' => $data['name'],
+                    'router' => $data['router'],
+                    'pid' => $data['pid'],
+                    'level' => $data['level'],
+                    'index' => $data['index'],
+                    'icon' => $data['icon'],
+                    'sort' => $data['sort'],
+                ];
+            } else {
+                $arr = [
+                    'top' => $data['top'],
+                ];
+            }
             $res = $this->update($arr, $data['id']);
 
             return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
@@ -88,5 +106,21 @@ class PermissionsRepository extends Repository
         $msg = $res ? '删除成功！' : '还有子节点，不能删除！';
 
         return collection(['result' => (bool) $res, 'message' => $msg]);
+    }
+
+    private function getTree($data, $pid = 0)
+    {
+        $tree = array();
+        foreach ($data as $k => $v) {
+            //父亲找到儿子
+            if ($v['pid'] == $pid) {
+                $v['top'] = $v['top'] ? true : false;
+                $v['children'] = $this->getTree($data, $v['id']);
+                $tree[] = $v;
+                //unset($data[$k]);
+            }
+        }
+
+        return $tree;
     }
 }
