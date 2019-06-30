@@ -13,6 +13,9 @@
 
 //平台端接口
 Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
+    /*
+     * 权限控制
+     */
     Route::get('/getJurisdiction', 'CommonController@getJurisdiction');
     /*
      * 用户管理
@@ -39,6 +42,17 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::post('/addRole', 'RoleController@addRole');
     Route::post('/updateRolePower', 'RoleController@updateRolePower');
     Route::post('/deleteRole', 'RoleController@deleteRole');
+    /*
+     * 族谱管理
+     */
+    Route::post('/addGenealogy', 'SurnameController@addGenealogy');
+    Route::get('/getGenealogyList', 'SurnameController@getGenealogyList');
+    Route::get('/getGenealogy', 'SurnameController@getGenealogy');
+    Route::post('/deleteGenealogy', 'SurnameController@deleteGenealogy');
+    Route::get('/getMemberList', 'MemberController@getMemberList');
+    Route::post('/addMember', 'MemberController@addMember');
+    Route::get('/getMember', 'MemberController@getMember');
+    Route::post('/deleteMember', 'MemberController@deleteMember');
 });
 
 Route::post('/upImage', 'Controller@upImage');
