@@ -42,4 +42,11 @@ class MemberController extends Controller
 
         return $result;
     }
+
+    public function getMemberAll(Request $request)
+    {
+        $result = collect($this->member->getMemberAll($request))->toJson();
+
+        return $result;
+    }
 }

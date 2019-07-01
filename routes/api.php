@@ -52,7 +52,12 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getMemberList', 'MemberController@getMemberList');
     Route::post('/addMember', 'MemberController@addMember');
     Route::get('/getMember', 'MemberController@getMember');
+    Route::get('/getMemberAll', 'MemberController@getMemberAll');
     Route::post('/deleteMember', 'MemberController@deleteMember');
+    Route::get('/getPedigreeTree', 'TopologicalGraphController@getPedigreeTree');
+    Route::post('/addPedigree', 'TopologicalGraphController@addPedigree');
+    Route::get('/getPedigreeAll', 'TopologicalGraphController@getPedigreeAll');
+    Route::post('/deletePedigree', 'TopologicalGraphController@deletePedigree');
 });
 
 Route::post('/upImage', 'Controller@upImage');

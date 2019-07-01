@@ -45,18 +45,26 @@ class MemberRepository extends Repository
         if (!isset($params['id'])) {
             $user = \Auth::guard('customer')->user();
             $params['create_user'] = $user->username;
-            $params['province'] = $params['areas'][0];
-            $params['city'] = $params['areas'][1];
-            $params['area'] = $params['areas'][2];
+            if (isset($params['areas'])) {
+                $params['province'] = $params['areas'][0];
+                $params['city'] = $params['areas'][1];
+                $params['area'] = $params['areas'][2];
+            }
             $res = $this->model->create($params);
 
             return $this->respondWith(['created' => (bool) $res, 'member' => $res]);
         } else {
             $arr = [
-                'area_surname' => $params['area_surname'],
-                'thumbnail' => $params['thumbnail'],
-                'describe' => $params['describe'],
+                'name' => $params['name'],
+                'headUrl' => $params['headUrl'],
+                'tel' => $params['tel'],
                 'brief_introduction' => $params['brief_introduction'],
+                'province' => $params['areas'][0],
+                'city' => $params['areas'][1],
+                'area' => $params['areas'][2],
+                'address' => $params['address'],
+                'sex' => $params['sex'],
+                'isdead' => $params['isdead'],
             ];
             $res = $this->update($arr, $params['id']);
 
@@ -67,8 +75,7 @@ class MemberRepository extends Repository
     public function getMember($request)
     {
         $params = $request->all();
-        // dd($params);
-        $result = $this->getById($params['id']);
+        $result = DB::table('cms_member')->where(['deleted' => 0, 'id' => $params['id']])->first();
         $result->areas = [
             $result->province,
             $result->city,
@@ -84,5 +91,12 @@ class MemberRepository extends Repository
         $result = $this->update(['deleted' => 1], $params['id']);
 
         return collection(['code' => '200', 'result' => $result]);
+    }
+
+    public function getMemberAll($request)
+    {
+        $result = DB::table('cms_member')->where('deleted', 0)->get();
+
+        return collection($result);
     }
 }
