@@ -58,6 +58,7 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::post('/addPedigree', 'TopologicalGraphController@addPedigree');
     Route::get('/getPedigreeAll', 'TopologicalGraphController@getPedigreeAll');
     Route::post('/deletePedigree', 'TopologicalGraphController@deletePedigree');
+    Route::get('/getTreeChart', 'TopologicalGraphController@getTreeChart');
 });
 
 Route::post('/upImage', 'Controller@upImage');

@@ -42,4 +42,11 @@ class TopologicalGraphController extends Controller
 
         return $result;
     }
+
+    public function getTreeChart(Request $request)
+    {
+        $result = collect($this->topologicalGraph->getTreeChart($request))->toJson();
+
+        return $result;
+    }
 }

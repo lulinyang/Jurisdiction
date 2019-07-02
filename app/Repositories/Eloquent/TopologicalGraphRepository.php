@@ -149,4 +149,56 @@ class TopologicalGraphRepository extends Repository
 
         return collection(['result' => (bool) $res, 'message' => $msg]);
     }
+
+    public function getTreeChart($request)
+    {
+        $surnameId = $request->all()['surname_id'];
+        // $str =
+        $res = DB::table('cms_topological_graph as tg')
+                ->select(
+                    'tg.id',
+                    'tg.pid',
+                    'tg.top',
+                    'tg.member_id',
+                    'tg.mate_id',
+                    'mb.name',
+                    'mb.headUrl as image_url',
+                    'mb.sex'
+                )
+                ->leftJoin('cms_member as mb', 'tg.member_id', '=', 'mb.id')
+                ->where(['tg.surname_id' => $surnameId, 'mb.deleted' => 0])
+                ->get()->map(function ($value) {
+                    return (array) $value;
+                }
+                )->toArray();
+        foreach ($res as $k => $value) {
+            if ($value['mate_id']) {
+                $mate = DB::table('cms_member')->where(['id' => $value['mate_id'], 'deleted' => 0])->first();
+                $res[$k]['mate']['mate_id'] = $value['mate_id'];
+                $res[$k]['mate']['name'] = $mate->name;
+                $res[$k]['mate']['image_url'] = $mate->headUrl;
+                $res[$k]['mate']['sex'] = $mate->sex;
+            }
+        }
+        // dd($res);
+
+        $chart = $this->getChart($res);
+
+        return collection($chart);
+    }
+
+    private function getChart($data, $pid = 0)
+    {
+        $tree = array();
+        foreach ($data as $k => $v) {
+            //父亲找到儿子
+            if ($v['pid'] == $pid) {
+                $v['top'] = $v['top'] ? true : false;
+                $v['children'] = $this->getChart($data, $v['id']);
+                $tree[] = $v;
+            }
+        }
+
+        return $tree;
+    }
 }
