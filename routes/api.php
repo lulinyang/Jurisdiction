@@ -59,10 +59,16 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getPedigreeAll', 'TopologicalGraphController@getPedigreeAll');
     Route::post('/deletePedigree', 'TopologicalGraphController@deletePedigree');
     Route::get('/getTreeChart', 'TopologicalGraphController@getTreeChart');
-    /**
+    /*
      * 文章管理
      */
     Route::post('/addColumn', 'ColumnController@addColumn');
+    Route::post('/delColumn', 'ColumnController@delColumn');
+    Route::get('/getColumnList', 'ColumnController@getColumnList');
+    Route::post('/addarticle', 'ArcticleController@addarticle');
+    Route::get('/getArcticlList', 'ArcticleController@getArcticlList');
+    Route::get('/getArticle', 'ArcticleController@getArticle');
+    Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
 });
 
 Route::post('/upImage', 'Controller@upImage');

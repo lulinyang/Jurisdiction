@@ -4,16 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Column extends Model
+class Arcticle extends Model
 {
-    protected $table = 'cms_column';
+    protected $table = 'cms_article';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'name',  'create_user', 'update_user', 'created_at', 'updated_at',
+        'id', 'title', 'thumbnail', 'type', 'describe', 'content', 'fabulous_num', 'browse_num', 'recommend', 'top',
+        'deleted', 'create_user', 'update_user', 'created_at', 'updated_at',
     ];
 
     /**
