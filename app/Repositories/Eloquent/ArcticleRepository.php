@@ -30,11 +30,27 @@ class ArcticleRepository extends Repository
     {
         $data = $request->all();
         $title = isset($data['title']) ? $data['title'] : '';
-        $paginate = DB::table('cms_article')
-                    ->Where('deleted', 0)
-                    ->Where('title', 'like', "%{$title}%")
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(8);
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+        $describe = isset($data['describe']) ? $data['describe'] : '';
+        $create_user = isset($data['create_user']) ? $data['create_user'] : '';
+        if (isset($data['type'])) {
+            $filed = 'c.id';
+            $type = $data['type'];
+        } else {
+            $filed = 'c.deleted';
+            $type = '0';
+        }
+        $paginate = DB::table('cms_article as a')
+                    ->leftjoin('cms_column as c', function ($join) {
+                        $join->on('a.type', '=', 'c.id');
+                    })->Where('a.deleted', 0)
+                    ->Where('a.title', 'like', "%{$title}%")
+                    ->Where('a.describe', 'like', "%{$describe}%")
+                    ->Where('a.create_user', 'like', "%{$create_user}%")
+                    ->Where($filed, '=', $type)
+                    ->orderBy('a.created_at', 'desc')
+                    ->select('a.*', 'c.name as typename')
+                    ->paginate($pageSize);
 
         return collection($paginate);
     }

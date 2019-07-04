@@ -29,14 +29,17 @@ class SurnameRepository extends Repository
     public function getGenealogyList($request)
     {
         $data = $request->all();
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
         $username = isset($data['username']) ? $data['username'] : '';
         $area_surname = isset($data['area_surname']) ? $data['area_surname'] : '';
+        $describe = isset($data['describe']) ? $data['describe'] : '';
         $paginate = DB::table('cms_surname')
                     ->Where('deleted', 0)
                     ->Where('username', 'like', "%{$username}%")
                     ->Where('area_surname', 'like', "%{$area_surname}%")
+                    ->Where('describe', 'like', "%{$describe}%")
                     ->orderBy('created_at', 'desc')
-                    ->paginate(8);
+                    ->paginate($pageSize);
 
         return collection($paginate);
     }

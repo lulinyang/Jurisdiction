@@ -30,6 +30,7 @@ class CustomerRepository extends Repository
     public function getUserList($request)
     {
         $data = $request->all();
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
         $orgcode = \Auth::guard('customer')->user()->orgcode;
         $username = isset($data['username']) ? $data['username'] : '';
         $email = isset($data['email']) ? $data['email'] : '';
@@ -40,7 +41,7 @@ class CustomerRepository extends Repository
                     ->Where('email', 'like', "%{$email}%")
                     ->Where('orgcode', 'like', "{$orgcode}%")
                     ->select('c.*', 'r.name as rolen_ame')
-                    ->paginate(8);
+                    ->paginate($pageSize);
 
         return collection($paginate);
     }

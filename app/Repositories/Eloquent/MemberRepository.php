@@ -29,12 +29,16 @@ class MemberRepository extends Repository
     public function getMemberList($request)
     {
         $data = $request->all();
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
         $name = isset($data['name']) ? $data['name'] : '';
+        // dd($name);
+        $tel = isset($data['tel']) ? $data['tel'] : '';
         $paginate = DB::table('cms_member')
                     ->Where('deleted', 0)
                     ->Where('name', 'like', "%{$name}%")
+                    ->Where('tel', 'like', "%{$tel}%")
                     ->orderBy('created_at', 'desc')
-                    ->paginate(8);
+                    ->paginate($pageSize);
 
         return collection($paginate);
     }

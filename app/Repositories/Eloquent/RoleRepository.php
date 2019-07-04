@@ -28,9 +28,10 @@ class RoleRepository extends Repository
     public function getRoles($request)
     {
         $data = $request->all();
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
         $name = isset($data['name']) ? $data['name'] : '';
         $paginate = $this->model->where('name', 'like', "%{$name}%")
-                ->paginate(8);
+                ->paginate($pageSize);
 
         return collection($paginate);
     }
@@ -59,6 +60,7 @@ class RoleRepository extends Repository
             }
             $arr = [
                 'name' => $data['name'],
+                'description' => $data['description'],
             ];
             $res = $this->update($arr, $data['id']);
 
