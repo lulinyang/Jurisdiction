@@ -52,6 +52,8 @@ class CommonController extends Controller
             if ($permIds) {
                 $permId_arr = explode(',', $permIds);
                 $perms = DB::table('cms_permissions')
+                            ->orderBy('top', 'desc')
+                            ->orderBy('sort', 'desc')
                             ->whereIn('id', $permId_arr)
                             ->get()
                             ->map(function ($value) {
