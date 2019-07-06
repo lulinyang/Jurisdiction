@@ -102,7 +102,7 @@ class CustomerRepository extends Repository
                 if (!Hash::check($data['oldpwd'], $password)) {
                     return $this->respondWith(['find' => true, 'message' => '原始密码不正确！']);
                 }
-                $arr['password'] = bcrypt($newword);
+                $arr['password'] = bcrypt($data['newpwd']);
                 $res = $this->update($arr, $data['id']);
 
                 return $this->respondWith(['updatepwd' => (bool) $res, 'newpwd' => $res]);
