@@ -61,11 +61,13 @@ class CustomerRepository extends Repository
             if ($res_email) {
                 return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
             }
-            $orgcode = \Auth::guard('customer')->user()->orgcode;
+            $user = \Auth::guard('customer')->user();
+            $orgcode = $user->orgcode;
             $result = $this->createOrgcode($orgcode);
             $data['password'] = bcrypt($data['password']);
             $data['orgcode'] = $result['orgcode'];
             $data['orgroot'] = $orgcode;
+            $data['role_id'] = isset($data['role_id']) ? $data['role_id'] : $user->role_id;
             DB::beginTransaction();
             try {
                 $res = $this->model->create($data);
@@ -83,8 +85,9 @@ class CustomerRepository extends Repository
             }
             // headUrl
             // tel
-            $newword = isset($data['password']) ? $data['password'] : '';
-            if (!$newword) {
+
+            $oldpwd = isset($data['oldpwd']) ? $data['oldpwd'] : '';
+            if (!$oldpwd) {
                 $arr = [
                     'role_id' => $data['role_id'],
                     'orgname' => $data['orgname'],

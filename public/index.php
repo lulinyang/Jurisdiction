@@ -1,11 +1,15 @@
 <?php
 
 /**
- * Laravel - A PHP Framework For Web Artisans
+ * Laravel - A PHP Framework For Web Artisans.
  *
- * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
+header('Content-Type: text/html;charset=utf-8');
+header('Access-Control-Allow-Origin:*'); // *代表允许任何网址请求
+header('Access-Control-Allow-Methods:POST,GET,OPTIONS,DELETE'); // 允许请求的类型
+header('Access-Control-Allow-Credentials: true'); // 设置是否允许发送 cookies
+header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept,DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,If-Modified-Since,Cache-Control, yourHeaderFeild'); // 设置允许自定义请求头的字段
 
 define('LARAVEL_START', microtime(true));
 
