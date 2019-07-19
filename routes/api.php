@@ -72,3 +72,4 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
 });
 
 Route::post('/upImage', 'Controller@upImage');
+Route::post('/upOssImage', 'Controller@upOssImage');
