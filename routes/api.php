@@ -73,3 +73,12 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
 
 Route::post('/upImage', 'Controller@upImage');
 Route::post('/upOssImage', 'Controller@upOssImage');
+
+// IS_INTERNAL=false
+// ALIOSS_CITY=北京
+// ALIOSS_NETWORK_TYPE=经典网络
+// ALIOSS_SERVER=http://oss-cn-beijing.aliyuncs.com
+// ALIOSS_SERVERINTERNAL=http://oss-cn-beijing-internal.aliyuncs.com
+// ALIOSS_KEYID=LTAIc6zdQq5DpxTv
+// ALIOSS_KEYSECRET=V2KHD8jHYJZmPEDVzGOvLWTqC5CRuy
+// ALIOSS_BUCKETNAME=lulinyang
