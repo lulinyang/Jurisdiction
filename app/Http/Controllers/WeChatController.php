@@ -22,7 +22,7 @@ class WeChatController extends BaseController
     public function getToken()
     {
         $config = [
-            'appid' => 'wxea0093b6f63e9001',
+            'app_id' => 'wxea0093b6f63e9001',
             'secret' => '11a9bd0194f09a5af81ece46ad830c99'
         ];
         
