@@ -22,8 +22,8 @@ class WeChatController extends BaseController
     public function getToken()
     {
         $config = [
-            'app_id' => getenv('appid'),
-            'secret' => getenv('secret')
+            'app_id' => getenv('WECHAT_OFFICIAL_ACCOUNT_APPID'),
+            'secret' => getenv('WECHAT_OFFICIAL_ACCOUNT_SECRET')
         ];
         
         $app = Factory::officialAccount($config);
