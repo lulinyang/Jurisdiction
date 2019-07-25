@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Log;
 use EasyWeChat\Factory;
+use Illuminate\Support\Facades\Redis;
 
 class WeChatController extends BaseController
 {
@@ -30,6 +31,7 @@ class WeChatController extends BaseController
         $accessToken = $app->access_token;
         // $token = $accessToken->getToken();
         $token = $accessToken->getToken();
+        Redis::set('access_token', $token['access_token']);
         dd($token, $token['access_token']);
     }
 }
