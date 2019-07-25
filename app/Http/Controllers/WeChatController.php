@@ -48,7 +48,7 @@ class WeChatController extends BaseController
                 $result = collect(collection($result))->toJson();
             } catch (\Exception $e) {
                 // dd($e->getMessage(), $e->formattedResponse, $e);
-                // $error = $e->formattedResponse;
+                $error = $e->formattedResponse;
                 $result = [
                     'code' => $error['errcode'],
                     'access_token' => '',
