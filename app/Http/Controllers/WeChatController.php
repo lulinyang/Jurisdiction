@@ -21,16 +21,36 @@ class WeChatController extends BaseController
     }
 
     public function getToken()
-    {
-        $config = [
-            'app_id' => getenv('WECHAT_OFFICIAL_ACCOUNT_APPID'),
-            'secret' => getenv('WECHAT_OFFICIAL_ACCOUNT_SECRET')
-        ];
-        
-        $app = Factory::officialAccount($config);
-        $accessToken = $app->access_token;
-        $token = $accessToken->getToken(true);
-        Redis::setex('access_token', ($token['expires_in'] - 100) ,$token['access_token']);
-        dd($token, $token['access_token']);
+    {        
+        $access_token = Redis::get('access_token');
+        if($access_token) {
+            $result = [
+                'code' => '200',
+                'access_token' => $access_token,
+                'mgs' => 'ok'
+            ];
+            $result = collect(collection($result))->toJson();
+        }else{
+            $config = [
+                'app_id' => getenv('WECHAT_OFFICIAL_ACCOUNT_APPI'),
+                'secret' => getenv('WECHAT_OFFICIAL_ACCOUNT_SECRET')
+            ];
+            $app = Factory::officialAccount($config);
+            $accessToken = $app->access_token;
+            try {
+                $token = $accessToken->getToken(true);
+                Redis::setex('access_token', ($token['expires_in'] - 100) ,$token['access_token']);
+            } catch (\Throwable $th) {
+                dd($th);
+            }
+           
+            $result = [
+                'code' => '200',
+                'access_token' => $token['access_token'],
+                'mgs' => 'ok'
+            ];
+            $result = collect(collection($result))->toJson();
+        }
+        return $result;
     }
 }
