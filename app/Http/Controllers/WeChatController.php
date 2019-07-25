@@ -40,16 +40,23 @@ class WeChatController extends BaseController
             try {
                 $token = $accessToken->getToken(true);
                 Redis::setex('access_token', ($token['expires_in'] - 100) ,$token['access_token']);
+                $result = [
+                    'code' => '200',
+                    'access_token' => $token['access_token'],
+                    'mgs' => 'ok'
+                ];
+                $result = collect(collection($result))->toJson();
             } catch (\Exception $e) {
-                dd($e->getMessage(), $e->formattedResponse, $e);
-            }
-           
-            $result = [
-                'code' => '200',
-                'access_token' => $token['access_token'],
-                'mgs' => 'ok'
-            ];
-            $result = collect(collection($result))->toJson();
+                // dd($e->getMessage(), $e->formattedResponse, $e);
+                // $error = $e->formattedResponse;
+                $result = [
+                    'code' => $error['errcode'],
+                    'access_token' => '',
+                    'mgs' => $error['errmsg'],
+                    'errmsg' => $e->getMessage()
+                ];
+                $result = collect(collection($result))->toJson();
+            } 
         }
         return $result;
     }
