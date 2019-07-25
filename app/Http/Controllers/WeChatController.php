@@ -29,7 +29,7 @@ class WeChatController extends BaseController
         $app = Factory::officialAccount($config);
         $accessToken = $app->access_token;
         // $token = $accessToken->getToken();
-        $token = $accessToken->getToken(true);
-        dd($token);
+        $token = $accessToken->getToken();
+        dd($token, $token['access_token']);
     }
 }
