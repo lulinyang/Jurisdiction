@@ -41,7 +41,7 @@ class WeChatController extends BaseController
                 $token = $accessToken->getToken(true);
                 Redis::setex('access_token', ($token['expires_in'] - 100) ,$token['access_token']);
             } catch (\Exception $e) {
-                dd($e->getMessage());
+                dd($e->getMessage(), $e->getTrace(), $e->getCode());
             }
            
             $result = [
