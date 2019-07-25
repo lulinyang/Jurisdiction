@@ -74,6 +74,8 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
 Route::post('/upImage', 'Controller@upImage');
 Route::post('/upOssImage', 'Controller@upOssImage');
 Route::any('/wechat', 'WeChatController@serve');
+Route::any('/getToken', 'WeChatController@getToken');
+
 // IS_INTERNAL=false
 // ALIOSS_CITY=北京
 // ALIOSS_NETWORK_TYPE=经典网络
