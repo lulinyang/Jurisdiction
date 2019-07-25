@@ -29,9 +29,8 @@ class WeChatController extends BaseController
         
         $app = Factory::officialAccount($config);
         $accessToken = $app->access_token;
-        // $token = $accessToken->getToken();
-        $token = $accessToken->getToken();
-        Redis::set('access_token', $token['access_token']);
+        $token = $accessToken->getToken(true);
+        Redis::setex('access_token', ($token['expires_in'] - 100) ,$token['access_token']);
         dd($token, $token['access_token']);
     }
 }
