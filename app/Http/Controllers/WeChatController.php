@@ -32,7 +32,7 @@ class WeChatController extends BaseController
             $result = collect(collection($result))->toJson();
         }else{
             $config = [
-                'app_id' => getenv('WECHAT_OFFICIAL_ACCOUNT_APPI'),
+                'app_id' => getenv('WECHAT_OFFICIAL_ACCOUNT_APPID'),
                 'secret' => getenv('WECHAT_OFFICIAL_ACCOUNT_SECRET')
             ];
             $app = Factory::officialAccount($config);
@@ -47,7 +47,6 @@ class WeChatController extends BaseController
                 ];
                 $result = collect(collection($result))->toJson();
             } catch (\Exception $e) {
-                // dd($e->getMessage(), $e->formattedResponse, $e);
                 $error = $e->formattedResponse;
                 $result = [
                     'code' => $error['errcode'],
