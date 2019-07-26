@@ -25,7 +25,7 @@ class WeChatController extends BaseController
         $app->server->push(function ($message) {
             switch ($message['MsgType']) {
                 case 'event':
-                    return '收到事件消息';
+                    return $this->doEvent($message);
                     break;
                 case 'text':
                     return '收到文字消息';
@@ -58,7 +58,7 @@ class WeChatController extends BaseController
 
     public function doEvent($postObj)
     {
-        return $postObj;
+        return $message['Event'];
     }
 
     public function createMenu()
