@@ -56,7 +56,7 @@ class WeChatController extends BaseController
         return $app->server->serve();
     }
 
-    public function doEvent($postObj)
+    public function doEvent($message)
     {
         return $message['Event'];
     }
