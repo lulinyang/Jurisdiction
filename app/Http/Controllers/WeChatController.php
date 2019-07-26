@@ -64,10 +64,17 @@ class WeChatController extends BaseController
         }elseif($message['Event'] == 'unsubscribe') {
             $msg = '拜拜！';
         }elseif($message['Event'] == 'CLICK') {
-            $msg = '点击事件！';
+            switch($message['EventKey']) {
+                case 'V1001_TO':
+                    $msg = '【'. $message['Event'] .',' .$message['EventKey']. '】';
+                    break;
+                case 'V10':
+                    $msg = '【'. $message['Event'] .',' .$message['EventKey']. '】';
+                    break;
+            }
         }
         
-        return $msg . '【'. $message['Event'] .',' .$message['EventKey']. '】';
+        return $msg;
     }
 
     public function createMenu()
