@@ -31,7 +31,7 @@ class WeChatController extends BaseController
                     return '收到文字消息';
                     break;
                 case 'image':
-                    return '收到图片消息';
+                    return json_encode($message);
                     break;
                 case 'voice':
                     return '收到语音消息';
