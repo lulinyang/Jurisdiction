@@ -20,6 +20,7 @@ class WeChatController extends BaseController
 
     public function serve()
     {
+        Log::info('request arrived.');
         $app = app('wechat.official_account');
         $app->server->push(function ($message) {
             switch ($message['MsgType']) {
@@ -52,6 +53,7 @@ class WeChatController extends BaseController
                     break;
             }
         });
+        return $app->server->serve();
     }
 
     public function doEvent($postObj)
