@@ -58,7 +58,13 @@ class WeChatController extends BaseController
 
     public function doEvent($message)
     {
-        return $message['Event'];
+        $msg = '';
+        switch($message['Event']) {
+            case 'subscribe': $msg = '欢迎关注公众号！';break;
+            case 'unsubscribe': $msg = '拜拜！';break;
+            case 'CLICK ': $msg = '点击事件！';break;
+        }
+        return $msg;
     }
 
     public function createMenu()
