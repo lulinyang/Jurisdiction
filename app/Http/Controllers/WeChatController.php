@@ -22,7 +22,6 @@ class WeChatController extends BaseController
     {
         if (!isset($_GET['echostr'])) {
             $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
             if (!empty($postStr)){
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $MsgType = trim($postObj->MsgType);
@@ -31,28 +30,28 @@ class WeChatController extends BaseController
                         $result = $this->receiveText($postObj);
                         break;
                     case 'text':
-                        return '收到文字消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'image':
-                        return '收到图片消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'voice':
-                        return '收到语音消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'video':
-                        return '收到视频消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'location':
-                        return '收到坐标消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'link':
-                        return '收到链接消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'file':
-                        return '收到文件消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     default:
-                        return '收到其它消息';
+                        $result = $this->receiveText($postObj);
                         break;
                 }
             }else {
