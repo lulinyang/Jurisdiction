@@ -25,8 +25,8 @@ class WeChatController extends BaseController
             if (!empty($postStr)){
                 libxml_disable_entity_loader(true);
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $MsgType = trim($postObj->MsgType);
-                switch($MsgType) {
+                $msgType = trim($postObj->MsgType);
+                switch($msgType) {
                     case 'event':
                         $result = $this->transmitText($postObj, 'aaa');
                         break;
@@ -149,17 +149,6 @@ class WeChatController extends BaseController
     }
 
     /*
-    * 接收文本消息
-    */
-    private function receiveText($object)
-    {
-        $content = "你发送的是文本，内容为：".$object->Content;
-        $result = $this->transmitText($object, $content);
-        return $result;
-    }
-
-
-    /*
     * 回复文本消息
     */
     private function transmitText($object, $content)
@@ -170,7 +159,7 @@ class WeChatController extends BaseController
         <CreateTime>%s</CreateTime>
         <MsgType><![CDATA[text]]></MsgType>
         <Content><![CDATA[%s]]></Content>
-        </xml>";
+      </xml>";
         $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
         return $result;
     }
