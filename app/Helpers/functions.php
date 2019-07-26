@@ -206,113 +206,10 @@ function generate_str($length = 4)
     return $str;
 }
 
-/**
- * @param $url 请求网址
- * @param bool $params 请求参数
- * @param int  $ispost 请求方式
- * @param int  $https  https协议
- *
- * @return bool|mixed
- */
-function do_curl($url, $params = false, $ispost = 0, $https = 0, $type = '')
-{
-    $httpInfo = array();
-    $header = [];
-    if ($type == 'json') {
-        $params = json_encode($params); //对数组进行json编码
-        $header = array('Content-type: application/json;charset=UTF-8', 'Accept: application/json', 'Cache-Control: no-cache', 'Pragma: no-cache');
-    }
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-    curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36');
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    if ($https) {
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 对认证证书来源的检查
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // 从证书中检查SSL加密算法是否存在
-    }
-    if ($ispost) {
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-        curl_setopt($ch, CURLOPT_URL, $url);
-        if ($type == 'json') {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
-        }
-    } else {
-        if ($params) {
-            if (is_array($params)) {
-                $params = http_build_query($params);
-            }
-            curl_setopt($ch, CURLOPT_URL, $url.'?'.$params);
-        } else {
-            curl_setopt($ch, CURLOPT_URL, $url);
-        }
-    }
 
-    $response = curl_exec($ch);
-    if ($response === false) {
-        //echo "cURL Error: " . curl_error($ch);
-        return false;
-    }
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
-    curl_close($ch);
 
-    return $response;
-}
 
-function decryptData($appid, $sessionKey, $encryptedData, $iv)
-{
-    //dd($appid,$sessionKey,$encryptedData,$iv);
-    $dir = str_replace('\\', '/', realpath(dirname(__FILE__).'/')).'/';
-    include_once $dir.'errorCode.php';
-    include_once $dir.'wxBizDataCrypt.php';
-    $pc = new WXBizDataCrypt($appid, $sessionKey);
-    $errCode = $pc->decryptData($encryptedData, $iv, $data);
-    if ($errCode == 0) {
-        return $data;
-    } else {
-        return $errCode;
-    }
-}
-
-//二进制转图片image/png
-function data_uri($contents, $mime)
-{
-    $base64 = base64_encode($contents);
-
-    return $base64;
-}
-
-function Asskeytest($appid, $appsecret)
-{
-    if (Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid) > time()) {
-        return Session::get('access_token_'.$appid);
-    } else {
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$appsecret;
-        $ass_key = do_curl($url);
-        $ass_key = json_decode($ass_key);
-        if (isset($ass_key->errcode)) {
-            return '';
-        }
-        $access_token = $ass_key->access_token;
-        Session::put('access_token_'.$appid, $access_token);
-        Session::put('expire_time_'.$appid, time() + 7000);
-
-        return $access_token;
-    }
-}
-
-/**
- * @author lulinyang <lulingyang@ivtsoft.com>
- *
- * @param string $type
- *
- * @return Array
- *               Description: 得到本周的开始日期和结束日期
- */
 function getWeek(String $type)
 {
     switch ($type) {
@@ -408,4 +305,21 @@ function cateSort($array, $pid = 0, $level = 0)
      $arr = array_pad($arr, $format, $dic[0]);
 
      return implode('', array_reverse($arr));
+ }
+
+
+function post_url($url, $data) {
+    // dd($url, $data);
+    $ch = curl_init();  
+    curl_setopt($ch, CURLOPT_URL, $url);  
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);   
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);  
+    if (!empty($data)){  
+        curl_setopt($ch, CURLOPT_POST, TRUE);  
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);  
+    }  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+    $output = curl_exec($ch);  
+    curl_close($ch);  
+    return  $output;   
  }

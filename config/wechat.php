@@ -70,12 +70,51 @@ return [
              * scopes：公众平台（snsapi_userinfo / snsapi_base），开放平台：snsapi_login
              * callback：OAuth授权完成后的回调页地址(如果使用中间件，则随便填写。。。)
              */
-            // 'oauth' => [
-            //     'scopes'   => array_map('trim', explode(',', env('WECHAT_OFFICIAL_ACCOUNT_OAUTH_SCOPES', 'snsapi_userinfo'))),
-            //     'callback' => env('WECHAT_OFFICIAL_ACCOUNT_OAUTH_CALLBACK', '/examples/oauth_callback.php'),
-            // ],
+            'oauth' => [
+                'scopes'   => array_map('trim', explode(',', env('WECHAT_OFFICIAL_ACCOUNT_OAUTH_SCOPES', 'snsapi_userinfo'))),
+                'callback' => env('WECHAT_OFFICIAL_ACCOUNT_OAUTH_CALLBACK', '/examples/oauth_callback.php'),
+            ],
         ],
     ],
+
+    'official_interface' => [
+        'CREATE_MENU_URL' => 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='
+    ],
+
+    'menu' => [
+        'button' => [
+            [
+                "type" => "click",
+                "name" => "歌曲",
+                "key"  => "V1001_TO"
+            ],
+            [
+                "type" => "view",
+                "name" => "测试",
+                "url"  => "http://www.soso.com/"
+            ],
+            [
+                "name"       => "菜单",
+                "sub_button" => [
+                    [
+                        "type" => "view",
+                        "name" => "搜索",
+                        "url"  => "http://www.soso.com/"
+                    ],
+                    [
+                        "type" => "view",
+                        "name" => "视频",
+                        "url"  => "http://v.qq.com/"
+                    ],
+                    [
+                        "type" => "click",
+                        "name" => "赞一下我们",
+                        "key" => "V10"
+                    ],
+                ],
+            ],
+        ]
+    ]
 
     /*
      * 开放平台第三方平台
