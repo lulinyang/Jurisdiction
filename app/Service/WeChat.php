@@ -4,7 +4,7 @@ namespace App\Service;
 
 class WeChat
 {
-    public function valid() {
+    public function valid($echoStr) {
         $echoStr = $_GET["echostr"];
         if($this->checkSignature()){
             echo $echoStr;

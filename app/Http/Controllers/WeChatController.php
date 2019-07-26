@@ -22,12 +22,13 @@ class WeChatController extends BaseController
     {
         if (!isset($_GET['echostr'])) {
             $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+
             if (!empty($postStr)){
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $MsgType = trim($postObj->MsgType);
                 switch($MsgType) {
                     case 'event':
-                        return '收到事件消息';
+                        $result = $this->receiveText($postObj);
                         break;
                     case 'text':
                         return '收到文字消息';
@@ -144,6 +145,33 @@ class WeChatController extends BaseController
                 $result = collect(collection($result))->toJson();
             } 
         }
+        return $result;
+    }
+
+    /*
+    * 接收文本消息
+    */
+    private function receiveText($object)
+    {
+        $content = "你发送的是文本，内容为：".$object->Content;
+        $result = $this->transmitText($object, $content);
+        return $result;
+    }
+
+
+    /*
+    * 回复文本消息
+    */
+    private function transmitText($object, $content)
+    {
+        $textTpl = "<xml>
+        <ToUserName><![CDATA[%s]]></ToUserName>
+        <FromUserName><![CDATA[%s]]></FromUserName>
+        <CreateTime>%s</CreateTime>
+        <MsgType><![CDATA[text]]></MsgType>
+        <Content><![CDATA[%s]]></Content>
+        </xml>";
+        $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $content);
         return $result;
     }
 }
