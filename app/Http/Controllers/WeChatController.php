@@ -20,6 +20,7 @@ class WeChatController extends BaseController
 
     public function serve()
     {
+        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
         $wechatObj = new WeChat();
         if (!isset($_GET['echostr'])) {
             $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
@@ -59,7 +60,6 @@ class WeChatController extends BaseController
                 echo "";exit;
             }
         }else{
-            define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
             $wechatObj->valid();
         }
     }
