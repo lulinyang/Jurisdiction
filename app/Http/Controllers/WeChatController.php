@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Log;
 use EasyWeChat\Factory;
 use Illuminate\Support\Facades\Redis;
+use App\Service\WeChat;
 
 class WeChatController extends BaseController
 {
@@ -19,42 +20,9 @@ class WeChatController extends BaseController
 
     public function serve()
     {
-        Log::info('request arrived.');
-        $app = app('wechat.official_account'); 
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-        $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-        $app->server->push(function($message){
-            switch ($message['MsgType']) {
-                case 'event':
-                    return $this->doEvent($postObj);;
-                    break;
-                case 'text':
-                    return '收到文字消息';
-                    break;
-                case 'image':
-                    return '收到图片消息';
-                    break;
-                case 'voice':
-                    return '收到语音消息';
-                    break;
-                case 'video':
-                    return '收到视频消息';
-                    break;
-                case 'location':
-                    return '收到坐标消息';
-                    break;
-                case 'link':
-                    return '收到链接消息';
-                    break;
-                case 'file':
-                    return '收到文件消息';
-                    break;
-                default:
-                    return '收到其它消息';
-                    break;
-            }
-        });
-        return $app->server->serve();
+        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN')); //TOKEN值
+        $wechatObj = new WeChat();
+        $wechatObj->valid();
     }
 
     public function doEvent($postObj)
