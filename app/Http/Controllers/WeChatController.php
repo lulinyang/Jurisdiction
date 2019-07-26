@@ -20,46 +20,48 @@ class WeChatController extends BaseController
 
     public function serve()
     {
-        // define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
-        // $wechatObj = new WeChat();
-        // $wechatObj->valid();
-        
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取POST数据
-        $postObj = simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
-        $fromUsername = $postObj->FromUserName; //获取发送方帐号（OpenID）
-        $toUsername = $postObj->ToUserName; //获取接收方账号
-        $keyword = trim($postObj->Content); //获取消息内容
-        $masType = $postObj->MsgType;//获取消息类型
-        $time = time(); //获取当前时间戳
-        switch($masType) {
-            case 'event':
-                return '收到事件消息';
-                break;
-            case 'text':
-                return '收到文字消息';
-                break;
-            case 'image':
-                return '收到图片消息';
-                break;
-            case 'voice':
-                return '收到语音消息';
-                break;
-            case 'video':
-                return '收到视频消息';
-                break;
-            case 'location':
-                return '收到坐标消息';
-                break;
-            case 'link':
-                return '收到链接消息';
-                break;
-            case 'file':
-                return '收到文件消息';
-                break;
-            default:
-                return '收到其它消息';
-                break;
+        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
+        $wechatObj = new WeChat();
+        if (!isset($_GET['echostr'])) {
+            $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+            if (!empty($postStr)){
+                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+                $MsgType = trim($postObj->MsgType);
+                switch($MsgType) {
+                    case 'event':
+                        return '收到事件消息';
+                        break;
+                    case 'text':
+                        return '收到文字消息';
+                        break;
+                    case 'image':
+                        return '收到图片消息';
+                        break;
+                    case 'voice':
+                        return '收到语音消息';
+                        break;
+                    case 'video':
+                        return '收到视频消息';
+                        break;
+                    case 'location':
+                        return '收到坐标消息';
+                        break;
+                    case 'link':
+                        return '收到链接消息';
+                        break;
+                    case 'file':
+                        return '收到文件消息';
+                        break;
+                    default:
+                        return '收到其它消息';
+                        break;
+                }
+            }else {
+                echo "";exit;
             }
+        }else{
+            $wechatObj->valid();
+        }
     }
 
     public function doEvent($postObj)
