@@ -20,7 +20,7 @@ class WeChatController extends BaseController
 
     public function serve()
     {
-        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN')); //TOKEN值
+        define("TOKEN", 'ss'); //TOKEN值
         $wechatObj = new WeChat();
         $wechatObj->valid();
     }
