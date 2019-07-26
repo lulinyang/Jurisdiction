@@ -8,6 +8,7 @@ use Log;
 use EasyWeChat\Factory;
 use Illuminate\Support\Facades\Redis;
 use App\Service\WeChat;
+use EasyWeChat\Kernel\Messages\Image;
 
 class WeChatController extends BaseController
 {
