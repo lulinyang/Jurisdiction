@@ -27,31 +27,31 @@ class WeChatController extends BaseController
                 $MsgType = trim($postObj->MsgType);
                 switch($MsgType) {
                     case 'event':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'text':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'image':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'voice':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'video':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'location':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'link':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     case 'file':
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                     default:
-                        $result = $this->receiveText($postObj);
+                        $result = $this->transmitText($postObj, 'aaa');
                         break;
                 }
             }else {
