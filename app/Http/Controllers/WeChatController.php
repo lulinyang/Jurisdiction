@@ -64,6 +64,7 @@ class WeChatController extends BaseController
             case 'unsubscribe': $msg = '拜拜！';break;
             case 'CLICK ': $msg = '点击事件！';break;
             case 'click ': $msg = '点击事件！';break;
+            case 'V1001_TO ': $msg = '点击事件！';break;
         }
         return $msg . '【'. $message['Event'] .'】';
     }
