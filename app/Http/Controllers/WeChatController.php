@@ -59,17 +59,13 @@ class WeChatController extends BaseController
     public function doEvent($message)
     {
         $msg = '';
-        switch($message['Event']) {
-            case 'subscribe': $msg = '欢迎关注公众号！';break;
-            case 'unsubscribe': $msg = '拜拜！';break;
-            case 'CLICK ': $msg = '点击事件！';break;
-            case 'click ': $msg = '点击事件！';break;
-            case 'V1001_TO ': $msg = '点击事件！';break;
+        if($message['Event'] == 'subscribe') {
+            $msg = '欢迎关注公众号！';
+        }elseif($message['Event'] == 'unsubscribe') {
+            $msg = '拜拜！';
+        }elseif($message['Event'] == 'CLICK') {
+            $msg = '点击事件！';
         }
-
-        // if() {
-            
-        // }
         
         return $msg . '【'. $message['Event'] .',' .$message['EventKey']. '】';
     }
