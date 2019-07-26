@@ -20,28 +20,44 @@ class WeChatController extends BaseController
 
     public function serve()
     {
-        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
-        if (!isset($_GET['echostr'])) {
-            $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-            if (!empty($postStr)){
-                $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
-                $msgType = trim($postObj->MsgType);
-                switch($msgType) {
-                    case 'event':
-                        $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'text':
-                        $this->transmitText($postObj, 'aaa');
-                        break;
-                }
-            }else {
-                echo "";exit;
+
+        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        if (!empty($postStr)){
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $msgType = trim($postObj->MsgType);
+            switch($msgType) {
+                case 'event':
+                    $this->transmitText($postObj, 'aaa');
+                    break;
+                case 'text':
+                    $this->transmitText($postObj, 'aaa');
+                    break;
             }
-        }else{
-            
-            $wechatObj = new WeChat();
-            $wechatObj->valid();
+        }else {
+            echo "";exit;
         }
+        
+        // if (!isset($_GET['echostr'])) {
+        //     $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        //     if (!empty($postStr)){
+        //         $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+        //         $msgType = trim($postObj->MsgType);
+        //         switch($msgType) {
+        //             case 'event':
+        //                 $this->transmitText($postObj, 'aaa');
+        //                 break;
+        //             case 'text':
+        //                 $this->transmitText($postObj, 'aaa');
+        //                 break;
+        //         }
+        //     }else {
+        //         echo "";exit;
+        //     }
+        // }else{
+        //     define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
+        //     $wechatObj = new WeChat();
+        //     $wechatObj->valid();
+        // }
     }
 
     public function doEvent($postObj)
