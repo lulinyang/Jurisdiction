@@ -20,9 +20,9 @@ class WeChatController extends BaseController
 
     public function serve()
     {
-        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
-        $wechatObj = new WeChat();
-        $wechatObj->valid();
+        // define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
+        // $wechatObj = new WeChat();
+        // $wechatObj->valid();
         
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"]; //获取POST数据
         $postObj = simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
