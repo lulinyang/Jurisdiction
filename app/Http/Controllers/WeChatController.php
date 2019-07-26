@@ -20,46 +20,25 @@ class WeChatController extends BaseController
 
     public function serve()
     {
+        define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
         if (!isset($_GET['echostr'])) {
             $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
             if (!empty($postStr)){
-                libxml_disable_entity_loader(true);
                 $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
                 $msgType = trim($postObj->MsgType);
                 switch($msgType) {
                     case 'event':
-                        $result = $this->transmitText($postObj, 'aaa');
+                        $this->transmitText($postObj, 'aaa');
                         break;
                     case 'text':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'image':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'voice':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'video':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'location':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'link':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    case 'file':
-                        $result = $this->transmitText($postObj, 'aaa');
-                        break;
-                    default:
-                        $result = $this->transmitText($postObj, 'aaa');
+                        $this->transmitText($postObj, 'aaa');
                         break;
                 }
             }else {
                 echo "";exit;
             }
         }else{
-            define("TOKEN", getenv('WECHAT_OFFICIAL_ACCOUNT_TOKEN'));
+            
             $wechatObj = new WeChat();
             $wechatObj->valid();
         }
