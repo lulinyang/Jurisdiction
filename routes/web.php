@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/wxchat', function () {
+    return view('wxchat');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
