@@ -36,7 +36,7 @@ class Controller extends BaseController
     public function upOssImage(Request $request)
     {
         if (!$request->hasFile('img')) {
-            $result = ['res' => false, 'msg' => '文件不存在'];
+            $result = ['res' => false, 'msg' => '文件不存在', 'code' => 20004];
         } else {
             $img = $request->file('img');
             // 判断图片有效性
@@ -52,9 +52,9 @@ class Controller extends BaseController
             $url = OSS::getUrl($key);
             if($url) {
                 $url = explode('?', $url)[0];
-                $result = ['url' => $url, 'res' => true, 'msg' => '上传成功！'];
+                $result = ['url' => $url, 'res' => true, 'msg' => '上传成功！', 'code' => 200];
             }else {
-                $result = ['res' => false, 'msg' => '上传失败！'];
+                $result = ['res' => false, 'msg' => '上传失败！', 'code' => 20001];
             }
             
         }
