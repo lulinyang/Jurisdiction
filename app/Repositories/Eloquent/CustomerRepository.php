@@ -43,7 +43,7 @@ class CustomerRepository extends Repository
                     ->select('c.*', 'r.name as rolen_ame')
                     ->paginate($pageSize);
 
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function saveUser($request)
@@ -56,10 +56,10 @@ class CustomerRepository extends Repository
         if (!isset($data['id'])) {
             //新增
             if ($res) {
-                return $this->respondWith(['find' => (bool) $res, 'message' => '用户名重复！']);
+                return returnArr(null, 20001, '用户名重复！');
             }
             if ($res_email) {
-                return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
+                return returnArr(null, 20002, '邮箱重复！');
             }
             $user = \Auth::guard('customer')->user();
             $orgcode = $user->orgcode;
@@ -77,14 +77,15 @@ class CustomerRepository extends Repository
             } catch (\Exception $e) {
                 DB::rollBack();
             }
-
-            return $this->respondWith(['created' => (bool) $res, 'user' => $res]);
+            if($res) {
+                return returnArr($res, 200, '创建成功！');
+            }else {
+                return returnArr(null, 20003, '创建失败！');
+            }
         } else {
             if ($res_email && $res_email['id'] != $data['id']) {
-                return $this->respondWith(['find' => (bool) $res_email, 'message' => '邮箱重复！']);
+                return returnArr(null, 20002, '邮箱重复！');
             }
-            // headUrl
-            // tel
 
             $oldpwd = isset($data['oldpwd']) ? $data['oldpwd'] : '';
             if (!$oldpwd) {
@@ -95,17 +96,23 @@ class CustomerRepository extends Repository
                     'tel' => $data['tel'],
                 ];
                 $res = $this->update($arr, $data['id']);
-
-                return $this->respondWith(['updated' => (bool) $res, 'user' => $res]);
+                if($res) {
+                    return returnArr($res, 200, '修改成功！');
+                }else {
+                    return returnArr($res, 20005, '修改失败！');
+                }
             } else {
                 $password = \Auth::guard('customer')->user()->password;
                 if (!Hash::check($data['oldpwd'], $password)) {
-                    return $this->respondWith(['find' => true, 'message' => '原始密码不正确！']);
+                    return returnArr(null, 20004, '原始密码不正确！');
                 }
                 $arr['password'] = bcrypt($data['newpwd']);
                 $res = $this->update($arr, $data['id']);
-
-                return $this->respondWith(['updatepwd' => (bool) $res, 'newpwd' => $res]);
+                if($res) {
+                    return returnArr($res, 200, '修改成功！');
+                }else {
+                    return returnArr(null, 20005, '修改失败！');
+                }
             }
         }
     }
@@ -122,8 +129,7 @@ class CustomerRepository extends Repository
         $role = DB::table('cms_roles')->where('id', $roleId)->first();
         $user->role = $role;
         $this->model::where('id', $id)->update($data);
-
-        return collection($user);
+        return returnArr($user);
     }
 
     public function deleteUser($request)
@@ -131,12 +137,14 @@ class CustomerRepository extends Repository
         $data = $request->all();
         $orgcode = \Auth::guard('customer')->user()->orgcode;
         if (strlen($data['orgcode']) <= strlen($orgcode)) {
-            return collection(['result' => false, 'message' => '没有权限删除！']);
+            return returnArr(null, 20002, '没有权限删除！');
         }
         $res = $this->delete($data['id']);
-        $msg = $res ? '删除成功！' : '删除失败！';
-
-        return collection(['result' => (bool) $res, 'message' => $msg]);
+        if($res) {
+            return returnArr($res, 200, '删除成功！');
+        }else {
+            return returnArr($res, 20001, '删除失败！');
+        }
     }
 
     public function createOrgcode($orgcode)
@@ -147,7 +155,6 @@ class CustomerRepository extends Repository
             return false;
         }
         $orgnum = $orgcode.enid($num);
-
         return ['orgcode' => $orgnum, 'orgnum' => $num];
     }
 }

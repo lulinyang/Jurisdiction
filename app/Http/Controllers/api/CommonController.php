@@ -64,6 +64,6 @@ class CommonController extends Controller
             }
         }
 
-        return collect(collection($perms))->toJson();
+        return returnApi($perms);
     }
 }

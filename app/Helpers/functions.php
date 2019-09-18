@@ -323,3 +323,35 @@ function post_url($url, $data) {
     curl_close($ch);  
     return  $output;   
  }
+
+function returnApi($data, $code = 200, $stateMsg = 'Success')
+{
+    $arr = [
+        'code' => $code,
+        'stateMsg' => $stateMsg,
+        'data' => $data
+    ];
+    return collect(collection($arr))->toJson();
+}
+
+function returnData($data, $code = 200, $stateMsg = 'Success')
+{
+    $arr = [ 
+        'data' => [
+            'code' => $code,
+            'stateMsg' => $stateMsg,
+            'data' => $data
+        ]
+    ];
+    return collect(collection($arr))->toJson();
+}
+
+function returnArr($data, $code = 200, $stateMsg = 'Success')
+{
+    $arr = [
+        'code' => $code,
+        'stateMsg' => $stateMsg,
+        'data' => $data
+    ];
+    return $arr;
+}

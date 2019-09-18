@@ -71,11 +71,14 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
 });
 
+Route::post('/upOssAudio', 'Controller@upOssAudio');
+Route::post('/aipSpeech', 'Controller@aipSpeechTest');
 Route::post('/upImage', 'Controller@upImage');
 Route::post('/upOssImage', 'Controller@upOssImage');
 Route::any('/wechat', 'WeChatController@serve');
 Route::any('/getToken', 'WeChatController@getToken');
 Route::any('/createMenu', 'WeChatController@createMenu');
+
 
 // IS_INTERNAL=false
 // ALIOSS_CITY=北京

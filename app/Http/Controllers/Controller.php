@@ -16,7 +16,7 @@ class Controller extends BaseController
     public function upImage(Request $request)
     {
         if (!$request->hasFile('img')) {
-            $result = ['res' => false, 'msg' => '文件不存在'];
+            return returnData(null, 20001, '文件不存在！');
         } else {
             $img = $request->file('img');
             // 获取后缀名
@@ -25,11 +25,10 @@ class Controller extends BaseController
             $saveName = time().rand().'.'.$ext;
             // 使用 store 存储文件
             $path = $img->store(date('Ymd'));
-
-            $result = ['res' => (bool) $path, 'url' => '\/uploads\/'.$path];
+            return returnData('\/uploads\/'.$path);
         }
 
-        return collect(collection($result))->toJson();
+        
     }
 
 
@@ -39,6 +38,8 @@ class Controller extends BaseController
             $result = ['res' => false, 'msg' => '文件不存在', 'code' => 20004];
         } else {
             $img = $request->file('img');
+            // 获取后缀名
+            $ext = $img->getClientOriginalExtension();
             // 判断图片有效性
             if (!$img->isValid()) {
                 return back()->withErrors('上传图片无效..');
@@ -46,7 +47,7 @@ class Controller extends BaseController
             // 获取图片在临时文件中的地址
             $pic = $img->getRealPath();
             // 制作文件名
-            $key = date('Ymd') .'/'. time() . rand(10000, 99999999) . '.jpg';
+            $key = date('Ymd') .'/'. time() . rand(10000, 99999999) . '.' . $ext;
             //阿里 OSS 图片上传
             $result = OSS::upload($key, $pic);
             $url = OSS::getUrl($key);
@@ -59,5 +60,49 @@ class Controller extends BaseController
             
         }
         return collect(collection($result))->toJson();
+    }
+
+    public function aipSpeechTest(Request $request)
+    {
+        $appId = getenv('AIP_APP_ID');
+        $key = getenv('AIP_API_KEY');
+        $secret = getenv('AIP_SECRET_KEY');
+        $client = new \AipSpeech($appId, $key, $secret);
+        $result = $client->asr(file_get_contents('http://lulinyang.oss-cn-beijing.aliyuncs.com/20190912%2F156827284524431444.mp3'), 'pcm', 16000, array(
+            'dev_pid' => 1536,
+        ));
+        return returnApi($result);
+    }
+
+    public function upOssAudio(Request $request)
+    {
+        // return returnApi($request);
+        if (!$request->hasFile('audio')) {
+            return returnApi(false, 20004, '文件不存在');
+        } else {
+            $audio = $request->file('audio');
+            // return returnApi($audio->getClientOriginalExtension());
+            // 获取后缀名
+            $ext = $audio->getClientOriginalExtension();
+            // 判断图片有效性
+            if (!$audio->isValid()) {
+                return back()->withErrors('音频上传无效..');
+            }
+            // 获取图片在临时文件中的地址
+            $au = $audio->getRealPath();
+            // 制作文件名
+            $key = date('Ymd') .'/'. time() . rand(10000, 99999999) . '.' . $ext;
+            //阿里 OSS 图片上传
+            $result = OSS::upload($key, $au);
+            $url = OSS::getUrl($key);
+            if($url) {
+                $url = explode('?', $url)[0];
+                return returnApi($url);
+                $result = ['url' => $url, 'res' => true, 'msg' => '上传成功！', 'code' => 200];
+            }else {
+                return returnApi(false, 20004, '上传失败！');
+            }
+            
+        }
     }
 }

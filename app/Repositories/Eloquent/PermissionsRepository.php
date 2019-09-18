@@ -32,15 +32,14 @@ class PermissionsRepository extends Repository
         $name = isset($data['name']) ? $data['name'] : '';
         $paginate = $this->model->where('name', 'like', "%{$name}%")
                     ->paginate($request->pageSize);
-
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function getNodesAll($request)
     {
         $data = cateSort($this->all());
 
-        return collection($data);
+        return collection(returnArr($data));
     }
 
     public function getNodesGetTree($request)
@@ -55,7 +54,7 @@ class PermissionsRepository extends Repository
                 )->toArray();
         $data = $this->getTree($perms);
 
-        return collection($data);
+        return collection(returnArr($data));
     }
 
     public function addNode($request)
@@ -69,8 +68,11 @@ class PermissionsRepository extends Repository
         }
         if (!isset($data['id'])) {
             $res = $this->model->create($data);
-
-            return $this->respondWith(['created' => (bool) $res, 'role' => $res]);
+            if($res) {
+                return returnArr($res, 200, '创建成功！');
+            }else {
+                return returnArr(null, 20003, '创建失败！');
+            }
         } else {
             if (!$isTop) {
                 $arr = [
@@ -89,7 +91,11 @@ class PermissionsRepository extends Repository
             }
             $res = $this->update($arr, $data['id']);
 
-            return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
+            if($res) {
+                return returnArr($res, 200, '修改成功！');
+            }else {
+                return returnArr($res, 20005, '修改失败！');
+            }
         }
     }
 
@@ -99,13 +105,15 @@ class PermissionsRepository extends Repository
         $id = $data['id'];
         $res = $this->findBy('pid', $id);
         if ($res) {
-            return $this->respondWith(['result' => false, 'message' => '还有子节点，不能删除！']);
+            return returnArr($res, 20003, '还有子节点，不能删除！');
         }
 
         $res = $this->delete($id);
-        $msg = $res ? '删除成功！' : '还有子节点，不能删除！';
-
-        return collection(['result' => (bool) $res, 'message' => $msg]);
+        if($res) {
+            return returnArr($res, 200, '删除成功！');
+        }else {
+            return returnArr($res, 20002, '删除失败！！');
+        }
     }
 
     private function getTree($data, $pid = 0)

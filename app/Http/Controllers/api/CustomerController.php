@@ -20,9 +20,7 @@ class CustomerController extends Controller
      */
     public function getUserList(Request $request)
     {
-        $result = collect($this->customer->getUserList($request))->toJson();
-
-        return $result;
+        return collect($this->customer->getUserList($request))->toJson();
     }
 
     /**

@@ -41,7 +41,7 @@ class SurnameRepository extends Repository
                     ->orderBy('created_at', 'desc')
                     ->paginate($pageSize);
 
-        return collection($paginate);
+        return returnArr(collection($paginate));
     }
 
     public function addGenealogy($request)
@@ -54,8 +54,11 @@ class SurnameRepository extends Repository
             $params['orgname'] = $user->orgname;
             $params['username'] = $user->username;
             $res = $this->model->create($params);
-
-            return $this->respondWith(['created' => (bool) $res, 'surname' => $res]);
+            if($res) {
+                return returnArr($res, 200, '创建成功！');
+            }else {
+                return returnArr(null, 20003, '创建失败！');
+            }
         } else {
             $arr = [
                 'area_surname' => $params['area_surname'],
@@ -65,7 +68,11 @@ class SurnameRepository extends Repository
             ];
             $res = $this->update($arr, $params['id']);
 
-            return $this->respondWith(['updated' => (bool) $res, 'surname' => $res]);
+            if($res) {
+                return returnArr($res, 200, '修改成功！');
+            }else {
+                return returnArr($res, 20005, '修改失败！');
+            }
         }
     }
 
@@ -74,14 +81,18 @@ class SurnameRepository extends Repository
         $params = $request->all();
         $result = $this->getById($params['id']);
 
-        return collection(['code' => '200', 'result' => $result]);
+        return collection(returnArr($result));
     }
 
     public function deleteGenealogy($request)
     {
         $params = $request->all();
-        $result = $this->update(['deleted' => 1], $params['id']);
+        $res = $this->update(['deleted' => 1], $params['id']);
 
-        return collection(['code' => '200', 'result' => $result]);
+        if($res) {
+            return returnArr($res, 200, '删除成功！');
+        }else {
+            return returnArr($res, 20002, '删除失败！！');
+        }
     }
 }

@@ -33,12 +33,12 @@ class RoleRepository extends Repository
         $paginate = $this->model->where('name', 'like', "%{$name}%")
                 ->paginate($pageSize);
 
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function getRolesAll($request)
     {
-        return collection($this->all());
+        return collection(returnArr($this->all()));
     }
 
     public function addRole($request)
@@ -49,22 +49,28 @@ class RoleRepository extends Repository
 
         if (!isset($data['id'])) {
             if ($res) {
-                return $this->respondWith(['find' => (bool) $res, 'role' => $res]);
+                return returnArr($user, 20001, '角色名重复');
             }
             $res = $this->model->create($data);
-
-            return $this->respondWith(['created' => (bool) $res, 'role' => $res]);
+            if($res) {
+                return returnArr($res, 200, '创建成功！');
+            }else {
+                return returnArr($res, 20002, '创建失败！');
+            }
         } else {
             if ($res && $res['id'] != $data['id']) {
-                return $this->respondWith(['find' => (bool) $res, 'role' => $res]);
+                return returnArr($user, 20001, '角色名重复');
             }
             $arr = [
                 'name' => $data['name'],
                 'description' => $data['description'],
             ];
             $res = $this->update($arr, $data['id']);
-
-            return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
+            if($res) {
+                return returnArr($res, 200, '更新成功！');
+            }else {
+                return returnArr($res, 20002, '更新失败！');
+            }
         }
     }
 
@@ -77,15 +83,21 @@ class RoleRepository extends Repository
 
         $res = $this->update($arr, $data['id']);
 
-        return $this->respondWith(['updated' => (bool) $res, 'role' => $res]);
+        if($res) {
+            return returnArr($res, 200, '更新成功！');
+        }else {
+            return returnArr($res, 20002, '更新失败！');
+        }
     }
 
     public function deleteRole($request)
     {
         $data = $request->all();
         $res = $this->delete($data['id']);
-        $msg = $res ? '删除成功！' : '还有子节点，不能删除！';
-
-        return collection(['result' => (bool) $res, 'message' => $msg]);
+        if($res) {
+            return returnArr($res, 200, '删除成功！');
+        }else {
+            return returnArr($res, 20002, '删除失败！');
+        }
     }
 }
