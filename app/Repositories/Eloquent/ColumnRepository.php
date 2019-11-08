@@ -35,24 +35,24 @@ class ColumnRepository extends Repository
                     ->orderBy('created_at', 'desc')
                     ->paginate(8);
 
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function addColumn($request)
     {
         $data = $request->all();
         if (!isset($data['name'])) {
-            return $this->respondWith(['created' => false, 'updated' => false, 'message' => '分类名必填！']);
+            return returnArr(false, 20001, '分类名必填！');
         }
         $data['create_user'] = \Auth::guard('customer')->user()->username;
         if (!isset($data['id'])) {
             try {
                 $res = $this->create($data);
-            } catch (\Exception $e) {
-                return $this->respondWith(['created' => false, 'message' => '栏目名重复！']);
-            }
 
-            return $this->respondWith(['created' => (bool) $res, 'column' => $res]);
+                return returnArr($res);
+            } catch (\Exception $e) {
+                return returnArr(false, 20002, '栏目名重复！');
+            }
         } else {
             try {
                 $arr = [
@@ -60,20 +60,25 @@ class ColumnRepository extends Repository
                     'update_user' => $data['create_user'],
                 ];
                 $res = $this->update($arr, $data['id']);
-            } catch (\Exception $e) {
-                return $this->respondWith(['updated' => false, 'message' => '栏目名重复！']);
-            }
 
-            return $this->respondWith(['updated' => (bool) $res, 'column' => $res]);
+                return returnArr($res);
+            } catch (\Exception $e) {
+                return returnArr(false, 20002, '栏目名重复！');
+            }
         }
     }
 
     public function delColumn($request)
     {
         $id = $request->all()['id'];
-
+        if (!$id) {
+            return returnArr(false, 20001, '缺少参数id！');
+        }
         $res = $this->delete($id);
+        if ($res) {
+            return returnArr($res);
+        }
 
-        return collection(['result' => (bool) $res, 'message' => '删除成功！']);
+        return returnArr(false, 20002, '删除成功！');
     }
 }

@@ -32,6 +32,7 @@ class PermissionsRepository extends Repository
         $name = isset($data['name']) ? $data['name'] : '';
         $paginate = $this->model->where('name', 'like', "%{$name}%")
                     ->paginate($request->pageSize);
+
         return collection(returnArr($paginate));
     }
 
@@ -68,10 +69,10 @@ class PermissionsRepository extends Repository
         }
         if (!isset($data['id'])) {
             $res = $this->model->create($data);
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '创建成功！');
-            }else {
-                return returnArr(null, 20003, '创建失败！');
+            } else {
+                return returnArr(false, 20001, '创建失败！');
             }
         } else {
             if (!$isTop) {
@@ -91,10 +92,10 @@ class PermissionsRepository extends Repository
             }
             $res = $this->update($arr, $data['id']);
 
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '修改成功！');
-            }else {
-                return returnArr($res, 20005, '修改失败！');
+            } else {
+                return returnArr(false, 20001, '修改失败！');
             }
         }
     }
@@ -105,14 +106,14 @@ class PermissionsRepository extends Repository
         $id = $data['id'];
         $res = $this->findBy('pid', $id);
         if ($res) {
-            return returnArr($res, 20003, '还有子节点，不能删除！');
+            return returnArr(false, 20003, '还有子节点，不能删除！');
         }
 
         $res = $this->delete($id);
-        if($res) {
+        if ($res) {
             return returnArr($res, 200, '删除成功！');
-        }else {
-            return returnArr($res, 20002, '删除失败！！');
+        } else {
+            return returnArr(false, 20001, '删除失败！！');
         }
     }
 

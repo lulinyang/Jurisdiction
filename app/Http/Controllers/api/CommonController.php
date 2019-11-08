@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use DB;
+use App\Service\OSS;
 
 class CommonController extends Controller
 {
@@ -65,5 +67,51 @@ class CommonController extends Controller
         }
 
         return returnApi($perms);
+    }
+
+    public function upOssImage(Request $request)
+    {
+        if (!$request->hasFile('img')) {
+            return returnApi(false, 20004, '文件不存在');
+        } else {
+            $img = $request->file('img');
+            // 获取后缀名
+            $ext = $img->getClientOriginalExtension();
+            // 判断图片有效性
+            if (!$img->isValid()) {
+                return returnApi(false, 20003, '上传图片无效..');
+            }
+            // 获取图片在临时文件中的地址
+            $pic = $img->getRealPath();
+            // 制作文件名
+            $key = date('Ymd').'/'.time().rand(10000, 99999999).'.'.$ext;
+            //阿里 OSS 图片上传
+            $result = OSS::upload($key, $pic);
+            $url = OSS::getUrl($key);
+            if ($url) {
+                $url = explode('?', $url)[0];
+
+                return returnApi($url);
+            } else {
+                return returnApi(false, 20001, '上传失败！');
+            }
+        }
+    }
+
+    public function upImage(Request $request)
+    {
+        if (!$request->hasFile('img')) {
+            return returnApi(false, 20001, '文件不存在！');
+        } else {
+            $img = $request->file('img');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName = time().rand().'.'.$ext;
+            // 使用 store 存储文件
+            $path = $img->store(date('Ymd'));
+
+            return returnApi('\/uploads\/'.$path);
+        }
     }
 }

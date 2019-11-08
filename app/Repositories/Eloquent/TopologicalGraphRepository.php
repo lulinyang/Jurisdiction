@@ -40,7 +40,7 @@ class TopologicalGraphRepository extends Repository
                 )->toArray();
         $data = $this->getTree($pedigree);
 
-        return collection($data);
+        return returnArr($data);
     }
 
     public function addPedigree($request)
@@ -54,8 +54,11 @@ class TopologicalGraphRepository extends Repository
         }
         if (!isset($data['id'])) {
             $res = $this->model->create($data);
+            if ($res) {
+                return returnArr($res);
+            }
 
-            return $this->respondWith(['created' => (bool) $res, 'pedigree' => $res]);
+            return returnArr(false, 20001, '添加失败！');
         } else {
             if (!$isTop) {
                 $arr = [
@@ -70,25 +73,12 @@ class TopologicalGraphRepository extends Repository
                 ];
             }
             $res = $this->update($arr, $data['id']);
-
-            return $this->respondWith(['updated' => (bool) $res, 'pedigree' => $res]);
-        }
-    }
-
-    private function getTree($data, $pid = 0)
-    {
-        $tree = array();
-        foreach ($data as $k => $v) {
-            //父亲找到儿子
-            if ($v['pid'] == $pid) {
-                $v['top'] = $v['top'] ? true : false;
-                $v['children'] = $this->getTree($data, $v['id']);
-                $tree[] = $v;
-                //unset($data[$k]);
+            if ($res) {
+                return returnArr($res);
             }
-        }
 
-        return $tree;
+            return returnArr(false, 20001, '修改失败！');
+        }
     }
 
     public function getPedigreeAll($request)
@@ -105,29 +95,7 @@ class TopologicalGraphRepository extends Repository
                 )->toArray();
         $data = $this->cateSort($pedigree);
 
-        return collection($data);
-    }
-
-    private function cateSort($array, $pid = 0, $level = 0)
-    {
-        //声明静态数组,避免递归调用时,多次声明导致数组覆盖
-        static $list = [];
-        foreach ($array as $key => $value) {
-            //第一次遍历,找到父节点为根节点的节点 也就是pid=0的节点
-            if ($value['pid'] == $pid) {
-                //父节点为根节点的节点,级别为0，也就是第一级
-                // $value['level'] = $level;
-                $value['title'] = str_repeat(' --', $value['level']).$value['title'];
-                //把数组放到list中
-                $list[] = $value;
-                //把这个节点从数组中移除,减少后续递归消耗
-                unset($array[$key]);
-                //开始递归,查找父ID为该节点ID的节点,级别则为原级别+1
-                $this->cateSort($array, $value['id'], $level + 1);
-            }
-        }
-
-        return $list;
+        return returnArr($data);
     }
 
     public function deletePedigree($request)
@@ -141,19 +109,18 @@ class TopologicalGraphRepository extends Repository
             ->where(['pid' => $id, 'surname_id' => $data['surname_id']])
             ->first();
         if ($res) {
-            return $this->respondWith(['result' => false, 'message' => '下面还有子孙，不能删除！']);
+            return returnArr(false, 20001, '下面还有子孙，不能删除！');
+        }
+        if ($result = $this->delete($id)) {
+            return returnArr($result);
         }
 
-        $res = $this->delete($id);
-        $msg = $res ? '删除成功！' : '下面还有子孙，不能删除！';
-
-        return collection(['result' => (bool) $res, 'message' => $msg]);
+        return returnArr(false, 20001, '下面还有子孙，不能删除！');
     }
 
     public function getTreeChart($request)
     {
         $surnameId = $request->all()['surname_id'];
-        // $str =
         $res = DB::table('cms_topological_graph as tg')
                 ->select(
                     'tg.id',
@@ -184,7 +151,7 @@ class TopologicalGraphRepository extends Repository
 
         $chart = $this->getChart($res);
 
-        return collection($chart);
+        return returnArr($chart);
     }
 
     private function getChart($data, $pid = 0)
@@ -196,6 +163,44 @@ class TopologicalGraphRepository extends Repository
                 $v['top'] = $v['top'] ? true : false;
                 $v['children'] = $this->getChart($data, $v['id']);
                 $tree[] = $v;
+            }
+        }
+
+        return $tree;
+    }
+
+    private function cateSort($array, $pid = 0, $level = 0)
+    {
+        //声明静态数组,避免递归调用时,多次声明导致数组覆盖
+        static $list = [];
+        foreach ($array as $key => $value) {
+            //第一次遍历,找到父节点为根节点的节点 也就是pid=0的节点
+            if ($value['pid'] == $pid) {
+                //父节点为根节点的节点,级别为0，也就是第一级
+                // $value['level'] = $level;
+                $value['title'] = str_repeat(' --', $value['level']).$value['title'];
+                //把数组放到list中
+                $list[] = $value;
+                //把这个节点从数组中移除,减少后续递归消耗
+                unset($array[$key]);
+                //开始递归,查找父ID为该节点ID的节点,级别则为原级别+1
+                $this->cateSort($array, $value['id'], $level + 1);
+            }
+        }
+
+        return $list;
+    }
+
+    private function getTree($data, $pid = 0)
+    {
+        $tree = array();
+        foreach ($data as $k => $v) {
+            //父亲找到儿子
+            if ($v['pid'] == $pid) {
+                $v['top'] = $v['top'] ? true : false;
+                $v['children'] = $this->getTree($data, $v['id']);
+                $tree[] = $v;
+                //unset($data[$k]);
             }
         }
 

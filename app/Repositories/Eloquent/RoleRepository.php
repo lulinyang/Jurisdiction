@@ -49,27 +49,27 @@ class RoleRepository extends Repository
 
         if (!isset($data['id'])) {
             if ($res) {
-                return returnArr($user, 20001, '角色名重复');
+                return returnArr(false, 20001, '角色名重复');
             }
             $res = $this->model->create($data);
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '创建成功！');
-            }else {
-                return returnArr($res, 20002, '创建失败！');
+            } else {
+                return returnArr(false, 20002, '创建失败！');
             }
         } else {
             if ($res && $res['id'] != $data['id']) {
-                return returnArr($user, 20001, '角色名重复');
+                return returnArr(false, 20001, '角色名重复');
             }
             $arr = [
                 'name' => $data['name'],
                 'description' => $data['description'],
             ];
             $res = $this->update($arr, $data['id']);
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '更新成功！');
-            }else {
-                return returnArr($res, 20002, '更新失败！');
+            } else {
+                return returnArr(false, 20002, '更新失败！');
             }
         }
     }
@@ -83,10 +83,10 @@ class RoleRepository extends Repository
 
         $res = $this->update($arr, $data['id']);
 
-        if($res) {
+        if ($res) {
             return returnArr($res, 200, '更新成功！');
-        }else {
-            return returnArr($res, 20002, '更新失败！');
+        } else {
+            return returnArr(false, 20002, '更新失败！');
         }
     }
 
@@ -94,10 +94,10 @@ class RoleRepository extends Repository
     {
         $data = $request->all();
         $res = $this->delete($data['id']);
-        if($res) {
+        if ($res) {
             return returnArr($res, 200, '删除成功！');
-        }else {
-            return returnArr($res, 20002, '删除失败！');
+        } else {
+            return returnArr(false, 20002, '删除失败！');
         }
     }
 }

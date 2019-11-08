@@ -40,7 +40,7 @@ class MemberRepository extends Repository
                     ->orderBy('created_at', 'desc')
                     ->paginate($pageSize);
 
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function addMember($request)
@@ -56,7 +56,13 @@ class MemberRepository extends Repository
             }
             $res = $this->model->create($params);
 
-            return $this->respondWith(['created' => (bool) $res, 'member' => $res]);
+            // $res = DB::table('cms_member')->insert($params);
+            // dd($res);
+            if ($res) {
+                return returnArr($res);
+            }
+
+            return returnArr(false, 20001, '创建失败！');
         } else {
             $arr = [
                 'name' => $params['name'],
@@ -71,36 +77,55 @@ class MemberRepository extends Repository
                 'isdead' => $params['isdead'],
             ];
             $res = $this->update($arr, $params['id']);
+            if ($res) {
+                return returnArr($res);
+            }
 
-            return $this->respondWith(['updated' => (bool) $res, 'member' => $res]);
+            return returnArr(false, 20001, '修改失败！');
         }
     }
 
     public function getMember($request)
     {
         $params = $request->all();
-        $result = DB::table('cms_member')->where(['deleted' => 0, 'id' => $params['id']])->first();
-        $result->areas = [
-            $result->province,
-            $result->city,
-            $result->area,
-        ];
+        if (!$params['id']) {
+            return returnArr(false, 20001, '缺少id参数！');
+        }
+        $res = DB::table('cms_member')->where(['deleted' => 0, 'id' => $params['id']])->first();
+        if ($res) {
+            $res->areas = [
+                $res->province,
+                $res->city,
+                $res->area,
+            ];
 
-        return collection(['code' => '200', 'result' => $result]);
+            return returnArr($res);
+        }
+
+        return returnArr(false, 20002, '没有数据！');
     }
 
     public function deleteMember($request)
     {
         $params = $request->all();
-        $result = $this->update(['deleted' => 1], $params['id']);
+        if (!$params['id']) {
+            return returnArr(false, 20001, '缺少id参数！');
+        }
+        $res = $this->update(['deleted' => 1], $params['id']);
+        if ($res) {
+            return returnArr($res);
+        }
 
-        return collection(['code' => '200', 'result' => $result]);
+        return returnArr(false, 20002, '没有数据！');
     }
 
     public function getMemberAll($request)
     {
         $result = DB::table('cms_member')->where('deleted', 0)->get();
+        if ($result) {
+            return returnArr($result);
+        }
 
-        return collection($result);
+        return returnArr(false, 20002, '没有数据！');
     }
 }

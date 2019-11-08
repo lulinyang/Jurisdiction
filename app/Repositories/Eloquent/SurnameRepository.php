@@ -54,10 +54,10 @@ class SurnameRepository extends Repository
             $params['orgname'] = $user->orgname;
             $params['username'] = $user->username;
             $res = $this->model->create($params);
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '创建成功！');
-            }else {
-                return returnArr(null, 20003, '创建失败！');
+            } else {
+                return returnArr(false, 20002, '创建失败！');
             }
         } else {
             $arr = [
@@ -68,10 +68,10 @@ class SurnameRepository extends Repository
             ];
             $res = $this->update($arr, $params['id']);
 
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '修改成功！');
-            }else {
-                return returnArr($res, 20005, '修改失败！');
+            } else {
+                return returnArr(false, 20002, '修改失败！');
             }
         }
     }
@@ -88,11 +88,10 @@ class SurnameRepository extends Repository
     {
         $params = $request->all();
         $res = $this->update(['deleted' => 1], $params['id']);
-
-        if($res) {
+        if ($res) {
             return returnArr($res, 200, '删除成功！');
-        }else {
-            return returnArr($res, 20002, '删除失败！！');
+        } else {
+            return returnArr(false, 20002, '删除失败！！');
         }
     }
 }

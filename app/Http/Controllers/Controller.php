@@ -13,24 +13,22 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function upImage(Request $request)
+    public function upEditImage(Request $request)
     {
-        if (!$request->hasFile('img')) {
-            return returnData(null, 20001, '文件不存在！');
+        if (!$request->hasFile('file')) {
+            return returnApi(null, 20001, '文件不存在！');
         } else {
-            $img = $request->file('img');
+            $img = $request->file('file');
             // 获取后缀名
             $ext = $img->extension();
             // 新文件名
             $saveName = time().rand().'.'.$ext;
             // 使用 store 存储文件
             $path = $img->store(date('Ymd'));
-            return returnData('\/uploads\/'.$path);
+
+            return returnApi('\/uploads\/'.$path);
         }
-
-        
     }
-
 
     public function upOssImage(Request $request)
     {
@@ -47,18 +45,18 @@ class Controller extends BaseController
             // 获取图片在临时文件中的地址
             $pic = $img->getRealPath();
             // 制作文件名
-            $key = date('Ymd') .'/'. time() . rand(10000, 99999999) . '.' . $ext;
+            $key = date('Ymd').'/'.time().rand(10000, 99999999).'.'.$ext;
             //阿里 OSS 图片上传
             $result = OSS::upload($key, $pic);
             $url = OSS::getUrl($key);
-            if($url) {
+            if ($url) {
                 $url = explode('?', $url)[0];
                 $result = ['url' => $url, 'res' => true, 'msg' => '上传成功！', 'code' => 200];
-            }else {
+            } else {
                 $result = ['res' => false, 'msg' => '上传失败！', 'code' => 20001];
             }
-            
         }
+
         return collect(collection($result))->toJson();
     }
 
@@ -71,6 +69,7 @@ class Controller extends BaseController
         $result = $client->asr(file_get_contents('http://lulinyang.oss-cn-beijing.aliyuncs.com/20190912%2F156827284524431444.mp3'), 'pcm', 16000, array(
             'dev_pid' => 1536,
         ));
+
         return returnApi($result);
     }
 
@@ -91,18 +90,18 @@ class Controller extends BaseController
             // 获取图片在临时文件中的地址
             $au = $audio->getRealPath();
             // 制作文件名
-            $key = date('Ymd') .'/'. time() . rand(10000, 99999999) . '.' . $ext;
+            $key = date('Ymd').'/'.time().rand(10000, 99999999).'.'.$ext;
             //阿里 OSS 图片上传
             $result = OSS::upload($key, $au);
             $url = OSS::getUrl($key);
-            if($url) {
+            if ($url) {
                 $url = explode('?', $url)[0];
+
                 return returnApi($url);
                 $result = ['url' => $url, 'res' => true, 'msg' => '上传成功！', 'code' => 200];
-            }else {
+            } else {
                 return returnApi(false, 20004, '上传失败！');
             }
-            
         }
     }
 }

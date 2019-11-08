@@ -56,10 +56,10 @@ class CustomerRepository extends Repository
         if (!isset($data['id'])) {
             //新增
             if ($res) {
-                return returnArr(null, 20001, '用户名重复！');
+                return returnArr(false, 20001, '用户名重复！');
             }
             if ($res_email) {
-                return returnArr(null, 20002, '邮箱重复！');
+                return returnArr(false, 20002, '邮箱重复！');
             }
             $user = \Auth::guard('customer')->user();
             $orgcode = $user->orgcode;
@@ -77,14 +77,14 @@ class CustomerRepository extends Repository
             } catch (\Exception $e) {
                 DB::rollBack();
             }
-            if($res) {
+            if ($res) {
                 return returnArr($res, 200, '创建成功！');
-            }else {
-                return returnArr(null, 20003, '创建失败！');
+            } else {
+                return returnArr(false, 20003, '创建失败！');
             }
         } else {
             if ($res_email && $res_email['id'] != $data['id']) {
-                return returnArr(null, 20002, '邮箱重复！');
+                return returnArr(false, 20002, '邮箱重复！');
             }
 
             $oldpwd = isset($data['oldpwd']) ? $data['oldpwd'] : '';
@@ -96,22 +96,22 @@ class CustomerRepository extends Repository
                     'tel' => $data['tel'],
                 ];
                 $res = $this->update($arr, $data['id']);
-                if($res) {
+                if ($res) {
                     return returnArr($res, 200, '修改成功！');
-                }else {
+                } else {
                     return returnArr($res, 20005, '修改失败！');
                 }
             } else {
                 $password = \Auth::guard('customer')->user()->password;
                 if (!Hash::check($data['oldpwd'], $password)) {
-                    return returnArr(null, 20004, '原始密码不正确！');
+                    return returnArr(false, 20004, '原始密码不正确！');
                 }
                 $arr['password'] = bcrypt($data['newpwd']);
                 $res = $this->update($arr, $data['id']);
-                if($res) {
+                if ($res) {
                     return returnArr($res, 200, '修改成功！');
-                }else {
-                    return returnArr(null, 20005, '修改失败！');
+                } else {
+                    return returnArr(false, 20005, '修改失败！');
                 }
             }
         }
@@ -129,6 +129,7 @@ class CustomerRepository extends Repository
         $role = DB::table('cms_roles')->where('id', $roleId)->first();
         $user->role = $role;
         $this->model::where('id', $id)->update($data);
+
         return returnArr($user);
     }
 
@@ -137,12 +138,12 @@ class CustomerRepository extends Repository
         $data = $request->all();
         $orgcode = \Auth::guard('customer')->user()->orgcode;
         if (strlen($data['orgcode']) <= strlen($orgcode)) {
-            return returnArr(null, 20002, '没有权限删除！');
+            return returnArr(false, 20002, '没有权限删除！');
         }
         $res = $this->delete($data['id']);
-        if($res) {
+        if ($res) {
             return returnArr($res, 200, '删除成功！');
-        }else {
+        } else {
             return returnArr($res, 20001, '删除失败！');
         }
     }
@@ -155,6 +156,7 @@ class CustomerRepository extends Repository
             return false;
         }
         $orgnum = $orgcode.enid($num);
+
         return ['orgcode' => $orgnum, 'orgnum' => $num];
     }
 }

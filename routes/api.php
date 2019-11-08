@@ -69,16 +69,21 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getArcticlList', 'ArcticleController@getArcticlList');
     Route::get('/getArticle', 'ArcticleController@getArticle');
     Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
+
+    /*
+     * 公共接口
+     */
+    Route::post('/upOssImage', 'CommonController@upOssImage');
+    Route::post('/upImage', 'CommonController@upImage');
 });
 
 Route::post('/upOssAudio', 'Controller@upOssAudio');
 Route::post('/aipSpeech', 'Controller@aipSpeechTest');
-Route::post('/upImage', 'Controller@upImage');
-Route::post('/upOssImage', 'Controller@upOssImage');
+Route::post('/upEditImage', 'Controller@upEditImage');
+// Route::post('/upOssImage', 'Controller@upOssImage');
 Route::any('/wechat', 'WeChatController@serve');
 Route::any('/getToken', 'WeChatController@getToken');
 Route::any('/createMenu', 'WeChatController@createMenu');
-
 
 // IS_INTERNAL=false
 // ALIOSS_CITY=北京

@@ -52,7 +52,7 @@ class ArcticleRepository extends Repository
                     ->select('a.*', 'c.name as typename')
                     ->paginate($pageSize);
 
-        return collection($paginate);
+        return collection(returnArr($paginate));
     }
 
     public function addarticle($request)
@@ -61,8 +61,11 @@ class ArcticleRepository extends Repository
         $params['create_user'] = \Auth::guard('customer')->user()->username;
         if (!isset($params['id'])) {
             $res = $this->create($params);
+            if ($res) {
+                return returnArr($res);
+            }
 
-            return $this->respondWith(['created' => (bool) $res, 'arcticle' => $res]);
+            return returnArr(false, 20001, '创建失败！');
         } else {
             $arr = [
                 'title' => $params['title'],
@@ -72,26 +75,42 @@ class ArcticleRepository extends Repository
                 'type' => $params['type'],
                 'update_user' => $params['create_user'],
             ];
-            // dd($arr);
             $res = $this->update($arr, $params['id']);
+            if ($res) {
+                return returnArr($res);
+            }
 
-            return $this->respondWith(['updated' => (bool) $res, 'arcticle' => $res]);
+            return returnArr(false, 20001, '修改失败！');
         }
     }
 
     public function getArticle($request)
     {
         $params = $request->all();
-        $result = $this->getById($params['id']);
+        $res = $this->getById($params['id']);
+        if (!$params['id']) {
+            return returnArr(false, 20001, '缺少参数id！');
+        }
 
-        return collection(['code' => '200', 'result' => $result]);
+        if ($res) {
+            return returnArr($res);
+        }
+
+        return returnArr(false, 20002, '没有文章！');
     }
 
     public function deleteArcticle($request)
     {
         $params = $request->all();
-        $result = $this->update(['deleted' => 1], $params['id']);
+        if (!$params['id']) {
+            return returnArr(false, 20001, '缺少参数id！');
+        }
+        $res = $this->update(['deleted' => 1], $params['id']);
 
-        return collection(['code' => '200', 'result' => $result]);
+        if ($res) {
+            return returnArr($res);
+        }
+
+        return returnArr(false, 20002, '没有文章！');
     }
 }
