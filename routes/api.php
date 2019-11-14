@@ -87,10 +87,12 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getUser', 'UserController@getUser');
     Route::post('/getUserById', 'UserController@getUserById');
     Route::post('/addUser', 'UserController@addUser');
-    Route::post('/updateUser', 'UserController@addUser');
-    Route::post('/deleteUser', 'UserController@deleteUser');
+    // Route::post('/updateUser', 'UserController@addUser');
+    // Route::post('/deleteUser', 'UserController@deleteUser');
     //用户登录
     Route::post('/login', 'UserController@login');
+    //发布话题
+    Route::post('/pushConversation', 'ConversationController@pushConversation');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
