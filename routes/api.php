@@ -69,21 +69,36 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getArcticlList', 'ArcticleController@getArcticlList');
     Route::get('/getArticle', 'ArcticleController@getArticle');
     Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
+});
 
-    /*
-     * 公共接口
-     */
+//公共接口
+Route::group(['namespace' => 'api'], function () {
     Route::post('/upOssImage', 'CommonController@upOssImage');
     Route::post('/upImage', 'CommonController@upImage');
 });
+//用户端接口
+Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
+    //发送验证码
+    Route::post('/sendMsg', 'CommonController@sendMsg');
+    Route::post('/getColumn', 'ColumnController@getColumnList');
+    Route::post('/getArctice', 'ArcticleController@getArcticlList');
+    Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
+    //用户管理
+    Route::post('/getUser', 'UserController@getUser');
+    Route::post('/getUserById', 'UserController@getUserById');
+    Route::post('/addUser', 'UserController@addUser');
+    Route::post('/updateUser', 'UserController@addUser');
+    Route::post('/deleteUser', 'UserController@deleteUser');
+    //用户登录
+    Route::post('/login', 'UserController@login');
+});
 
-Route::post('/upOssAudio', 'Controller@upOssAudio');
-Route::post('/aipSpeech', 'Controller@aipSpeechTest');
-Route::post('/upEditImage', 'Controller@upEditImage');
-// Route::post('/upOssImage', 'Controller@upOssImage');
-Route::any('/wechat', 'WeChatController@serve');
-Route::any('/getToken', 'WeChatController@getToken');
-Route::any('/createMenu', 'WeChatController@createMenu');
+// Route::post('/upOssAudio', 'Controller@upOssAudio');
+// Route::post('/aipSpeech', 'Controller@aipSpeechTest');
+// Route::post('/upEditImage', 'Controller@upEditImage');
+// Route::any('/wechat', 'WeChatController@serve');
+// Route::any('/getToken', 'WeChatController@getToken');
+// Route::any('/createMenu', 'WeChatController@createMenu');
 
 // IS_INTERNAL=false
 // ALIOSS_CITY=北京

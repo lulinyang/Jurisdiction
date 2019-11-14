@@ -43,13 +43,15 @@ class ArcticleRepository extends Repository
         $paginate = DB::table('cms_article as a')
                     ->leftjoin('cms_column as c', function ($join) {
                         $join->on('a.type', '=', 'c.id');
+                    })->leftjoin('cms_customer as u', function ($join) {
+                        $join->on('a.create_user', '=', 'u.id');
                     })->Where('a.deleted', 0)
                     ->Where('a.title', 'like', "%{$title}%")
                     ->Where('a.describe', 'like', "%{$describe}%")
                     ->Where('a.create_user', 'like', "%{$create_user}%")
                     ->Where($filed, '=', $type)
                     ->orderBy('a.created_at', 'desc')
-                    ->select('a.*', 'c.name as typename')
+                    ->select('a.*', 'c.name as typename', 'u.orgname as create_user_name')
                     ->paginate($pageSize);
 
         return collection(returnArr($paginate));
@@ -58,7 +60,7 @@ class ArcticleRepository extends Repository
     public function addarticle($request)
     {
         $params = $request->all();
-        $params['create_user'] = \Auth::guard('customer')->user()->username;
+        $params['create_user'] = \Auth::guard('customer')->user()->id;
         if (!isset($params['id'])) {
             $res = $this->create($params);
             if ($res) {

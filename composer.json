@@ -42,7 +42,8 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "app/Libs/AipSpeech"
+            "app/Libs/AipSpeech",
+            "app/Libs/RLYsms"
         ],
         "files":[
             "app/Helpers/functions.php"

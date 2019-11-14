@@ -206,10 +206,6 @@ function generate_str($length = 4)
     return $str;
 }
 
-
-
-
-
 function getWeek(String $type)
 {
     switch ($type) {
@@ -307,42 +303,32 @@ function cateSort($array, $pid = 0, $level = 0)
      return implode('', array_reverse($arr));
  }
 
-
-function post_url($url, $data) {
+function post_url($url, $data)
+{
     // dd($url, $data);
-    $ch = curl_init();  
-    curl_setopt($ch, CURLOPT_URL, $url);  
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);   
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);  
-    if (!empty($data)){  
-        curl_setopt($ch, CURLOPT_POST, TRUE);  
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);  
-    }  
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
-    $output = curl_exec($ch);  
-    curl_close($ch);  
-    return  $output;   
- }
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    if (!empty($data)) {
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    }
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    $output = curl_exec($ch);
+    curl_close($ch);
+
+    return  $output;
+}
 
 function returnApi($data, $code = 200, $stateMsg = 'Success')
 {
     $arr = [
         'code' => $code,
         'stateMsg' => $stateMsg,
-        'data' => $data
+        'data' => $data,
     ];
-    return collect(collection($arr))->toJson();
-}
 
-function returnData($data, $code = 200, $stateMsg = 'Success')
-{
-    $arr = [ 
-        'data' => [
-            'code' => $code,
-            'stateMsg' => $stateMsg,
-            'data' => $data
-        ]
-    ];
     return collect(collection($arr))->toJson();
 }
 
@@ -351,7 +337,8 @@ function returnArr($data, $code = 200, $stateMsg = 'Success')
     $arr = [
         'code' => $code,
         'stateMsg' => $stateMsg,
-        'data' => $data
+        'data' => $data,
     ];
+
     return $arr;
 }
