@@ -104,6 +104,7 @@ class UserRepository extends Repository
             return returnArr(false, 20008, '验证码错误！');
         }
         $data['password'] = bcrypt($data['password']);
+        $data['name'] = $data['username'];
         $res = $this->create($data);
         if ($res) {
             Redis::del('tel_'.$data['username']);

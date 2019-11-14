@@ -53,16 +53,8 @@ class ConversationRepository extends Repository
 					})
 					->Where('c.deleted', '=', '0')
 					->Where('u.deleted', '=', '0')
+					->select('c.*', 'u.id as uid', 'u.name', 'u.sex', 'u.headUrl')
 					->paginate($pageSize);
-        // $title = isset($data['title']) ? $data['title'] : '';
-        // $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
-        // $describe = isset($data['describe']) ? $data['describe'] : '';
-        // $create_user = isset($data['create_user']) ? $data['create_user'] : '';
-        // $paginate = DB::table('cms_article as a')
-        //             ->leftjoin('cms_column as c', function ($join) {
-        //                 $join->on('a.type', '=', 'c.id');
-        //             })->paginate($pageSize);
-
         return collection(returnArr($paginate));
 	}
 }

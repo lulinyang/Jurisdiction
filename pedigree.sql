@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 14/11/2019 16:42:13
+ Date: 14/11/2019 17:01:58
 */
 
 SET NAMES utf8mb4;
@@ -395,6 +395,7 @@ CREATE TABLE `cms_user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '昵称',
   `sex` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0女，1男',
   `headUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
@@ -407,7 +408,7 @@ CREATE TABLE `cms_user`  (
 -- ----------------------------
 -- Records of cms_user
 -- ----------------------------
-INSERT INTO `cms_user` VALUES (6, '15655569098', '$2y$10$FrX54fIHtGIdDrURv5g7uu98Utj5okTkMqC9Y/3v0lRBcXdtfyUdi', 1, NULL, 0, '2019-11-14 11:14:19', '2019-11-14 11:14:19');
+INSERT INTO `cms_user` VALUES (6, '15655569098', '$2y$10$FrX54fIHtGIdDrURv5g7uu98Utj5okTkMqC9Y/3v0lRBcXdtfyUdi', '', 1, NULL, 0, '2019-11-14 11:14:19', '2019-11-14 11:14:19');
 
 -- ----------------------------
 -- Table structure for migrations
