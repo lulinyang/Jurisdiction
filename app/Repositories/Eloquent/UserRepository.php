@@ -107,7 +107,7 @@ class UserRepository extends Repository
         $res = $this->create($data);
         if ($res) {
             Redis::del('tel_'.$data['username']);
-            return returnArr(true, 200, '注册成功！');
+            return returnArr($res, 200, '注册成功！');
         }
 
         return returnArr(false, 20006, '注册失败！');
