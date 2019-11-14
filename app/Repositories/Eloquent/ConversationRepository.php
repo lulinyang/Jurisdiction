@@ -53,6 +53,7 @@ class ConversationRepository extends Repository
 					})
 					->Where('c.deleted', '=', '0')
 					->Where('u.deleted', '=', '0')
+					->orderBy('c.created_at', 'desc')
 					->select('c.*', 'u.id as uid', 'u.name', 'u.sex', 'u.headUrl')
 					->paginate($pageSize);
         return collection(returnArr($paginate));
