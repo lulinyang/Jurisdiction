@@ -76,6 +76,10 @@ class UserRepository extends Repository
     public function addUser($request)
     {
         $data = $request->all();
+        if (!isset($data['name'])) {
+            return returnArr(false, 20001, '昵称不能为空！');
+        }
+
         if (!isset($data['username'])) {
             return returnArr(false, 20001, '手机号必填！');
         }
@@ -104,7 +108,6 @@ class UserRepository extends Repository
             return returnArr(false, 20008, '验证码错误！');
         }
         $data['password'] = bcrypt($data['password']);
-        $data['name'] = $data['username'];
         $res = $this->create($data);
         if ($res) {
             Redis::del('tel_'.$data['username']);
