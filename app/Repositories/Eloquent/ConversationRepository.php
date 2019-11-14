@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquent;
 
 use GuzzleHttp\Client;
 use Illuminate\Container\Container as App;
+use DB;
  
 class ConversationRepository extends Repository
 {
@@ -40,6 +41,28 @@ class ConversationRepository extends Repository
         }else {
 			return returnArr(false, 20003, '图片和内容不能同时为空');
 		}
-		
+	}
+
+	public function getConversationList($request)
+	{
+		$data = $request->all();
+		$pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+		$paginate = DB::table('cms_conversation as c')
+                    ->leftjoin('cms_user as u', function ($join) {
+                        $join->on('c.uid', '=', 'u.id');
+					})
+					->Where('c.deleted', '=', '0')
+					->Where('u.deleted', '=', '0')
+					->paginate($pageSize);
+        // $title = isset($data['title']) ? $data['title'] : '';
+        // $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+        // $describe = isset($data['describe']) ? $data['describe'] : '';
+        // $create_user = isset($data['create_user']) ? $data['create_user'] : '';
+        // $paginate = DB::table('cms_article as a')
+        //             ->leftjoin('cms_column as c', function ($join) {
+        //                 $join->on('a.type', '=', 'c.id');
+        //             })->paginate($pageSize);
+
+        return collection(returnArr($paginate));
 	}
 }

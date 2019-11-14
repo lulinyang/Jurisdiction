@@ -93,6 +93,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/login', 'UserController@login');
     //发布话题
     Route::post('/pushConversation', 'ConversationController@pushConversation');
+    Route::post('/getConversationList', 'ConversationController@getConversationList');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

@@ -14,9 +14,14 @@ class ConversationController extends Controller
     {
         $this->conversation = $conversation;
     }
-
+    
     public function pushConversation(Request $request)
     {
         return collect($this->conversation->pushConversation($request))->toJson();
+    }
+
+    public function getConversationList(Request $request)
+    {
+        return collect($this->conversation->getConversationList($request))->toJson();
     }
 }

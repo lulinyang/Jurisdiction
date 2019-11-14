@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 14/11/2019 09:43:14
+ Date: 14/11/2019 16:42:13
 */
 
 SET NAMES utf8mb4;
@@ -115,12 +115,18 @@ CREATE TABLE `cms_conversation`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
   `imgs` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '图片',
-  `create_user_id` int(11) NULL DEFAULT NULL COMMENT '创建人ID',
-  `browse_volume` int(11) NULL DEFAULT NULL COMMENT '浏览量',
+  `uid` int(11) NULL DEFAULT NULL COMMENT '创建人ID',
+  `browse_volume` int(11) NOT NULL DEFAULT 0 COMMENT '浏览量',
+  `deleted` tinyint(255) NOT NULL DEFAULT 0 COMMENT '是否删除',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cms_conversation
+-- ----------------------------
+INSERT INTO `cms_conversation` VALUES (2, '发布的内容', '发布的图片', 8, 0, 0, '2019-11-14 15:54:29', '2019-11-14 15:54:29');
 
 -- ----------------------------
 -- Table structure for cms_customer
@@ -391,17 +397,17 @@ CREATE TABLE `cms_user`  (
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
   `sex` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0女，1男',
   `headUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `delete` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `用户名`(`username`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_user
 -- ----------------------------
-INSERT INTO `cms_user` VALUES (5, '15655569098', '$2y$10$QeTIz/Yhuyui6nv0CwWqi.mA1eGCDG02O3fe8FjZwcqHJvDnmLMm6', 1, NULL, 0, '2019-11-13 20:00:21', '2019-11-13 20:00:21');
+INSERT INTO `cms_user` VALUES (6, '15655569098', '$2y$10$FrX54fIHtGIdDrURv5g7uu98Utj5okTkMqC9Y/3v0lRBcXdtfyUdi', 1, NULL, 0, '2019-11-14 11:14:19', '2019-11-14 11:14:19');
 
 -- ----------------------------
 -- Table structure for migrations
