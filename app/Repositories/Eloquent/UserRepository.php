@@ -129,4 +129,41 @@ class UserRepository extends Repository
         }
         return returnArr($res, 20002, '没有数据！');
     }
+
+    public function changePassword($request)
+    {
+        $data = $request->all();
+        if (!isset($data['username'])) {
+            return returnArr(false, 20001, '手机号不能为空！');
+        }
+
+        if (!isset($data['code'])) {
+            return returnArr(false, 20002, '验证码不能为空！');
+        }
+
+        if (!isset($data['password'])) {
+            return returnArr(false, 20003, '登录密码必填！');
+        }
+
+        if (!isset($data['reg_pwd'])) {
+            return returnArr(false, 20004, '确认密码必填！');
+        }
+
+        if ($data['password'] !== $data['reg_pwd']) {
+            return returnArr(false, 20005, '两次密码不一致！');
+        }
+
+        $cache = Redis::get('tel_'.$data['username']);
+        if($cache != $data['code']) {
+            return returnArr(false, 20006, '验证码错误！');
+        }
+
+        $data['password'] = bcrypt($data['password']);
+        $res = $this->update(['password' => $data['password']], $data['username'], 'username');
+        if($res) {
+            return returnArr($res, 200, '修改成功！');
+        }
+        
+        return returnArr(false, 20007, '修改失败！');
+    }
 }

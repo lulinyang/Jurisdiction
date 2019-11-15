@@ -58,4 +58,5 @@ class ConversationRepository extends Repository
 					->paginate($pageSize);
         return collection(returnArr($paginate));
 	}
+	
 }

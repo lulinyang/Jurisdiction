@@ -87,6 +87,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getUser', 'UserController@getUser');
     Route::post('/getUserById', 'UserController@getUserById');
     Route::post('/addUser', 'UserController@addUser');
+    Route::post('/changePassword', 'UserController@changePassword');
     // Route::post('/updateUser', 'UserController@addUser');
     // Route::post('/deleteUser', 'UserController@deleteUser');
     //用户登录

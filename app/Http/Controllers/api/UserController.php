@@ -43,4 +43,12 @@ class UserController extends Controller
     {
         return collect($this->user->addUser($request))->toJson();
     }
+
+    /**
+     * 修改密码
+     */
+    public function changePassword(Request $request)
+    {
+        return collect($this->user->changePassword($request))->toJson();
+    }
 }
