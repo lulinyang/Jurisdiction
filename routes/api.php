@@ -80,8 +80,10 @@ Route::group(['namespace' => 'api'], function () {
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //发送验证码
     Route::post('/sendMsg', 'CommonController@sendMsg');
+    //文章
     Route::post('/getColumn', 'ColumnController@getColumnList');
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
+    Route::post('/getArticleById', 'ArcticleController@getArticle');
     Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
     //用户管理
     Route::post('/getUser', 'UserController@getUser');
