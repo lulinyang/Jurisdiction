@@ -89,11 +89,10 @@ class ArcticleRepository extends Repository
     public function getArticle($request)
     {
         $params = $request->all();
-        $res = $this->getById($params['id']);
-        if (!$params['id']) {
+        if (!isset($params['id'])) {
             return returnArr(false, 20001, '缺少参数id！');
         }
-
+        $res = $this->getById($params['id']);
         if ($res) {
             return returnArr($res);
         }
@@ -104,7 +103,7 @@ class ArcticleRepository extends Repository
     public function deleteArcticle($request)
     {
         $params = $request->all();
-        if (!$params['id']) {
+        if (!isset($params['id'])) {
             return returnArr(false, 20001, '缺少参数id！');
         }
         $res = $this->update(['deleted' => 1], $params['id']);
@@ -114,5 +113,24 @@ class ArcticleRepository extends Repository
         }
 
         return returnArr(false, 20002, '没有文章！');
+    }
+
+    public function getArticleById($request)
+    {
+        $params = $request->all();
+        if (!isset($params['id'])) {
+            return returnArr(false, 20001, '缺少参数id！');
+        }
+        $res = DB::table('cms_article as a')
+                ->leftjoin('cms_column as c', function ($join) {
+                    $join->on('a.type', '=', 'c.id');
+                })->leftjoin('cms_customer as u', function ($join) {
+                    $join->on('a.create_user', '=', 'u.id');
+                })->Where('a.deleted', 0)
+                ->where('a.id', $params['id'])
+                ->select('a.*', 'c.name as typename', 'u.orgname as create_user_name')
+                ->first();
+        return returnArr($res);
+
     }
 }

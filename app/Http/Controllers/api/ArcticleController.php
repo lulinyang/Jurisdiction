@@ -42,4 +42,12 @@ class ArcticleController extends Controller
 
         return $result;
     }
+
+    
+    public function getArticleById(Request $request)
+    {
+        $result = collect($this->arcticle->getArticleById($request))->toJson();
+
+        return $result;
+    }
 }

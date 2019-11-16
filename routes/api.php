@@ -83,7 +83,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //文章
     Route::post('/getColumn', 'ColumnController@getColumnList');
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
-    Route::post('/getArticleById', 'ArcticleController@getArticle');
+    Route::post('/getArticleById', 'ArcticleController@getArticleById');
     Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
     //用户管理
     Route::post('/getUser', 'UserController@getUser');
