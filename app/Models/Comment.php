@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TopologicalGraph extends Model
+class Comment extends Model
 {
-    protected $table = 'cms_topological_graph';
+    protected $table = 'cms_comment';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'id', 'title', 'surname_id', 'pid', 'level', 'member_id', 'mate_id', 'top', 'sort', 'top', 'create_user', 'update_user','created_at', 'updated_at',
+        'id', 'type',  'theme_id', 'uid', 'pid', 'content','created_at', 'updated_at',
     ];
 
     /**

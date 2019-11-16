@@ -46,13 +46,21 @@ class TopologicalGraphRepository extends Repository
     public function addPedigree($request)
     {
         $data = $request->all();
+        $user = \Auth::guard('customer')->user();
         $isTop = isset($data['isTop']) ? $data['isTop'] : false;
         if (!$isTop) {
             $pidLevel = explode('-', $data['pidLevel']);
             $data['pid'] = $pidLevel[0];
             $data['level'] = $pidLevel[1];
+            $first = $this->findBy('pid', $pidLevel[0]);
+            if($first) {
+                return returnArr(false, 20001, '添加失败，第一代只能添加一个！');
+            }
         }
+
+
         if (!isset($data['id'])) {
+            $data['create_user'] = $user->id;
             $res = $this->model->create($data);
             if ($res) {
                 return returnArr($res);
@@ -72,6 +80,7 @@ class TopologicalGraphRepository extends Repository
                     'top' => $data['top'],
                 ];
             }
+            $arr['update_user'] = $user->id;
             $res = $this->update($arr, $data['id']);
             if ($res) {
                 return returnArr($res);

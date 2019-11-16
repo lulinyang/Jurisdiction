@@ -84,7 +84,6 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getColumn', 'ColumnController@getColumnList');
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
     Route::post('/getArticleById', 'ArcticleController@getArticleById');
-    Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
     //用户管理
     Route::post('/getUser', 'UserController@getUser');
     Route::post('/getUserById', 'UserController@getUserById');
@@ -97,11 +96,17 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //发布话题
     Route::post('/pushConversation', 'ConversationController@pushConversation');
     Route::post('/getConversationList', 'ConversationController@getConversationList');
+    //族谱
+    Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
+    Route::post('/getGenealogyById', 'SurnameController@getGenealogy');
+    //评论 Comment 
+    Route::post('/saveComment', 'CommentController@saveComment');
+    Route::post('/getComment', 'CommentController@getComment');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
 // Route::post('/aipSpeech', 'Controller@aipSpeechTest');
-// Route::post('/upEditImage', 'Controller@upEditImage');
+Route::post('/upEditImage', 'Controller@upEditImage');
 // Route::any('/wechat', 'WeChatController@serve');
 // Route::any('/getToken', 'WeChatController@getToken');
 // Route::any('/createMenu', 'WeChatController@createMenu');

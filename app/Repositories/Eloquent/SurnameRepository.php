@@ -79,6 +79,9 @@ class SurnameRepository extends Repository
     public function getGenealogy($request)
     {
         $params = $request->all();
+        if(!isset($params['id'])) {
+            return returnArr(false, 20001, '缺少ID参数！');
+        }
         $result = $this->getById($params['id']);
 
         return collection(returnArr($result));
