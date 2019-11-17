@@ -50,7 +50,6 @@ class CommentRepository extends Repository
 			return returnArr($res, 200, '评论成功！');
 		}
 		return returnArr($res, 20004, '评论失败！');
-		// dd($params);
 	}
 
 	public function getComment($request)
@@ -71,12 +70,18 @@ class CommentRepository extends Repository
 		if (!isset($params['pid'])) {
             $params['pid'] = 0;
 		}
-		$idArray = DB::table('cms_comment as c')
+		$pid = DB::table('cms_comment')
+			->where('id', $params['pid'])
+			->select('pid')
+			->first()->pid;
+		$idArray = DB::table('cms_comment')
 			->where('pid', $params['pid'])
 			->select('id')
 			->get();
+		
 		//每次查询所需要的pid
-		$ids = [$params['pid']];
+		$ids = [$params['pid']*1];
+		
 		if($idArray) {
 			foreach($idArray as $key => $val) {
 				$ids[] = $val->id;
@@ -91,14 +96,18 @@ class CommentRepository extends Repository
 			->where('c.theme_id', $params['theme_id'])
 			->where('c.deleted', 0)
 			->where('u.deleted', 0)
-			->whereIn('c.pid', $ids)
+			->where(function ($query) use ($ids, $params) {
+                $query->whereIn('c.pid', $ids)
+                      ->orWhere('c.id', $params['pid']);
+            })
 			->orderBy('created_at', 'desc')
 			->select('c.*', 'u.name', 'u.username', 'u.headUrl', 'u.sex')
-			->get()->map(function ($value) {
+			->get()
+			->map(function ($value) {
 				return (array) $value;
 			}
 			)->toArray();
-		$data = $this->getTree($res);
+		$data = $this->getTree($res, $pid);
 		return returnArr($data);
 	}
 
