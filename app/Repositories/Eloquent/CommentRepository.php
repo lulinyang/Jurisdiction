@@ -68,6 +68,20 @@ class CommentRepository extends Repository
             return returnArr(false, 20003, '缺少theme_id参数！');
 		}
 
+		if (!isset($params['pid'])) {
+            $params['pid'] = 0;
+		}
+		$idArray = DB::table('cms_comment as c')
+			->where('pid', $params['pid'])
+			->select('id')
+			->get();
+		//每次查询所需要的pid
+		$ids = [$params['pid']];
+		if($idArray) {
+			foreach($idArray as $key => $val) {
+				$ids[] = $val->id;
+			}
+		}
 		$res = DB::table('cms_comment as c')
 			->leftjoin('cms_user as u', function ($join) {
 				$join->on('c.uid', '=', 'u.id');
@@ -77,6 +91,7 @@ class CommentRepository extends Repository
 			->where('c.theme_id', $params['theme_id'])
 			->where('c.deleted', 0)
 			->where('u.deleted', 0)
+			->whereIn('c.pid', $ids)
 			->orderBy('created_at', 'desc')
 			->select('c.*', 'u.name', 'u.username', 'u.headUrl', 'u.sex')
 			->get()->map(function ($value) {
