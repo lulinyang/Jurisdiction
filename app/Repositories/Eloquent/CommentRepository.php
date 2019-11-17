@@ -70,10 +70,15 @@ class CommentRepository extends Repository
 		if (!isset($params['pid'])) {
             $params['pid'] = 0;
 		}
-		$pid = DB::table('cms_comment')
+		if($params['pid'] > 0) {
+			$pid = DB::table('cms_comment')
 			->where('id', $params['pid'])
 			->select('pid')
 			->first()->pid;
+		}else {
+			$pid = 0;
+		}
+		
 		$idArray = DB::table('cms_comment')
 			->where('pid', $params['pid'])
 			->select('id')
