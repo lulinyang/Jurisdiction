@@ -40,6 +40,7 @@ class ArcticleRepository extends Repository
             $filed = 'c.deleted';
             $type = '0';
         }
+        $sql = "SELECT COUNT(id) FROM cms_fabulous WHERE type = 1 AND theme_id = 24";
         $paginate = DB::table('cms_article as a')
                     ->leftjoin('cms_column as c', function ($join) {
                         $join->on('a.type', '=', 'c.id');
@@ -51,9 +52,14 @@ class ArcticleRepository extends Repository
                     ->Where('a.create_user', 'like', "%{$create_user}%")
                     ->Where($filed, '=', $type)
                     ->orderBy('a.created_at', 'desc')
-                    ->select('a.*', 'c.name as typename', 'u.orgname as create_user_name')
+                    ->select(
+                        'a.*', 
+                        'c.name as typename', 
+                        'u.orgname as create_user_name', 
+                        DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 1 AND theme_id = a.id) as fabulous_num")
+                    )
                     ->paginate($pageSize);
-
+        // dd(collection(returnArr($paginate)));
         return collection(returnArr($paginate));
     }
 
@@ -121,6 +127,39 @@ class ArcticleRepository extends Repository
         if (!isset($params['id'])) {
             return returnArr(false, 20001, '缺少参数id！');
         }
+        //是否点赞/收藏
+        $fabulous = false;
+        $collection = false;
+        if (isset($params['uid'])) {
+            $result = DB::table('cms_fabulous')
+                ->where([
+                    'type' => 1,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();
+
+            $result2 = DB::table('cms_collection')
+                ->where([
+                    'type' => 1,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();        
+            $fabulous = $result ? true : false;
+            $collection = $result2 ? true : false;
+        }
+        //点赞总数
+        $fabulous_num = DB::table('cms_fabulous')
+            ->where([
+                'type' => 1,
+                'theme_id' => $params['id']
+            ])->count();
+        //收藏总数
+        $collection_num  = DB::table('cms_collection')
+        ->where([
+            'type' => 1,
+            'theme_id' => $params['id']
+        ])->count();
+        // dd($fabulous_num);
         $res = DB::table('cms_article as a')
                 ->leftjoin('cms_column as c', function ($join) {
                     $join->on('a.type', '=', 'c.id');
@@ -130,7 +169,21 @@ class ArcticleRepository extends Repository
                 ->where('a.id', $params['id'])
                 ->select('a.*', 'c.name as typename', 'u.orgname as create_user_name')
                 ->first();
+        $res->isFabulous = $fabulous;
+        $res->fabulous_num = $fabulous_num;
+        $res->isCollection = $collection;
+        $res->collection_num = $collection_num;
         return returnArr($res);
+    }
 
+    public function addBrowseNum($request)
+    {
+        $params = $request->all();
+        if (isset($params['id'])) {
+            $res = DB::table('cms_article')->where('id', $params['id'])->increment('browse_num');
+            return returnArr($res);
+        }
+        // return returnArr(false, 20002, '！');
+        // dd(111);
     }
 }

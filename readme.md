@@ -4,9 +4,9 @@
 - php artisan migrate
 - php artisan passport:install
 
-<!--  Comment-->
+<!--  Collection-->
 ##开发技巧
-- php artisan make:controller api/UserCntroller
-- php artisan make:repository UserRepository 
-- php artisan make:model Models/User
+- php artisan make:controller api/CollectionController
+- php artisan make:repository CollectionRepository 
+- php artisan make:model Models/Collection
 

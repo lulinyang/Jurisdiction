@@ -50,4 +50,11 @@ class ArcticleController extends Controller
 
         return $result;
     }
+
+    public function addBrowseNum(Request $request)
+    {
+        $result = collect($this->arcticle->addBrowseNum($request))->toJson();
+
+        return $result;
+    }
 }

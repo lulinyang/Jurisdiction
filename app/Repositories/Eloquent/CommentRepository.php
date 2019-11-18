@@ -86,7 +86,6 @@ class CommentRepository extends Repository
 		
 		//每次查询所需要的pid
 		$ids = [$params['pid']*1];
-		
 		if($idArray) {
 			foreach($idArray as $key => $val) {
 				$ids[] = $val->id;
@@ -106,25 +105,43 @@ class CommentRepository extends Repository
                       ->orWhere('c.id', $params['pid']);
             })
 			->orderBy('created_at', 'desc')
-			->select('c.*', 'u.name', 'u.username', 'u.headUrl', 'u.sex')
+			->select(
+				'c.*', 
+				'u.name', 
+				'u.username', 
+				'u.headUrl', 
+				'u.sex', 
+				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 4 AND theme_id = c.id) as fabulous_num"))
 			->get()
 			->map(function ($value) {
 				return (array) $value;
 			}
 			)->toArray();
-		$data = $this->getTree($res, $pid);
+		$data = $this->getTree($res, $pid, $params);
 		return returnArr($data);
 	}
 
-	private function getTree($data, $pid = 0)
+	private function getTree($data, $pid = 0, $params)
     {
         $tree = array();
         foreach ($data as $k => $v) {
-            //父亲找到儿子
             if ($v['pid'] == $pid) {
-                $v['children'] = $this->getTree($data, $v['id']);
+				if(isset($params['uid'])) {
+					$fa = DB::table('cms_fabulous')->where([
+						'uid' => $params['uid'],
+						'type' => 4,
+						'theme_id' => $v['id']
+					])->first();
+					if($fa) {
+						$v['isFabulous'] = true;
+					}else {
+						$v['isFabulous'] = false;
+					}
+				}else {
+					$v['isFabulous'] = false;
+				}
+                $v['children'] = $this->getTree($data, $v['id'], $params);
                 $tree[] = $v;
-                //unset($data[$k]);
             }
         }
 

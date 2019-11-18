@@ -84,6 +84,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getColumn', 'ColumnController@getColumnList');
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
     Route::post('/getArticleById', 'ArcticleController@getArticleById');
+    Route::post('/addBrowseNum', 'ArcticleController@addBrowseNum');
     //用户管理
     Route::post('/getUser', 'UserController@getUser');
     Route::post('/getUserById', 'UserController@getUserById');
@@ -102,6 +103,11 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //评论 Comment 
     Route::post('/saveComment', 'CommentController@saveComment');
     Route::post('/getComment', 'CommentController@getComment');
+    //点赞
+    Route::post('/saveFabulous', 'FabulousController@saveFabulous');
+    //收藏
+    Route::post('/saveCollection', 'CollectionController@saveCollection');
+    Route::post('/cancelCollection', 'CollectionController@cancelCollection');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
