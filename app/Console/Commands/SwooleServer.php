@@ -49,15 +49,15 @@ class SwooleServer extends Command
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
             var_dump($frame->data);
-            return redirect()->action(
-            'WebSocketController@test', [
-                'transId' => 'ss',
-                'userId' => 'ss'
-            ]);
+            $controller = new WebSocketController();
+            $controller->test([
+                'transId' => 'transId',
+                'userId' => 'userId'
+             ]);
             // //推送给所有链接
-            foreach ($server->connections as $fd){
-                $server->push($fd,$content);
-            }
+            // foreach ($server->connections as $fd){
+            //     $server->push($fd,$content);
+            // }
         });
 
         //关闭链接回调

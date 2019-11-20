@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 class WebSocketController extends Controller
 {
     //
-    public function test(Request $request)
+    public function test(\Swoole\WebSocket\Server $server)
     {
         echo 'aaa';
-        // dd('sss');
+        foreach ($server->connections as $fd){
+            $server->push($fd,'aaaaaaaaaaa');
+        }
     }
 }
