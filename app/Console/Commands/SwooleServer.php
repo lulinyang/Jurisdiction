@@ -48,8 +48,12 @@ class SwooleServer extends Command
         //收到消息回调
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
-
-            //推送给所有链接
+            return redirect()->action(
+            'WebSocketController@test', [
+                'transId' => 'ss',
+                'userId' => 'ss'
+            ]);
+            // //推送给所有链接
             foreach ($server->connections as $fd){
                 $server->push($fd,$content);
             }
