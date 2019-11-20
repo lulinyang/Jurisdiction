@@ -50,8 +50,9 @@ class SwooleServer extends Command
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
             var_dump(json_decode($frame->data, true));
+            $data = json_decode($frame->data, true);
             $controller = new WebSocketController();
-            $controller->test($server, $content);
+            $controller->$data['action']($server, $data['content']);
             // // //推送给所有链接
             // foreach ($server->connections as $fd){
             //     $server->push($fd,$content);
