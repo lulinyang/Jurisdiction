@@ -51,11 +51,8 @@ class SwooleServer extends Command
             $content = $frame->data;
             var_dump($frame->data);
             $controller = new WebSocketController();
-            $controller->test([
-                'transId' => 'transId',
-                'userId' => 'userId'
-             ]);
-            // //推送给所有链接
+            $controller->test($server, $content);
+            // // //推送给所有链接
             // foreach ($server->connections as $fd){
             //     $server->push($fd,$content);
             // }
