@@ -49,14 +49,17 @@ class SwooleServer extends Command
         //收到消息回调
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
-            $data = json_decode($frame->data, true);
-            $action = $data['action'];
-            $controller = new WebSocketController();
-            $controller->$action($server, $data['content']);
-            // // //推送给所有链接
-            // foreach ($server->connections as $fd){
-            //     $server->push($fd,$content);
-            // }
+            try {
+                $data = json_decode($frame->data, true);
+                $action = $data['action'];
+                $controller = new WebSocketController();
+                $controller->$action($server, $data['content']);
+            } catch (\Throwable $th) {
+                // //推送给所有链接
+                foreach ($server->connections as $fd){
+                    $server->push($fd,$content);
+                }
+            }
         });
 
         //关闭链接回调
