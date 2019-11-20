@@ -42,4 +42,11 @@ class SurnameController extends Controller
 
         return $result;
     }
+
+    public function addBrowseNum(Request $request)
+    {
+        $result = collect($this->surname->addBrowseNum($request))->toJson();
+
+        return $result;
+    }
 }

@@ -82,8 +82,51 @@ class SurnameRepository extends Repository
         if(!isset($params['id'])) {
             return returnArr(false, 20001, '缺少ID参数！');
         }
-        $result = $this->getById($params['id']);
+        //是否点赞/收藏
+        $fabulous = false;
+        $collection = false;
+        if (isset($params['uid'])) {
+            $result = DB::table('cms_fabulous')
+                ->where([
+                    'type' => 1,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();
 
+            $result2 = DB::table('cms_collection')
+                ->where([
+                    'type' => 1,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();        
+            $fabulous = $result ? true : false;
+            $collection = $result2 ? true : false;
+        }
+        //点赞总数
+        $fabulous_num = DB::table('cms_fabulous')
+            ->where([
+                'type' => 2,
+                'theme_id' => $params['id']
+            ])->count();
+        //收藏总数
+        $collection_num  = DB::table('cms_collection')
+        ->where([
+            'type' => 2,
+            'theme_id' => $params['id']
+        ])->count();
+        //评论总数
+        $comment_num  = DB::table('cms_comment')
+        ->where([
+            'type' => 2,
+            'theme_id' => $params['id']
+        ])->count();
+        $result = $this->getById($params['id']);
+        $result->isFabulous = $fabulous;
+        $result->fabulous_num = $fabulous_num;
+        $result->isCollection = $collection;
+        $result->collection_num = $collection_num;
+        $result->comment_num = $comment_num;
+        // DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 1 AND theme_id = a.id) as comment_num");
         return collection(returnArr($result));
     }
 
@@ -95,6 +138,15 @@ class SurnameRepository extends Repository
             return returnArr($res, 200, '删除成功！');
         } else {
             return returnArr(false, 20002, '删除失败！！');
+        }
+    }
+
+    public function addBrowseNum($request)
+    {
+        $params = $request->all();
+        if (isset($params['id'])) {
+            $res = DB::table('cms_surname')->where('id', $params['id'])->increment('browse_volume');
+            return returnArr($res);
         }
     }
 }

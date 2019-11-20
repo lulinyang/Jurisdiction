@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use DB;
 
 class CheckUserApi
 {
@@ -16,7 +17,17 @@ class CheckUserApi
      */
     public function handle($request, Closure $next)
     {
-        $apiKey = isset($request->all()['apiKey']) ? $request->all()['apiKey'] : false;
+        $apiKey = isset($request->apiKey) ? $request->apiKey : false;
+        $uid = isset($request->uid) ? $request->uid : false;
+        if($uid) {
+            $user = DB::table('cms_user')->where([
+                'deleted' => 0,
+                'id' => $uid
+            ])->first();
+            if(!$user) {
+                abort(405, 'not allowed.'); 
+            }
+        }
         if ($apiKey && $apiKey === 'iSqQiR68eFhYnYQ1CwZJgCxdnUMNdqJiUcIHq4Gg') {
             return $next($request);
         }

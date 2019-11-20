@@ -56,7 +56,8 @@ class ArcticleRepository extends Repository
                         'a.*', 
                         'c.name as typename', 
                         'u.orgname as create_user_name', 
-                        DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 1 AND theme_id = a.id) as fabulous_num")
+                        DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 1 AND theme_id = a.id) as fabulous_num"),
+                        DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 1 AND theme_id = a.id) as comment_num")
                     )
                     ->paginate($pageSize);
         // dd(collection(returnArr($paginate)));

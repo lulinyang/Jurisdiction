@@ -16,8 +16,8 @@ abstract class Repository implements RepositoryInterface, ApiRepositoryInterface
 {
     private $app;
     protected $model;
-    protected $userInfo;
-    protected $statusCode = 200;
+    // protected $userInfo;
+    // protected $statusCode = 200;
 
     /**
      * 依赖注入 Container与创建模型.

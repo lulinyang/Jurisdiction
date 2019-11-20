@@ -14,7 +14,7 @@ class Surname extends Model
      */
     protected $fillable = [
         'id', 'area_surname', 'thumbnail', 'describe', 'brief_introduction', 'user_id', 'username', 'orgname',
-        'orgcode', 'deleted', 'created_at', 'updated_at',
+        'orgcode', 'deleted', 'browse_volume', 'created_at', 'updated_at',
     ];
 
     /**

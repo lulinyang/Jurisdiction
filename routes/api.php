@@ -84,12 +84,14 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getColumn', 'ColumnController@getColumnList');
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
     Route::post('/getArticleById', 'ArcticleController@getArticleById');
-    Route::post('/addBrowseNum', 'ArcticleController@addBrowseNum');
+    Route::post('/addBrowseNumArctice', 'ArcticleController@addBrowseNum');
     //用户管理
     Route::post('/getUser', 'UserController@getUser');
     Route::post('/getUserById', 'UserController@getUserById');
     Route::post('/addUser', 'UserController@addUser');
     Route::post('/changePassword', 'UserController@changePassword');
+    Route::post('/editUserInfo', 'UserController@editUserInfo');
+    Route::post('/modifyPwd', 'UserController@modifyPwd');
     // Route::post('/updateUser', 'UserController@addUser');
     // Route::post('/deleteUser', 'UserController@deleteUser');
     //用户登录
@@ -97,9 +99,12 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //发布话题
     Route::post('/pushConversation', 'ConversationController@pushConversation');
     Route::post('/getConversationList', 'ConversationController@getConversationList');
+    Route::post('/addBrowseNumConversation', 'ConversationController@addBrowseNum');
+    Route::post('/getConversationById', 'ConversationController@getConversationById');
     //族谱
     Route::post('/getGenealogy', 'SurnameController@getGenealogyList');
     Route::post('/getGenealogyById', 'SurnameController@getGenealogy');
+    Route::post('/addBrowseNumGenealogy', 'SurnameController@addBrowseNum');
     //评论 Comment 
     Route::post('/saveComment', 'CommentController@saveComment');
     Route::post('/getComment', 'CommentController@getComment');

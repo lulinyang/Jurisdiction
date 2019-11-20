@@ -22,7 +22,9 @@ class UserController extends Controller
     {
         return collect($this->user->login($request))->toJson();
     }
-
+    /**
+     * 用户信息
+     */
     public function getUserById(Request $request)
     {
         return collect($this->user->getUserById($request))->toJson(); 
@@ -45,10 +47,22 @@ class UserController extends Controller
     }
 
     /**
-     * 修改密码
+     * 忘记密码
      */
     public function changePassword(Request $request)
     {
         return collect($this->user->changePassword($request))->toJson();
+    }
+    /**
+     * 编辑用户信息
+     */
+    public function editUserInfo(Request $request)
+    {
+        return collect($this->user->editUserInfo($request))->toJson();
+    }
+
+    public function modifyPwd(Request $request)
+    {
+        return collect($this->user->modifyPwd($request))->toJson();
     }
 }

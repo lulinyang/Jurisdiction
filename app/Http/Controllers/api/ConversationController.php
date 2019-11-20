@@ -24,4 +24,18 @@ class ConversationController extends Controller
     {
         return collect($this->conversation->getConversationList($request))->toJson();
     }
+
+    public function addBrowseNum(Request $request)
+    {
+        $result = collect($this->conversation->addBrowseNum($request))->toJson();
+
+        return $result;
+    }
+
+    public function getConversationById(Request $request)
+    {
+        $result = collect($this->conversation->getConversationById($request))->toJson();
+
+        return $result;
+    }
 }
