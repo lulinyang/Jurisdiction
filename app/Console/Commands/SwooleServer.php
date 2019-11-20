@@ -48,6 +48,7 @@ class SwooleServer extends Command
         //收到消息回调
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
+            var_dump($frame->data);
             return redirect()->action(
             'WebSocketController@test', [
                 'transId' => 'ss',

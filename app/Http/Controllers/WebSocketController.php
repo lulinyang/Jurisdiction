@@ -10,6 +10,6 @@ class WebSocketController extends Controller
     public function test(Request $request)
     {
         echo 'aaa';
-        dd('sss');
+        // dd('sss');
     }
 }
