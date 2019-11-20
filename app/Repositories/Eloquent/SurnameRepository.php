@@ -88,17 +88,17 @@ class SurnameRepository extends Repository
         if (isset($params['uid'])) {
             $result = DB::table('cms_fabulous')
                 ->where([
-                    'type' => 1,
+                    'type' => 2,
                     'uid' => $params['uid'],
                     'theme_id' => $params['id']
                 ])->first();
 
             $result2 = DB::table('cms_collection')
                 ->where([
-                    'type' => 1,
+                    'type' => 2,
                     'uid' => $params['uid'],
                     'theme_id' => $params['id']
-                ])->first();        
+                ])->first(); 
             $fabulous = $result ? true : false;
             $collection = $result2 ? true : false;
         }
