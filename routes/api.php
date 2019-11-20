@@ -131,4 +131,4 @@ Route::post('/upEditImage', 'Controller@upEditImage');
 // ALIOSS_KEYSECRET=V2KHD8jHYJZmPEDVzGOvLWTqC5CRuy
 // ALIOSS_BUCKETNAME=lulinyang
 
-Route::any('/test', 'WebSocketController@test');
+Route::get('/test', 'WebSocketController@test');
