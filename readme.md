@@ -10,3 +10,6 @@
 - php artisan make:repository CollectionRepository 
 - php artisan make:model Models/Collection
 
+##开启wesocket
+- php artisan swoole:server
+
