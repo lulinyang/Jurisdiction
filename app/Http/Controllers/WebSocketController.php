@@ -13,4 +13,12 @@ class WebSocketController extends Controller
             $server->push($fd,$content);
         }
     }
+
+    public function add($server, $content)
+    {   
+        // //推送给所有链接
+        foreach ($server->connections as $fd){
+            $server->push($fd,$content.'------------>');
+        }
+    }
 }

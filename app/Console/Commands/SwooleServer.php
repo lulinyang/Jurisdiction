@@ -49,9 +49,7 @@ class SwooleServer extends Command
         //收到消息回调
         $server->on('message', function (\Swoole\WebSocket\Server $server, $frame) {
             $content = $frame->data;
-            var_dump(json_decode($frame->data, true));
             $data = json_decode($frame->data, true);
-            var_dump($data['action']);
             $action = $data['action'];
             $controller = new WebSocketController();
             $controller->$action($server, $data['content']);
