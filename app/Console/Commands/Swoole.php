@@ -59,11 +59,11 @@ class Swoole extends Command
 
         //监听WebSocket消息事件
         $this->ws->on('message', function ($ws, $frame) {
-            // echo "Message: {$frame->data}\n";
+            echo "Message: {$frame->data}\n";
             // $ws->push($frame->fd, "server: {$frame->data}");
             // var_dump($ws->connection_info($frame->fd));
             //fd绑定客户端传过来的标识uid
-            $ws->bind($frame->fd, $frame->data);
+            // $ws->bind($frame->fd, $frame->data);
         });
 
         $this->ws->on('request', function ($request, $response) {
