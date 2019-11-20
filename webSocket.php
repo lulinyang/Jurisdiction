@@ -11,8 +11,8 @@ $http->set([
 //工作进程启动
 $http->on('WorkerStart', function ($serv, $worker_id) {
     //加载index文件的内容
-    require __DIR__ . '/../vendor/autoload.php';
-    require_once __DIR__ . '/../bootstrap/app.php';
+    require __DIR__ . './vendor/autoload.php';
+    require_once __DIR__ . './bootstrap/app.php';
 });
 
 //监听http请求
