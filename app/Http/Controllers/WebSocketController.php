@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 class WebSocketController extends Controller
 {
     //
-    public function test(\Swoole\WebSocket\Server $server)
-    {
+    public function test(Request $request)
+    {   
+        var_dump($request->transId);
         echo 'aaa';
-        foreach ($server->connections as $fd){
-            $server->push($fd,'aaaaaaaaaaa');
-        }
+        // foreach ($server->connections as $fd){
+        //     $server->push($fd,'aaaaaaaaaaa');
+        // }
     }
 }
