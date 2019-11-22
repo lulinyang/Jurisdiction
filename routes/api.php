@@ -132,3 +132,5 @@ Route::post('/upEditImage', 'Controller@upEditImage');
 // ALIOSS_BUCKETNAME=lulinyang
 
 Route::get('/test', 'WebSocketController@test');
+
+Route::post('/testCron', 'CronController@test');
