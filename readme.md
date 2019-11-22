@@ -13,3 +13,7 @@
 ##开启wesocket
 - php artisan swoole:server
 
+<!-- php artisan write:time-stamp -->
+##创建计划任务
+- php artisan make:command writeRedis --command=write:redis
+
