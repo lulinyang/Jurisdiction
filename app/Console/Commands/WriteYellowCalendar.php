@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use DB;
 
 class WriteYellowCalendar extends Command
 {
@@ -66,7 +67,8 @@ class WriteYellowCalendar extends Command
                     'created_at' => date('Y-m-d H:m:s', time())
                 ];
                 $res = DB::table('cms_yellow_calendar')->insert($arr);
-                return returnApi($res);
+                echo 'true';
+                // return returnApi($res);
             }else{
                 echo $result['error_code'].":".$result['reason'];
             }
