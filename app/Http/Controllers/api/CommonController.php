@@ -123,8 +123,6 @@ class CommonController extends Controller
             return returnApi(false, 20001, '缺少手机号！');
         }
         $to = $params['tel'];
-        // $user = DB::table('cms_user')->where('username', $to)->first();
-        // dd($user);
         $accountSid = '8a216da86e011fa3016e54b341f32ce8';
         $accountToken = '0510dbc31b374310bc6000923cda336a';
         $appId = '8a216da86e011fa3016e54b342462cee';
@@ -147,33 +145,39 @@ class CommonController extends Controller
         }
     }
 
-    public function getCalendar(Request $request)
+    public function historyToday()
     {
-        $appkey = "d063a846103b0549502b8567adabe6e2";
+        $appkey = "6822593cc5c48bb8e5447ef088ac5f3e";
+        $dateArr = explode("-", Date('Y-m-d', time()));
         $params = array(
             "key" => $appkey,
-            "date" => Date('Y-m-d', time()),
+            "v" => "1.0",//版本，当前：1.0
+            "month" => $dateArr[1],//月份，如：10
+            "day" => $dateArr[2],//日，如：1
         );
-        $url = "http://v.juhe.cn/laohuangli/d";
+        $url = "http://api.juheapi.com/japi/toh";
         $paramstring = http_build_query($params);
         $content = juhecurl($url,$paramstring);
         $result = json_decode($content,true);
         if($result){
             if($result['error_code']=='0'){
-                $arr = [
-                    'yangli' => $result['result']['yangli'],
-                    'yinli' => $result['result']['yinli'],
-                    'wuxing' => $result['result']['wuxing'],
-                    'chongsha' => $result['result']['chongsha'],
-                    'baiji' => $result['result']['baiji'],
-                    'jishen' => $result['result']['jishen'],
-                    'yi' => $result['result']['yi'],
-                    'xiongshen' => $result['result']['xiongshen'],
-                    'ji' => $result['result']['ji'],
-                    'created_at' => date('Y-m-d H:m:s', time())
-                ];
-                $res = DB::table('cms_yellow_calendar')->insert($arr);
-                return returnApi($res);
+                $arr = [];
+                foreach($result['result'] as $value) {
+                    $item = [];
+                    $item["title"] = $value['title'];
+                    $item["pic"] = $value['pic'];
+                    $item["year"] = $value['year'];
+                    $item["month"] = $value['month'];
+                    $item["day"] = $value['day'];
+                    $item["des"] = $value['des'];
+                    $item["lunar"] = $value['lunar'];
+                    $item["created_at"] = date('Y-m-d H:m:s', time());
+                    $arr[] = $item;
+                }
+               
+                $res = DB::table('cms_history_today')->insert($arr);
+                echo 'true';
+                // return returnApi($res);
             }else{
                 echo $result['error_code'].":".$result['reason'];
             }

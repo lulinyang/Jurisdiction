@@ -15,5 +15,7 @@
 
 <!-- php artisan write:time-stamp -->
 ##创建计划任务
-- php artisan make:command writeRedis --command=write:redis
+- php artisan make:command WriteRedis --command=write:redis
+- php artisan make:command WriteHistoryToday --command=write:historyToday
+<!-- HistoryToday -->
 

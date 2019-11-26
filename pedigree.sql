@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 26/11/2019 15:57:07
+ Date: 26/11/2019 16:53:54
 */
 
 SET NAMES utf8mb4;
@@ -399,6 +399,55 @@ INSERT INTO `cms_fabulous` VALUES (51, 4, 84, 6, '2019-11-18 18:27:27', '2019-11
 INSERT INTO `cms_fabulous` VALUES (52, 4, 83, 6, '2019-11-18 18:27:29', '2019-11-18 18:27:29');
 INSERT INTO `cms_fabulous` VALUES (53, 3, 6, 6, '2019-11-18 18:30:30', '2019-11-18 18:30:30');
 INSERT INTO `cms_fabulous` VALUES (54, 2, 4, 6, '2019-11-20 22:18:09', '2019-11-20 22:18:09');
+
+-- ----------------------------
+-- Table structure for cms_history_today
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_history_today`;
+CREATE TABLE `cms_history_today`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `year` int(255) NOT NULL,
+  `month` int(255) NOT NULL,
+  `day` int(255) NOT NULL,
+  `des` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `lunar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `created_at` datetime NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cms_history_today
+-- ----------------------------
+INSERT INTO `cms_history_today` VALUES (1, '西班牙女王伊莎贝尔一世逝世', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201108/4/6D01131193.jpg', 1504, 11, 26, '在515年前的今天，1504年11月26日 (农历十月二十)，西班牙女王伊莎贝尔一世逝世。', '甲子年十月二十', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (2, '晚清重臣曾国藩出生', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/28/79233926637.jpg', 1811, 11, 26, '在208年前的今天，1811年11月26日 (农历十月十一)，晚清重臣曾国藩出生。', '辛未年十月十一', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (3, '拿破仑强渡别列津纳河', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/28/FB235944651.jpg', 1812, 11, 26, '在207年前的今天，1812年11月26日 (农历十月廿三)，拿破仑强渡别列津纳河。', '壬申年十月廿三', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (4, '波兰诗人、革命家密茨凯维支逝世', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/28/4A234436446.jpg', 1855, 11, 26, '在164年前的今天，1855年11月26日 (农历十月十七)，波兰诗人、革命家密茨凯维支逝世。', '乙卯年十月十七', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (5, '空调发明人威利斯·开利出生', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/28/31235044685.jpg', 1876, 11, 26, '在143年前的今天，1876年11月26日 (农历十月十一)，空调发明人威利斯·开利出生。', '丙子年十月十一', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (6, '罗荣桓元帅诞辰', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201411/26/121122273.jpg', 1902, 11, 26, '在117年前的今天，1902年11月26日 (农历十月廿七)，罗荣桓元帅诞辰。', '壬寅年十月廿七', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (7, '中国同盟会机关报《民报》创刊', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200411/26/842349218.jpg', 1905, 11, 26, '在114年前的今天，1905年11月26日 (农历十月三十)，中国同盟会机关报《民报》创刊。', '乙巳年十月三十', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (8, '吉林边务督办陈昭常派兵将天宝山银矿收归官有', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/29/1E0202683.jpg', 1907, 11, 26, '在112年前的今天，1907年11月26日 (农历十月廿一)，吉林边务督办陈昭常派兵将天宝山银矿收归官有。', '丁未年十月廿一', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (9, '青年共产国际成立', '', 1919, 11, 26, '在100年前的今天，1919年11月26日 (农历十月初五)，青年共产国际成立。', '己未年十月初五', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (10, '德国将华沙的犹太人驱进犹太人居住区', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200905/17/81231458816.jpg', 1940, 11, 26, '在79年前的今天，1940年11月26日 (农历十月廿七)，德国将华沙的犹太人驱进犹太人居住区。', '庚辰年十月廿七', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (11, '陈若克英勇就义', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/29/F601546232.jpg', 1941, 11, 26, '在78年前的今天，1941年11月26日 (农历十月初八)，陈若克英勇就义。', '辛巳年十月初八', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (12, '法国发射第一个人造地球卫星', '', 1965, 11, 26, '1965年11月26日 (农历冬月初四)，法国发射第一个人造地球卫星。', '乙巳年冬月初四', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (13, '美国把两艘核动力舰投入侵越战争', '', 1965, 11, 26, '1965年11月26日 (农历冬月初四)，美国把两艘核动力舰投入侵越战争。', '乙巳年冬月初四', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (14, '日本首相田中角荣辞职', '', 1974, 11, 26, '1974年11月26日 (农历十月十三)，日本首相田中角荣辞职。', '甲寅年十月十三', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (15, '亚洲奥林匹克理事会成立', '', 1981, 11, 26, '1981年11月26日 (农历冬月初一)，亚洲奥林匹克理事会成立。', '辛酉年冬月初一', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (16, '国务院批准首批博士硕士学位授予单位', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201111/28/8023429403.jpg', 1981, 11, 26, '1981年11月26日 (农历冬月初一)，国务院批准首批博士硕士学位授予单位。', '辛酉年冬月初一', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (17, '岳阳楼大修工程开始', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200911/22/2214498274.jpg', 1982, 11, 26, '1982年11月26日 (农历十月十二)，岳阳楼大修工程开始。', '壬戌年十月十二', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (18, '意大利同意部署美国导弹', '', 1983, 11, 26, '1983年11月26日 (农历十月廿二)，意大利同意部署美国导弹。', '癸亥年十月廿二', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (19, '英国发生历史上最大的抢劫案', '', 1983, 11, 26, '1983年11月26日 (农历十月廿二)，英国发生历史上最大的抢劫案。', '癸亥年十月廿二', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (20, '美驻哥伦比亚大使馆被炸', '', 1984, 11, 26, '1984年11月26日 (农历闰十月初四)，美驻哥伦比亚大使馆被炸。', '甲子年闰十月初四', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (21, '美航天飞机“阿特兰蒂斯”号升空', '', 1985, 11, 26, '1985年11月26日 (农历十月十五)，美航天飞机“阿特兰蒂斯”号升空。', '乙丑年十月十五', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (22, '深圳首次有偿出让土地使用权', '', 1987, 11, 26, '1987年11月26日 (农历十月初六)，深圳首次有偿出让土地使用权。', '丁卯年十月初六', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (23, '学者冯友兰逝世', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200905/17/2D23555597.jpg', 1990, 11, 26, '1990年11月26日 (农历十月初十)，学者冯友兰逝世。', '庚午年十月初十', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (24, '上海证券交易所开业', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200905/17/B623556234.jpg', 1990, 11, 26, '1990年11月26日 (农历十月初十)，上海证券交易所开业。', '庚午年十月初十', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (25, '瀛海威大辞职', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/200905/17/1A23115836.jpg', 1998, 11, 26, '1998年11月26日 (农历十月初八)，瀛海威大辞职。', '戊寅年十月初八', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (26, '中国移动成为全球最大移动通信运营商', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201312/15/3220487813.jpg', 2001, 11, 26, '2001年11月26日 (农历十月十二)，中国移动成为全球最大移动通信运营商。', '辛巳年十月十二', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
+INSERT INTO `cms_history_today` VALUES (27, '中国海军护航舰队今天起锚赴索马里海域', 'http://juheimg.oss-cn-hangzhou.aliyuncs.com/toh/201011/9/1211362010277425.jpg', 2008, 11, 26, '2008年11月26日 (农历十月廿九)，中国海军护航舰队今天起锚赴索马里海域。', '戊子年十月廿九', '2019-11-26 16:11:41', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for cms_home_menu
