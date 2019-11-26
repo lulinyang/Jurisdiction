@@ -11,7 +11,7 @@
  Target Server Version : 50553
  File Encoding         : 65001
 
- Date: 20/11/2019 18:24:14
+ Date: 26/11/2019 15:57:07
 */
 
 SET NAMES utf8mb4;
@@ -68,6 +68,21 @@ INSERT INTO `cms_article` VALUES (23, '中国演出市场经济', '\\/uploads\\/
 INSERT INTO `cms_article` VALUES (24, '香港青年天津交流团', '\\/uploads\\/20191116/macpiQqOmmz8Tn8UEAtwCnUED2yJ4Idzm53TnTI5.jpeg', 10, NULL, 1, '香港青年天津交流团来津开展交流活动', '<p><span class=\"f-bold\" style=\"padding: 0px; margin: 0px; box-sizing: border-box; font-weight: bold;\">内容提要：</span>12日至16日，“津港同行创青春”香港青年天津交流团来津开展交流活动。15日，市政协副主席魏大鹏与交流团一行座谈交流。</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><br/></p><p><img height=\"446\" src=\"http://pic.enorth.com.cn/004/108/733/00410873318_443a712c.jpg\" width=\"600\" style=\"border: none; vertical-align: middle; padding: 0px; margin: 0px auto; box-sizing: border-box; display: block; height: inherit;\"/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\">市政协副主席魏大鹏</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><span style=\"font-weight: 700;\">天津北方网讯：</span>12日至16日，“津港同行创青春”香港青年天津交流团来津开展交流活动。15日，市政协副主席魏大鹏与交流团一行座谈交流。</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><br/></p><p><img height=\"400\" src=\"http://pic.enorth.com.cn/004/108/733/00410873319_66abfe5b.jpg\" width=\"600\" style=\"border: none; vertical-align: middle; padding: 0px; margin: 0px auto; box-sizing: border-box; display: block; height: inherit;\"/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\">座谈会现场</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\">座谈会上，交流团成员畅谈收获体会。大家表示，近年来，天津经济社会发展势头迅猛，与香港在经贸、科技、教育、文化、体育等方面的交流日益密切。我们将以此次活动为契机，不断深化对祖国内地的了解，为促进津港两地在更多领域实现务实合作作出更大贡献。</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\">魏大鹏代表市政协对交流团来津表示欢迎。他说，通过此次活动我们结识了许多新朋友，为今后进一步合作交流打下了坚实基础。希望香港青年通过天津这个窗口，更加深刻认识新中国走过的不平凡道路和取得的巨大成就，更加深刻理解“一国两制”与坚持和发展中国特色社会主义、实现中华民族伟大复兴中国梦的内在联系，进一步增强国家认同、民族认同、文化认同。同时，希望各位青年朋友能够成为津港友谊的使者，为促进两地交流合作作出积极贡献。</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\"><br/></p><p><img height=\"400\" src=\"http://pic.enorth.com.cn/004/108/733/00410873320_bb73d2d3.jpg\" width=\"600\" style=\"border: none; vertical-align: middle; padding: 0px; margin: 0px auto; box-sizing: border-box; display: block; height: inherit;\"/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\">参观天津团泊体育中心</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p><img height=\"400\" src=\"http://pic.enorth.com.cn/004/108/733/00410873331_eaf65954.jpg\" width=\"600\" style=\"border: none; vertical-align: middle; padding: 0px; margin: 0px auto; box-sizing: border-box; display: block; height: inherit;\"/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\">与天津天海足球俱乐部友谊比赛</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p><img height=\"400\" src=\"http://pic.enorth.com.cn/004/108/733/00410873332_1a4dcac0.jpg\" width=\"600\" style=\"border: none; vertical-align: middle; padding: 0px; margin: 0px auto; box-sizing: border-box; display: block; height: inherit;\"/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\">参观萨马兰奇纪念馆</p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box;\"><br/></p><p style=\"margin-top: 0px; margin-bottom: 0px; padding: 0px 0px 13px; box-sizing: border-box; text-indent: 2em;\">在津期间，交流团一行考察了国家海洋博物馆、中新生态城图书馆、了凡纪念馆、中关村科技城、南开大学、天津博物馆、天津卓郎科技有限公司、天津团泊体育中心、萨马兰奇纪念馆等，与天津天海足球俱乐部进行了友谊比赛，感受了天津发展成就，接受了爱国主义教育。（津云新闻编辑付勇钧 摄影记者戴涛）</p><p><br/></p>', 50, 0, 0, 0, '2019-11-16 13:29:06', '2019-11-16 13:29:06');
 
 -- ----------------------------
+-- Table structure for cms_banner
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_banner`;
+CREATE TABLE `cms_banner`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `imgUrl` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图片地址',
+  `isLink` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否链接',
+  `link` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '链接地址',
+  `deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `created_at` datetime NULL,
+  `updated` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for cms_collection
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_collection`;
@@ -79,12 +94,13 @@ CREATE TABLE `cms_collection`  (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of cms_collection
 -- ----------------------------
 INSERT INTO `cms_collection` VALUES (5, 1, 24, 6, '2019-11-17 18:15:49', '2019-11-17 18:15:49');
+INSERT INTO `cms_collection` VALUES (15, 2, 4, 6, '2019-11-20 22:20:41', '2019-11-20 22:20:41');
 INSERT INTO `cms_collection` VALUES (14, 2, 11, 6, '2019-11-18 13:32:21', '2019-11-18 13:32:21');
 
 -- ----------------------------
@@ -101,7 +117,7 @@ CREATE TABLE `cms_column`  (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_column
@@ -110,6 +126,12 @@ INSERT INTO `cms_column` VALUES (1, '生活趣事', 'admin', 'admin', 0, '2019-0
 INSERT INTO `cms_column` VALUES (4, '神话传说', NULL, 'admin', 0, '2019-07-04 05:08:14', '2019-07-04 05:08:14');
 INSERT INTO `cms_column` VALUES (6, '人物传记', NULL, 'admin', 0, '2019-07-04 05:24:12', '2019-07-04 05:24:12');
 INSERT INTO `cms_column` VALUES (10, '新闻资讯', NULL, 'admin', 0, '2019-11-08 19:38:22', '2019-11-08 19:38:22');
+INSERT INTO `cms_column` VALUES (11, '黄历', NULL, 'admin', 0, '2019-11-23 14:47:12', '2019-11-23 14:47:12');
+INSERT INTO `cms_column` VALUES (12, '啊啊撒', NULL, 'admin', 0, '2019-11-23 14:48:54', '2019-11-23 14:48:54');
+INSERT INTO `cms_column` VALUES (13, '阿信啊', NULL, 'admin', 0, '2019-11-23 14:54:30', '2019-11-23 14:54:30');
+INSERT INTO `cms_column` VALUES (14, 'AS', NULL, 'admin', 0, '2019-11-23 14:59:37', '2019-11-23 14:59:37');
+INSERT INTO `cms_column` VALUES (15, 'zax', NULL, 'admin', 0, '2019-11-23 15:00:38', '2019-11-23 15:00:38');
+INSERT INTO `cms_column` VALUES (16, 'saxax', NULL, 'admin', 0, '2019-11-23 15:01:38', '2019-11-23 15:01:38');
 
 -- ----------------------------
 -- Table structure for cms_comment
@@ -222,6 +244,21 @@ INSERT INTO `cms_comment` VALUES (87, 3, 5, 6, 0, 'kkk', 1, 0, '2019-11-18 18:27
 INSERT INTO `cms_comment` VALUES (88, 3, 6, 6, 0, '6666', 1, 0, '2019-11-18 18:30:34', '2019-11-18 18:30:34');
 
 -- ----------------------------
+-- Table structure for cms_config
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_config`;
+CREATE TABLE `cms_config`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '配置名称',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '配置内容',
+  `deleted` tinyint(255) NOT NULL COMMENT '是否删除',
+  `created_at` datetime NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `unique`(`config_name`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for cms_conversation
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_conversation`;
@@ -288,7 +325,7 @@ CREATE TABLE `cms_customer`  (
 -- ----------------------------
 -- Records of cms_customer
 -- ----------------------------
-INSERT INTO `cms_customer` VALUES (1, 1, '200001', '200001', '楼主', '管理员', 'admin', '15655569098@163.com', '$2y$10$S7E0u5Y5Pg0faxBr3rf.Ouduu/VVwghmRa.kxcFdEnC3.F1L81Zw6', '15655569098', NULL, '\\/uploads\\/20190629/42JVMxfV4nKwPPWDIHwRNbxsuVA6s99UhGWOIPQL.jpeg', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-11-16 16:48:22', '127.0.0.1', NULL, NULL, NULL, '2019-06-24 19:52:03', '2019-11-16 16:48:22');
+INSERT INTO `cms_customer` VALUES (1, 1, '200001', '200001', '楼主', '管理员', 'admin', '15655569098@163.com', '$2y$10$S7E0u5Y5Pg0faxBr3rf.Ouduu/VVwghmRa.kxcFdEnC3.F1L81Zw6', '15655569098', NULL, '\\/uploads\\/20190629/42JVMxfV4nKwPPWDIHwRNbxsuVA6s99UhGWOIPQL.jpeg', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-11-25 22:45:45', '127.0.0.1', NULL, NULL, NULL, '2019-06-24 19:52:03', '2019-11-25 22:45:45');
 INSERT INTO `cms_customer` VALUES (3, 1, '200001', '20000101', '姑苏蓝氏', NULL, 'linyang', '1228380958@qq.com', '$2y$10$Tn/SE2dJ./a134sTO.TZ8.kDwh88KxTZyLSj1bJFUTyZ1UBM0TxtC', NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, '2019-06-29 02:48:59', '127.0.0.1', NULL, NULL, NULL, '2019-06-28 07:37:14', '2019-11-10 08:47:43');
 
 -- ----------------------------
@@ -303,7 +340,7 @@ CREATE TABLE `cms_fabulous`  (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+) ENGINE = MyISAM AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of cms_fabulous
@@ -361,6 +398,23 @@ INSERT INTO `cms_fabulous` VALUES (50, 4, 87, 6, '2019-11-18 18:27:26', '2019-11
 INSERT INTO `cms_fabulous` VALUES (51, 4, 84, 6, '2019-11-18 18:27:27', '2019-11-18 18:27:27');
 INSERT INTO `cms_fabulous` VALUES (52, 4, 83, 6, '2019-11-18 18:27:29', '2019-11-18 18:27:29');
 INSERT INTO `cms_fabulous` VALUES (53, 3, 6, 6, '2019-11-18 18:30:30', '2019-11-18 18:30:30');
+INSERT INTO `cms_fabulous` VALUES (54, 2, 4, 6, '2019-11-20 22:18:09', '2019-11-20 22:18:09');
+
+-- ----------------------------
+-- Table structure for cms_home_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_home_menu`;
+CREATE TABLE `cms_home_menu`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '菜单名称',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '图标',
+  `sort` tinyint(1) NOT NULL DEFAULT 0 COMMENT '排序',
+  `router` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '前端路由',
+  `deleted` tinyint(1) NOT NULL COMMENT '是否删除',
+  `created_at` datetime NULL,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for cms_member
@@ -460,12 +514,12 @@ CREATE TABLE `cms_permissions`  (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_permissions
 -- ----------------------------
-INSERT INTO `cms_permissions` VALUES (1, '用户中心', '', 'user', 'el-icon-user-solid', '', 0, 0, 0, 11, 0, '2019-06-27 03:16:12', '2019-07-04 04:48:41');
+INSERT INTO `cms_permissions` VALUES (1, '后台用户中心', '', 'user', 'el-icon-user-solid', '', 0, 0, 0, 11, 0, '2019-06-27 03:16:12', '2019-11-23 14:10:14');
 INSERT INTO `cms_permissions` VALUES (2, '文章管理', '', 'article', 'el-icon-document-copy', '', 0, 0, 0, 1, 0, '2019-06-27 03:17:27', '2019-07-04 04:48:10');
 INSERT INTO `cms_permissions` VALUES (3, '用户管理', '/api/getUserList', 'user-list', NULL, '', 1, 1, 0, 0, 0, '2019-06-27 03:17:46', '2019-06-29 02:52:45');
 INSERT INTO `cms_permissions` VALUES (4, '角色管理', '/api/getRolesAll', 'role-list', NULL, '', 1, 1, 0, 0, 0, '2019-06-27 03:18:16', '2019-06-29 22:21:25');
@@ -476,6 +530,11 @@ INSERT INTO `cms_permissions` VALUES (8, '族谱列表', '', 'genealogy-list', N
 INSERT INTO `cms_permissions` VALUES (10, '成员管理', '', 'member-list', NULL, '', 7, 1, 0, 0, 0, '2019-07-01 03:24:37', '2019-07-01 03:24:37');
 INSERT INTO `cms_permissions` VALUES (11, '文章列表', '', 'article-list', NULL, '', 2, 1, 0, 0, 0, '2019-07-03 05:35:21', '2019-07-04 03:29:42');
 INSERT INTO `cms_permissions` VALUES (13, '栏目管理', '', 'column-list', NULL, '', 2, 1, 0, 0, 0, '2019-07-03 05:35:59', '2019-07-04 03:30:29');
+INSERT INTO `cms_permissions` VALUES (14, '基础设置', '', 'setting', 'el-icon-s-tools', '', 0, 0, 0, 0, 0, '2019-11-23 14:11:02', '2019-11-23 14:11:48');
+INSERT INTO `cms_permissions` VALUES (15, '默认头像', '', 'default-head', NULL, '', 14, 1, 0, 0, 0, '2019-11-23 14:13:57', '2019-11-23 14:13:57');
+INSERT INTO `cms_permissions` VALUES (17, '用户管理', '', 'user-management', 'el-icon-user-solid', '', 0, 0, 0, 0, 0, '2019-11-23 14:16:48', '2019-11-23 14:16:48');
+INSERT INTO `cms_permissions` VALUES (18, '话题管理', '', 'topic-management', 'el-icon-bangzhu', '', 0, 0, 0, 0, 0, '2019-11-23 14:19:33', '2019-11-23 14:19:33');
+INSERT INTO `cms_permissions` VALUES (19, '首页配置', '', 'home-setting', NULL, '', 14, 1, 0, 0, 0, '2019-11-25 11:50:53', '2019-11-25 11:50:53');
 
 -- ----------------------------
 -- Table structure for cms_roles
@@ -523,7 +582,7 @@ CREATE TABLE `cms_surname`  (
 -- ----------------------------
 -- Records of cms_surname
 -- ----------------------------
-INSERT INTO `cms_surname` VALUES (4, '吴郡陆氏', '\\/uploads\\/20190630/7gNBsnhixu9aTvEAKfb4brqxVOQ9UdHdQeMud7mG.jpeg', 'SSSassssss杀死', '<p>任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社大阪6月29日电 题：重启中美经贸磋商尤需诚意和行动</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社记者韩洁　刘春燕</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">6月29日，雨后放晴的日本大阪见证了本次二十国集团（G20）领导人峰会上最受瞩目的一刻：经过1个多小时会晤，中国国家主席习近平和美国总统特朗普同意，在平等和相互尊重基础上重启经贸磋商，美方不再对中国产品加征新的关税。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">这一结果给阴云笼罩的世界经济带来新的曙光：重启磋商就意味着中美经贸问题将回到正常轨道上进行，更稳定的中美关系有利于中国，有利于美国，也有利于全世界。磋商总是要讨论分歧的，分歧是客观存在的，我们希望通过磋商解决分歧，但也要保持平常心看待重启磋商，解决中美经贸问题需要更多诚意和行动。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中美合则两利、斗则俱伤，以对话而非对抗方式解决分歧，始终是正确选择。此次会晤伊始，习近平主席以48年前发生在日本名古屋的中美“乒乓外交”开场，颇有深意。当前，中美关系遇到一些困难，这不符合双方利益，也背离了中美建交40年来的发展大势。双边贸易从不足25亿美元到超过6300亿美元，每天平均1.4万人乘坐航班往返于太平洋两岸……历史和事实证明，中美利益高度交融，合作领域广阔，不应该落入所谓冲突对抗的陷阱。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多诚意——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">去年底在阿根廷举行的G20峰会犹在眼前。今年以来，双方经贸团队落实中美元首共识重启磋商几个月后，美方又大搞极限施压、漫天要价，并不断推动中美经贸摩擦升级。任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多行动——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">行胜于言。越到关键时刻，越考验彼此智慧，越需要化解分歧的务实行动。如果没有平等和相互尊重的具体行动，依然反复“变脸”、漫天要价，重启的磋商也不会有结果。越到关键时刻，越要坚守原则底线，只有尊重彼此的核心关切，中美合作的道路才能越走越宽。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">在中国共产党坚强领导下，近14亿中国人民有志气、有能力实现“两个一百年”奋斗目标，不论发生什么问题，中国人民都必将风雨无阻前进。不论重启磋商结果如何，中国都必将走好自己的路、办好自己的事。此次G20峰会上，习近平主席又宣布了五项扩大开放新举措，中国深化改革开放的脚步更加坚定、从容，时与势始终在我们一边。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中国人民期待，美方能同中方一道，顺应开放合作的时代潮流，积极搭建对话沟通的桥梁，以务实行动管控好分歧，推进以协调、合作、稳定为基调的中美关系，更好造福两国人民、更多惠及世界各国人民。（完）</p><p><br/></p>', 'admin', 1, '顶级机构', '200001', 14, 0, '2019-11-18 16:27:42', '2019-07-01 02:53:09');
+INSERT INTO `cms_surname` VALUES (4, '吴郡陆氏', '\\/uploads\\/20190630/7gNBsnhixu9aTvEAKfb4brqxVOQ9UdHdQeMud7mG.jpeg', 'SSSassssss杀死', '<p>任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社大阪6月29日电 题：重启中美经贸磋商尤需诚意和行动</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社记者韩洁　刘春燕</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">6月29日，雨后放晴的日本大阪见证了本次二十国集团（G20）领导人峰会上最受瞩目的一刻：经过1个多小时会晤，中国国家主席习近平和美国总统特朗普同意，在平等和相互尊重基础上重启经贸磋商，美方不再对中国产品加征新的关税。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">这一结果给阴云笼罩的世界经济带来新的曙光：重启磋商就意味着中美经贸问题将回到正常轨道上进行，更稳定的中美关系有利于中国，有利于美国，也有利于全世界。磋商总是要讨论分歧的，分歧是客观存在的，我们希望通过磋商解决分歧，但也要保持平常心看待重启磋商，解决中美经贸问题需要更多诚意和行动。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中美合则两利、斗则俱伤，以对话而非对抗方式解决分歧，始终是正确选择。此次会晤伊始，习近平主席以48年前发生在日本名古屋的中美“乒乓外交”开场，颇有深意。当前，中美关系遇到一些困难，这不符合双方利益，也背离了中美建交40年来的发展大势。双边贸易从不足25亿美元到超过6300亿美元，每天平均1.4万人乘坐航班往返于太平洋两岸……历史和事实证明，中美利益高度交融，合作领域广阔，不应该落入所谓冲突对抗的陷阱。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多诚意——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">去年底在阿根廷举行的G20峰会犹在眼前。今年以来，双方经贸团队落实中美元首共识重启磋商几个月后，美方又大搞极限施压、漫天要价，并不断推动中美经贸摩擦升级。任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多行动——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">行胜于言。越到关键时刻，越考验彼此智慧，越需要化解分歧的务实行动。如果没有平等和相互尊重的具体行动，依然反复“变脸”、漫天要价，重启的磋商也不会有结果。越到关键时刻，越要坚守原则底线，只有尊重彼此的核心关切，中美合作的道路才能越走越宽。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">在中国共产党坚强领导下，近14亿中国人民有志气、有能力实现“两个一百年”奋斗目标，不论发生什么问题，中国人民都必将风雨无阻前进。不论重启磋商结果如何，中国都必将走好自己的路、办好自己的事。此次G20峰会上，习近平主席又宣布了五项扩大开放新举措，中国深化改革开放的脚步更加坚定、从容，时与势始终在我们一边。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中国人民期待，美方能同中方一道，顺应开放合作的时代潮流，积极搭建对话沟通的桥梁，以务实行动管控好分歧，推进以协调、合作、稳定为基调的中美关系，更好造福两国人民、更多惠及世界各国人民。（完）</p><p><br/></p>', 'admin', 1, '顶级机构', '200001', 16, 0, '2019-11-23 12:36:14', '2019-07-01 02:53:09');
 INSERT INTO `cms_surname` VALUES (5, '清河崔氏', '\\/uploads\\/20190630/zXg1MjL59hX7ea0fQ5QfThAfjDj0dWCq4iQzspfc.jpeg', '啊啊啊', '<p><span style=\"color: #9cdcfe;\"></span></p><p>任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社大阪6月29日电 题：重启中美经贸磋商尤需诚意和行动</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社记者韩洁　刘春燕</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">6月29日，雨后放晴的日本大阪见证了本次二十国集团（G20）领导人峰会上最受瞩目的一刻：经过1个多小时会晤，中国国家主席习近平和美国总统特朗普同意，在平等和相互尊重基础上重启经贸磋商，美方不再对中国产品加征新的关税。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">这一结果给阴云笼罩的世界经济带来新的曙光：重启磋商就意味着中美经贸问题将回到正常轨道上进行，更稳定的中美关系有利于中国，有利于美国，也有利于全世界。磋商总是要讨论分歧的，分歧是客观存在的，我们希望通过磋商解决分歧，但也要保持平常心看待重启磋商，解决中美经贸问题需要更多诚意和行动。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中美合则两利、斗则俱伤，以对话而非对抗方式解决分歧，始终是正确选择。此次会晤伊始，习近平主席以48年前发生在日本名古屋的中美“乒乓外交”开场，颇有深意。当前，中美关系遇到一些困难，这不符合双方利益，也背离了中美建交40年来的发展大势。双边贸易从不足25亿美元到超过6300亿美元，每天平均1.4万人乘坐航班往返于太平洋两岸……历史和事实证明，中美利益高度交融，合作领域广阔，不应该落入所谓冲突对抗的陷阱。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多诚意——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">去年底在阿根廷举行的G20峰会犹在眼前。今年以来，双方经贸团队落实中美元首共识重启磋商几个月后，美方又大搞极限施压、漫天要价，并不断推动中美经贸摩擦升级。任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多行动——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">行胜于言。越到关键时刻，越考验彼此智慧，越需要化解分歧的务实行动。如果没有平等和相互尊重的具体行动，依然反复“变脸”、漫天要价，重启的磋商也不会有结果。越到关键时刻，越要坚守原则底线，只有尊重彼此的核心关切，中美合作的道路才能越走越宽。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">在中国共产党坚强领导下，近14亿中国人民有志气、有能力实现“两个一百年”奋斗目标，不论发生什么问题，中国人民都必将风雨无阻前进。不论重启磋商结果如何，中国都必将走好自己的路、办好自己的事。此次G20峰会上，习近平主席又宣布了五项扩大开放新举措，中国深化改革开放的脚步更加坚定、从容，时与势始终在我们一边。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中国人民期待，美方能同中方一道，顺应开放合作的时代潮流，积极搭建对话沟通的桥梁，以务实行动管控好分歧，推进以协调、合作、稳定为基调的中美关系，更好造福两国人民、更多惠及世界各国人民。（完）</p><p><span style=\"color: #9cdcfe;\"></span><br/></p><p><br/></p>', 'admin', 1, '顶级机构', '200001', 0, 0, '2019-07-01 02:57:13', '2019-07-01 02:56:13');
 INSERT INTO `cms_surname` VALUES (6, '陇西李氏', '\\/uploads\\/20190630/AjqCmyGq8xFtLQrqPgwsTZDJq9RjIl4GkFNwxH1g.jpeg', '阿达大大', '<p>任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社大阪6月29日电 题：重启中美经贸磋商尤需诚意和行动</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">新华社记者韩洁　</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">6月29日，雨后放晴的日本大阪见证了本次二十国集团（G20）领导人峰会上最受瞩目的一刻：经过1个多小时会晤，中国国家主席习近平和美国总统特朗普同意，在平等和相互尊重基础上重启经贸磋商，美方不再对中国产品加征新的关税。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">这一结果给阴云笼罩的世界经济带来新的曙光：重启磋商就意味着中美经贸问题将回到正常轨道上进行，更稳定的中美关系有利于中国，有利于美国，也有利于全世界。磋商总是要讨论分歧的，分歧是客观存在的，我们希望通过磋商解决分歧，但也要保持平常心看待重启磋商，解决中美经贸问题需要更多诚意和行动。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中美合则两利、斗则俱伤，以对话而非对抗方式解决分歧，始终是正确选择。此次会晤伊始，习近平主席以48年前发生在日本名古屋的中美“乒乓外交”开场，颇有深意。当前，中美关系遇到一些困难，这不符合双方利益，也背离了中美建交40年来的发展大势。双边贸易从不足25亿美元到超过6300亿美元，每天平均1.4万人乘坐航班往返于太平洋两岸……历史和事实证明，中美利益高度交融，合作领域广阔，不应该落入所谓冲突对抗的陷阱。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多诚意——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">去年底在阿根廷举行的G20峰会犹在眼前。今年以来，双方经贸团队落实中美元首共识重启磋商几个月后，美方又大搞极限施压、漫天要价，并不断推动中美经贸摩擦升级。任何唯我独尊、自我优先、损人利己的做法都是不得人心、不受欢迎的。这次中美重启磋商，必须建立在平等和相互尊重基础上，这是化解分歧的前提和路径。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">重启经贸磋商，需要更多行动——</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">行胜于言。越到关键时刻，越考验彼此智慧，越需要化解分歧的务实行动。如果没有平等和相互尊重的具体行动，依然反复“变脸”、漫天要价，重启的磋商也不会有结果。越到关键时刻，越要坚守原则底线，只有尊重彼此的核心关切，中美合作的道路才能越走越宽。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">在中国共产党坚强领导下，近14亿中国人民有志气、有能力实现“两个一百年”奋斗目标，不论发生什么问题，中国人民都必将风雨无阻前进。不论重启磋商结果如何，中国都必将走好自己的路、办好自己的事。此次G20峰会上，习近平主席又宣布了五项扩大开放新举措，中国深化改革开放的脚步更加坚定、从容，时与势始终在我们一边。</p><p class=\"one-p\" style=\"margin-top: 0px; margin-bottom: 2em; padding: 0px; line-height: 2.2; overflow-wrap: break-word; font-family: &quot;Microsoft Yahei&quot;, Avenir, &quot;Segoe UI&quot;, &quot;Hiragino Sans GB&quot;, STHeiti, &quot;Microsoft Sans Serif&quot;, &quot;WenQuanYi Micro Hei&quot;, sans-serif; font-size: 18px; white-space: normal;\">中国人民期待，美方能同中方一道，顺应开放合作的时代潮流，积极搭建对话沟通的桥梁，以务实行动管控好分歧，推进以协调、合作、稳定为基调的中美关系，更好造福两国人民、更多惠及世界各国人民。（完）</p><p><br/></p>', 'admin', 1, '顶级机构', '200001', 0, 0, '2019-11-08 17:33:12', '2019-11-08 17:33:12');
 INSERT INTO `cms_surname` VALUES (7, '云梦江氏', '\\/uploads\\/20191108/qT76XFGSGGXSlNh5zoPeYS7UihMsZbpMvCqsP4jr.jpeg', '云梦江氏', '<p><span style=\"color: #333333; font-family: arial, 宋体, sans-serif; font-size: 14px; text-indent: 28px; background-color: #FFFFFF;\">仙门世家四大家族之一，家族所在为莲花坞，家徽为九瓣莲。先祖江迟为游侠出身，立“明知不可为而为之”为唯一家训。</span></p>', 'admin', 1, '顶级机构', '200001', 0, 0, '2019-11-08 17:58:29', '2019-11-08 17:58:29');
@@ -585,6 +644,31 @@ CREATE TABLE `cms_user`  (
 -- Records of cms_user
 -- ----------------------------
 INSERT INTO `cms_user` VALUES (6, '15655569098', '$2y$10$FrX54fIHtGIdDrURv5g7uu98Utj5okTkMqC9Y/3v0lRBcXdtfyUdi', '鲁班', 1, '\\/uploads\\/20191119/AhBDVlsxb1so9A57trSVervrJwDrxyvuuxhaOoGt.jpeg', 0, '2019-11-14 19:14:19', '2019-11-19 11:05:49');
+
+-- ----------------------------
+-- Table structure for cms_yellow_calendar
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_yellow_calendar`;
+CREATE TABLE `cms_yellow_calendar`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `yangli` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '阳历',
+  `yinli` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '	阴历',
+  `wuxing` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '五行',
+  `chongsha` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '冲煞',
+  `baiji` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '彭祖百忌',
+  `jishen` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '吉神宜趋',
+  `yi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '宜',
+  `xiongshen` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '凶神宜忌',
+  `ji` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '忌',
+  `created_at` datetime NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cms_yellow_calendar
+-- ----------------------------
+INSERT INTO `cms_yellow_calendar` VALUES (1, '2019-11-26', '己亥(猪)年十一月初一', '炉中火 定执位', '冲鸡(辛酉)煞西', '丁不剃头头必生疮 卯不穿井水泉不香', '阴德 民日 三合 时阴 五合 鸣犬对', '祭祀 祈福 订盟 纳采 裁衣 拆卸 修造 动土 起基 安床 移徙 入宅 安香 入殓 移柩 安葬 谢土 赴任 进人口 会亲友', '元武', '作灶 治病', '2019-11-26 15:11:27', '2019-11-26 15:49:27');
 
 -- ----------------------------
 -- Table structure for migrations
@@ -812,6 +896,8 @@ INSERT INTO `oauth_access_tokens` VALUES ('fd1a17c21f9be72a9e21430fd0afd84fea01c
 INSERT INTO `oauth_access_tokens` VALUES ('a31f32f4cf0868180a80c4cb306aaccb24b51aee5e0af5289a231ee9760313dc0d77237a3f83d726', 1, 2, NULL, '[]', 0, '2019-11-10 04:17:33', '2019-11-10 04:17:33', '2019-11-24 20:17:33');
 INSERT INTO `oauth_access_tokens` VALUES ('6734dfb4dd8b66339810599838b9c43a83dd81b3dadbbb1f8306d6df739d3838df97b3773af9e64e', 1, 2, NULL, '[]', 0, '2019-11-10 04:21:34', '2019-11-10 04:21:34', '2019-11-24 20:21:34');
 INSERT INTO `oauth_access_tokens` VALUES ('3aaba4bfe523d26a70188f535bb372997e18397a73335b1d9fb9ac5355b0bf3c61799dc14ec2e92e', 1, 2, NULL, '[]', 0, '2019-11-16 13:27:56', '2019-11-16 13:27:56', '2019-12-01 13:27:55');
+INSERT INTO `oauth_access_tokens` VALUES ('eeac0c78585a1b7716f5380b20caf5b5ff8cf41cc380bf4bd2d02b168c52ae1448dee0fc6e91631d', 1, 2, NULL, '[]', 0, '2019-11-23 14:08:44', '2019-11-23 14:08:44', '2019-12-08 14:08:44');
+INSERT INTO `oauth_access_tokens` VALUES ('70813b9ba6ff9c5ef39432c02604af37c065ea4fed39aa6562115ec0169d710840608bfb3fe4f804', 1, 2, NULL, '[]', 0, '2019-11-25 09:59:17', '2019-11-25 09:59:17', '2019-12-10 09:59:17');
 
 -- ----------------------------
 -- Table structure for oauth_auth_codes
@@ -1065,6 +1151,8 @@ INSERT INTO `oauth_refresh_tokens` VALUES ('4c0857964a10a32834e8f845902e2d68a189
 INSERT INTO `oauth_refresh_tokens` VALUES ('e950853dbc29b65b4b26555ede136eed316ac83ae35c2cf605d6a9ae27dd2f27ce50610e413ec999', 'a31f32f4cf0868180a80c4cb306aaccb24b51aee5e0af5289a231ee9760313dc0d77237a3f83d726', 0, '2019-12-09 20:17:33');
 INSERT INTO `oauth_refresh_tokens` VALUES ('9bfee9142ed5f68083bf126dc2fa6d47b629915222dd91b4b2ddb636e53b81860fd03a88afc8ab80', '6734dfb4dd8b66339810599838b9c43a83dd81b3dadbbb1f8306d6df739d3838df97b3773af9e64e', 0, '2019-12-09 20:21:34');
 INSERT INTO `oauth_refresh_tokens` VALUES ('e126750e2b8effe5f74111f82c5a6e59ea95d1b3bb2eedf8127b4b272599d42b0134983d89a5755b', '3aaba4bfe523d26a70188f535bb372997e18397a73335b1d9fb9ac5355b0bf3c61799dc14ec2e92e', 0, '2019-12-16 13:27:55');
+INSERT INTO `oauth_refresh_tokens` VALUES ('3c7949f25b62e1d6ae32a6737588a58c02159de8bc96f8d2989b892a637c775de814786e7b48a75a', 'eeac0c78585a1b7716f5380b20caf5b5ff8cf41cc380bf4bd2d02b168c52ae1448dee0fc6e91631d', 0, '2019-12-23 14:08:44');
+INSERT INTO `oauth_refresh_tokens` VALUES ('fc709055e2c28c0ec772edc9e6862ea91cf611affcaad8b3a21cb74cdbf80599adce60cd00bda80c', '70813b9ba6ff9c5ef39432c02604af37c065ea4fed39aa6562115ec0169d710840608bfb3fe4f804', 0, '2019-12-25 09:59:17');
 
 -- ----------------------------
 -- Table structure for password_resets

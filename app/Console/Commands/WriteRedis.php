@@ -39,8 +39,6 @@ class WriteRedis extends Command
     public function handle()
     {
         //
-        $this->info('开始执行...');
         Redis::incr('id');
-        $this->info('执行结束...');
     }
 }

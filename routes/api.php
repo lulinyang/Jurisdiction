@@ -75,6 +75,7 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
 Route::group(['namespace' => 'api'], function () {
     Route::post('/upOssImage', 'CommonController@upOssImage');
     Route::post('/upImage', 'CommonController@upImage');
+    Route::post('/getCalendar', 'CommonController@getCalendar');
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {

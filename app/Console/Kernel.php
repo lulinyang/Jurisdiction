@@ -26,6 +26,7 @@ class Kernel extends ConsoleKernel
     {
         // 每分钟执行一次
         $schedule->command('write:redis')->everyMinute();
+        $schedule->command('write:yellowCalendar')->everyMinute();
     }
 
     /**

@@ -280,7 +280,6 @@ function cateSort($array, $pid = 0, $level = 0)
 }
 
  //十进制转换三十六进制
-
  function enid($int, $format = 2)
  {
      $dic = array(
@@ -305,7 +304,6 @@ function cateSort($array, $pid = 0, $level = 0)
 
 function post_url($url, $data)
 {
-    // dd($url, $data);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -341,4 +339,36 @@ function returnArr($data, $code = 200, $stateMsg = 'Success')
     ];
 
     return $arr;
+}
+
+function juhecurl($url, $params = false, $ispost=0) 
+{
+    $httpInfo = array();
+    $ch = curl_init();
+    curl_setopt( $ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1 );
+    curl_setopt( $ch, CURLOPT_USERAGENT, 'JuheData' );
+    curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 60 );
+    curl_setopt( $ch, CURLOPT_TIMEOUT, 60 );
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+    curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+    if($ispost) {
+        curl_setopt( $ch, CURLOPT_POST, true);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $params );
+        curl_setopt( $ch, CURLOPT_URL, $url );
+    }else {
+        if($params) {
+            curl_setopt( $ch, CURLOPT_URL, $url.'?'.$params );
+        }else{
+            curl_setopt( $ch, CURLOPT_URL, $url );
+        }
+    }
+    $response = curl_exec($ch);
+    if ($response === FALSE) {
+        return false;
+    }
+
+    $httpCode = curl_getinfo($ch , CURLINFO_HTTP_CODE);
+    $httpInfo = array_merge($httpInfo, curl_getinfo($ch));
+    curl_close($ch);
+    return $response;
 }

@@ -32,7 +32,7 @@ class ColumnRepository extends Repository
         $name = isset($data['name']) ? $data['name'] : '';
         $paginate = DB::table('cms_column')
                     ->Where('name', 'like', "%{$name}%")
-                    ->orderBy('created_at', 'desc')
+                    // ->orderBy('created_at', 'desc')
                     ->paginate(15);
 
         return collection(returnArr($paginate));

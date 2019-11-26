@@ -144,11 +144,41 @@ class CommonController extends Controller
         } else {
             Redis::setex('tel_'.$to, 5 * 60, $code);
             return returnApi('模板短信发送成功!');
-            // 获取返回信息
-            // $smsmessage = $result->TemplateSMS;
-            // echo 'dateCreated:'.$smsmessage->dateCreated.'';
-            // echo 'smsMessageSid:'.$smsmessage->smsMessageSid.'';
-            //下面可以自己添加成功处理逻辑
+        }
+    }
+
+    public function getCalendar(Request $request)
+    {
+        $appkey = "d063a846103b0549502b8567adabe6e2";
+        $params = array(
+            "key" => $appkey,
+            "date" => Date('Y-m-d', time()),
+        );
+        $url = "http://v.juhe.cn/laohuangli/d";
+        $paramstring = http_build_query($params);
+        $content = juhecurl($url,$paramstring);
+        $result = json_decode($content,true);
+        if($result){
+            if($result['error_code']=='0'){
+                $arr = [
+                    'yangli' => $result['result']['yangli'],
+                    'yinli' => $result['result']['yinli'],
+                    'wuxing' => $result['result']['wuxing'],
+                    'chongsha' => $result['result']['chongsha'],
+                    'baiji' => $result['result']['baiji'],
+                    'jishen' => $result['result']['jishen'],
+                    'yi' => $result['result']['yi'],
+                    'xiongshen' => $result['result']['xiongshen'],
+                    'ji' => $result['result']['ji'],
+                    'created_at' => date('Y-m-d H:m:s', time())
+                ];
+                $res = DB::table('cms_yellow_calendar')->insert($arr);
+                return returnApi($res);
+            }else{
+                echo $result['error_code'].":".$result['reason'];
+            }
+        }else{
+            echo "请求失败";
         }
     }
 }
