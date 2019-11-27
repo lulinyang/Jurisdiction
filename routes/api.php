@@ -69,6 +69,14 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getArcticlList', 'ArcticleController@getArcticlList');
     Route::get('/getArticle', 'ArcticleController@getArticle');
     Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
+    /**
+     * 页面设置及系统配置
+     */
+    Route::post('/addBanner', 'SettingController@addBanner');
+    Route::get('/getBanner', 'SettingController@getBanner');
+    Route::post('/delBanner', 'SettingController@delBanner');
+    Route::post('/addMenu', 'SettingController@addMenu');
+    Route::get('/getMenu', 'SettingController@getMenu');
 });
 
 //公共接口
@@ -76,6 +84,11 @@ Route::group(['namespace' => 'api'], function () {
     Route::post('/upOssImage', 'CommonController@upOssImage');
     Route::post('/upImage', 'CommonController@upImage');
     Route::post('/historyToday', 'CommonController@historyToday');
+    Route::post('/getWeather', 'CommonController@getWeather');
+    Route::post('/getHuangLi', 'CommonController@getHuangLi');
+    //设置用户位置
+    Route::post('/setPosition', 'CommonController@setPosition');
+    
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {

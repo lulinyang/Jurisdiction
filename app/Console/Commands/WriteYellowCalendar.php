@@ -64,7 +64,7 @@ class WriteYellowCalendar extends Command
                     'yi' => $result['result']['yi'],
                     'xiongshen' => $result['result']['xiongshen'],
                     'ji' => $result['result']['ji'],
-                    'created_at' => date('Y-m-d H:m:s', time())
+                    'created_at' => date('Y-m-d H:i:s', time())
                 ];
                 $res = DB::table('cms_yellow_calendar')->insert($arr);
                 echo 'true';

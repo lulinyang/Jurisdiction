@@ -67,7 +67,7 @@ class WriteHistoryToday extends Command
                     $item["day"] = $value['day'];
                     $item["des"] = $value['des'];
                     $item["lunar"] = $value['lunar'];
-                    $item["created_at"] = date('Y-m-d H:m:s', time());
+                    $item["created_at"] = date('Y-m-d H:i:s', time());
                     $arr[] = $item;
                 }
                

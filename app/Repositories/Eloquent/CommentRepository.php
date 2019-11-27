@@ -56,7 +56,7 @@ class CommentRepository extends Repository
 	{
 		$params = $request->all();
 		if(!isset($params['uid'])) {
-			return returnArr(false, 20001, '缺少uid参数！');
+			return returnArr(false, 20001, '你还没登录！');
 		}
 
 		if (!isset($params['type'])) {

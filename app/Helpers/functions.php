@@ -64,75 +64,7 @@ function isset_and_not_empty($arr, $column)
     return (isset($arr[$column]) && $arr[$column]) ? $arr[$column] : '';
 }
 
-/**
- * 过滤用户输入数据.
- *
- * @param $str
- *
- * @return mixed
- */
-function trimall($str)
-{
-    $qian = array(' ', '　', "\t", "\n", "\r");
-    $qian = array(' ', '　', "\t");
-    $hou = array('', '', '');
 
-    return str_replace($qian, $hou, $str);
-}
-
-/**
- * 将时间戳转换成 xx 时\xx 分.
- *
- * @param $time
- *
- * @return array
- */
-function get_hour_and_min($time)
-{
-    $sec = round($time / 60);
-    if ($sec >= 60) {
-        $hour = floor($sec / 60);
-        $min = $sec % 60;
-    } else {
-        $hour = 0;
-        $min = $sec;
-    }
-
-    return ['hour' => $hour, 'min' => $min];
-}
-
-/**
- * 根据经纬度获取两点间的直线距离，返回 KM.
- *
- * @param $lon1
- * @param $lat1
- * @param $lon2
- * @param $lat2
- *
- * @return float
- */
-function get_two_position_distance($lon1, $lat1, $lon2, $lat2)
-{
-    $radius = 6378.137;
-    $rad = floatval(M_PI / 180.0);
-
-    $lat1 = floatval($lat1) * $rad;
-    $lon1 = floatval($lon1) * $rad;
-    $lat2 = floatval($lat2) * $rad;
-    $lon2 = floatval($lon2) * $rad;
-
-    $theta = $lon2 - $lon1;
-
-    $dist = acos(sin($lat1) * sin($lat2) +
-        cos($lat1) * cos($lat2) * cos($theta)
-    );
-
-    if ($dist < 0) {
-        $dist += M_PI;
-    }
-
-    return round($dist * $radius, 3);
-}
 
 // 将目标转化为 collection 对象
 if (!function_exists('collection')) {
@@ -372,3 +304,30 @@ function juhecurl($url, $params = false, $ispost=0)
     curl_close($ch);
     return $response;
 }
+
+
+function doCurl($url, $type = 'get', $data = [])
+{
+    //初始化
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);   
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);  
+    curl_setopt($ch, CURLOPT_HEADER, 0);  
+    if ($type == 'post') {
+        curl_setopt($ch, CURLOPT_POST, 1);     
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); 
+    }
+    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,false);
+    curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,false);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return $output;
+}
+
+function getLocal($lat, $lng)
+{
+
+    $url = "http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=" + $lat + "," + $lng + "&output=json&pois=1&latest_admin=1&ak=SLGho2cIGWRcXLLISz1Dk4YjaO49kdv6";
+    return doCurl($url);
+}
+
