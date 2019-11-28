@@ -154,7 +154,7 @@ class CommonController extends Controller
         // dd($record);
         if($record) {
             $created_at = strtotime($record->created_at);
-            if(time() - $created_at < 3600) {
+            if(time() - $created_at > 600) {
                 return $record;
             }
         }
