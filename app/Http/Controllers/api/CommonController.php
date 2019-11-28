@@ -190,6 +190,34 @@ class CommonController extends Controller
         return returnApi($res);
     }
 
+    public function getHistoryToday(Request $request) 
+    {
+        $params = $request->all();
+        $month = date('m', time());
+        $day = date('d', time());
+        if(isset($params['month'])) {
+            $month = $params['month'];
+        }
+
+        if(isset($params['day'])) {
+            $day = $params['day'];
+        }
+    
+        $res = DB::table('cms_history_today')
+            ->where([
+                'month' => $month,
+                'day' => $day
+            ])->orderBy('created_at', 'desc')
+            ->get();
+        // dd($res[0]->title);
+        // $titles = [];
+        // foreach($res as $val) {
+        //     $titles[] = $val->title;
+        // }
+        // $res = DB::table('cms_history_today')->whereIn('title', $titles)->get();
+        return returnApi($res);
+    }
+
     public function setPosition(Request $request)
     {
         $params = $request->all();

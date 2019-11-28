@@ -86,6 +86,7 @@ Route::group(['namespace' => 'api'], function () {
     Route::post('/historyToday', 'CommonController@historyToday');
     Route::post('/getWeather', 'CommonController@getWeather');
     Route::post('/getHuangLi', 'CommonController@getHuangLi');
+    Route::post('/getHistoryToday', 'CommonController@getHistoryToday');
     //设置用户位置
     Route::post('/setPosition', 'CommonController@setPosition');
     
