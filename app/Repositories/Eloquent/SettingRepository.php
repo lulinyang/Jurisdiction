@@ -62,8 +62,12 @@ class SettingRepository extends Repository
 
 	public function getBanner($request)
 	{
-		// $params = $request->all();
-		$res = DB::table('cms_banner')->get();
+		$params = $request->all();
+		if (!isset($params['apiKey'])) {
+			$res = DB::table('cms_banner')->get();
+        }else {
+			$res = DB::table('cms_banner')->where('deleted', 0)->get();
+		}
 		return returnArr($res);
 	}
 

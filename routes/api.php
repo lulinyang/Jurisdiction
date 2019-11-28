@@ -89,9 +89,14 @@ Route::group(['namespace' => 'api'], function () {
     //设置用户位置
     Route::post('/setPosition', 'CommonController@setPosition');
     
+    
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
+    //首页菜单
+    Route::post('/getMenu', 'SettingController@getMenu');
+    //首页轮播图
+    Route::post('/getBanner', 'SettingController@getBanner');
     //发送验证码
     Route::post('/sendMsg', 'CommonController@sendMsg');
     //文章
