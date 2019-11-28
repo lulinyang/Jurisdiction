@@ -169,6 +169,8 @@ class CommonController extends Controller
             'week' => $weather['data'][0]['week'],
             'wea' => $weather['data'][0]['wea'],
             'tem' => $weather['data'][0]['tem'],
+            'tem1' => $weather['data'][0]['tem1'],
+            'tem2' => $weather['data'][0]['tem2'],
             'content' => $res,
             'created_at' => date('Y-m-d H:i:s', time())
         ];
