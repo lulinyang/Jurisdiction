@@ -49,6 +49,7 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getGenealogyList', 'SurnameController@getGenealogyList');
     Route::get('/getGenealogy', 'SurnameController@getGenealogy');
     Route::post('/deleteGenealogy', 'SurnameController@deleteGenealogy');
+    Route::get('/getSurnameAll', 'SurnameController@getSurnameAll');
     Route::get('/getMemberList', 'MemberController@getMemberList');
     Route::post('/addMember', 'MemberController@addMember');
     Route::get('/getMember', 'MemberController@getMember');
@@ -59,6 +60,7 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getPedigreeAll', 'TopologicalGraphController@getPedigreeAll');
     Route::post('/deletePedigree', 'TopologicalGraphController@deletePedigree');
     Route::get('/getTreeChart', 'TopologicalGraphController@getTreeChart');
+    
     /*
      * 文章管理
      */
@@ -69,6 +71,15 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::get('/getArcticlList', 'ArcticleController@getArcticlList');
     Route::get('/getArticle', 'ArcticleController@getArticle');
     Route::post('/deleteArcticle', 'ArcticleController@deleteArcticle');
+    Route::post('/addCelebrity', 'CelebrityController@addCelebrity');
+    Route::get('/getCelebrity', 'CelebrityController@getCelebrity');
+    Route::get('/getCelebrityById', 'CelebrityController@getCelebrityById');
+    Route::post('/delCelebrity', 'CelebrityController@delCelebrity');
+    /**
+     * 用户管理
+     */
+    Route::get('/getUser', 'UserController@getUser');
+    Route::get('/getUserAll', 'UserController@getUserAll');
     /**
      * 页面设置及系统配置
      */
@@ -77,6 +88,14 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
     Route::post('/delBanner', 'SettingController@delBanner');
     Route::post('/addMenu', 'SettingController@addMenu');
     Route::get('/getMenu', 'SettingController@getMenu');
+    
+    /**
+     * 宗祠管理
+     */
+    Route::post('/addAncestral', 'AncestralController@addAncestral');
+    Route::get('/getAncestral', 'AncestralController@getAncestral');
+    Route::get('/getAncestralById', 'AncestralController@getAncestralById');
+    Route::post('/delAncestral', 'AncestralController@delAncestral');
 });
 
 //公共接口
@@ -105,8 +124,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getArctice', 'ArcticleController@getArcticlList');
     Route::post('/getArticleById', 'ArcticleController@getArticleById');
     Route::post('/addBrowseNumArctice', 'ArcticleController@addBrowseNum');
-    //用户管理
-    Route::post('/getUser', 'UserController@getUser');
+    //用户
     Route::post('/getUserById', 'UserController@getUserById');
     Route::post('/addUser', 'UserController@addUser');
     Route::post('/changePassword', 'UserController@changePassword');

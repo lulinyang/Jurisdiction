@@ -65,4 +65,13 @@ class UserController extends Controller
     {
         return collect($this->user->modifyPwd($request))->toJson();
     }
+
+     /**
+     * 根据用户名得到用户列表.
+     */
+    public function getUserAll(Request $request)
+    {
+        return collect($this->user->getUserAll($request))->toJson();
+    }
+    
 }

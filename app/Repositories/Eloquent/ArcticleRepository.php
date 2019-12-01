@@ -40,7 +40,6 @@ class ArcticleRepository extends Repository
             $filed = 'c.deleted';
             $type = '0';
         }
-        $sql = "SELECT COUNT(id) FROM cms_fabulous WHERE type = 1 AND theme_id = 24";
         $paginate = DB::table('cms_article as a')
                     ->leftjoin('cms_column as c', function ($join) {
                         $join->on('a.type', '=', 'c.id');

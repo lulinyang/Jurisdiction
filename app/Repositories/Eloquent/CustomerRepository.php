@@ -51,8 +51,11 @@ class CustomerRepository extends Repository
         $data = $request->all();
         $username = isset($data['username']) ? $data['username'] : '';
         $email = isset($data['email']) ? $data['email'] : '';
+        $tel = isset($data['tel']) ? $data['tel'] : '';
         $res = $this->findBy('username', $username);
         $res_email = $this->findBy('email', $email);
+        $res_tel = $this->findBy('tel', $tel);
+        $data['created_at'] = date('Y-m-d H:i:s');
         if (!isset($data['id'])) {
             //新增
             if ($res) {
@@ -60,6 +63,9 @@ class CustomerRepository extends Repository
             }
             if ($res_email) {
                 return returnArr(false, 20002, '邮箱重复！');
+            }
+            if ($res_tel) {
+                return returnArr(false, 20002, '手机号重复！');
             }
             $user = \Auth::guard('customer')->user();
             $orgcode = $user->orgcode;
@@ -80,11 +86,15 @@ class CustomerRepository extends Repository
             if ($res) {
                 return returnArr($res, 200, '创建成功！');
             } else {
-                return returnArr(false, 20003, '创建失败！');
+                return returnArr(false, 20004, '创建失败！');
             }
         } else {
             if ($res_email && $res_email['id'] != $data['id']) {
                 return returnArr(false, 20002, '邮箱重复！');
+            }
+
+            if ($res_tel && $res_tel['id'] != $data['id']) {
+                return returnArr(false, 20003, '手机号重复！');
             }
 
             $oldpwd = isset($data['oldpwd']) ? $data['oldpwd'] : '';

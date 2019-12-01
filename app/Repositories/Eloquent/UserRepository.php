@@ -75,7 +75,16 @@ class UserRepository extends Repository
     public function getUser($request)
     {
         $data = $request->all();
-        dd(1122);
+        $pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+        $username = isset($data['username']) ? $data['username'] : '';
+        $name = isset($data['name']) ? $data['name'] : '';
+        $email = isset($data['email']) ? $data['email'] : '';
+        $paginate = DB::table('cms_user')
+                    ->Where('username', 'like', "%{$username}%")
+                    ->Where('name', 'like', "{$name}%")
+                    ->paginate($pageSize);
+
+        return collection(returnArr($paginate));
     }
 
     public function addUser($request)
@@ -237,5 +246,16 @@ class UserRepository extends Repository
         }
 
         dd($data);
+    }
+
+    public function getUserAll($request)
+    {
+        $data = $request->all();
+        $username = isset($data['username']) ? $data['username'] : '';
+        $res = DB::table('cms_user')
+                    ->Where('username', 'like', "{$username}%")
+                    ->Where('deleted', '0')
+                    ->get();
+        return returnArr($res);
     }
 }

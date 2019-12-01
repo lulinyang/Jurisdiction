@@ -30,7 +30,7 @@ class CommentRepository extends Repository
 	 {
 		$params = $request->all();
 		if(!isset($params['uid'])) {
-			return returnArr(false, 20001, '缺少uid参数！');
+			return returnArr(false, 20001, '登录后才可以评论！');
 		}
 
 		if (!isset($params['type'])) {
@@ -55,10 +55,6 @@ class CommentRepository extends Repository
 	public function getComment($request)
 	{
 		$params = $request->all();
-		// if(!isset($params['uid'])) {
-		// 	return returnArr(false, 20001, '你还没登录！');
-		// }
-
 		if (!isset($params['type'])) {
             return returnArr(false, 20002, '缺少type参数！');
 		}
@@ -91,62 +87,31 @@ class CommentRepository extends Repository
 				$ids[] = $val->id;
 			}
 		}
-		if(isset($params['uid'])) {
-			$res = DB::table('cms_comment as c')
-				->leftjoin('cms_user as u', function ($join) {
-					$join->on('c.uid', '=', 'u.id');
-				})
-				->where('c.uid', $params['uid'])
-				->where('c.type', $params['type'])
-				->where('c.theme_id', $params['theme_id'])
-				->where('c.deleted', 0)
-				->where('u.deleted', 0)
-				->where(function ($query) use ($ids, $params) {
-									$query->whereIn('c.pid', $ids)
-												->orWhere('c.id', $params['pid']);
-							})
-				->orderBy('created_at', 'desc')
-				->select(
-					'c.*', 
-					'u.name', 
-					'u.username', 
-					'u.headUrl', 
-					'u.sex', 
-					DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 4 AND theme_id = c.id) as fabulous_num"))
-				->get()
-				->map(function ($value) {
-					return (array) $value;
-				}
-				)->toArray();
-		}else {
-			$res = DB::table('cms_comment as c')
-				->leftjoin('cms_user as u', function ($join) {
-					$join->on('c.uid', '=', 'u.id');
-				})
-				// ->where('c.uid', $params['uid'])
-				->where('c.type', $params['type'])
-				->where('c.theme_id', $params['theme_id'])
-				->where('c.deleted', 0)
-				->where('u.deleted', 0)
-				->where(function ($query) use ($ids, $params) {
-									$query->whereIn('c.pid', $ids)
-												->orWhere('c.id', $params['pid']);
-							})
-				->orderBy('created_at', 'desc')
-				->select(
-					'c.*', 
-					'u.name', 
-					'u.username', 
-					'u.headUrl', 
-					'u.sex', 
-					DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 4 AND theme_id = c.id) as fabulous_num"))
-				->get()
-				->map(function ($value) {
-					return (array) $value;
-				}
-				)->toArray();
-		}
-
+	
+		$res = DB::table('cms_comment as c')
+			->leftjoin('cms_user as u', function ($join) {
+				$join->on('c.uid', '=', 'u.id');
+			})
+			->where('c.type', $params['type'])
+			->where('c.theme_id', $params['theme_id'])
+			->where('c.deleted', 0)
+			->where('u.deleted', 0)
+			->where(function ($query) use ($ids, $params) {
+				$query->whereIn('c.pid', $ids)
+					->orWhere('c.id', $params['pid']);
+			})
+			->orderBy('created_at', 'desc')
+			->select(
+				'c.*', 
+				'u.name', 
+				'u.username', 
+				'u.headUrl', 
+				'u.sex', 
+				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 4 AND theme_id = c.id) as fabulous_num"))
+			->get()
+			->map(function ($value) {
+				return (array) $value;
+			})->toArray();
 		$data = $this->getTree($res, $pid, $params);
 		return returnArr($data);
 	}

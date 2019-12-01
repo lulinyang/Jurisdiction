@@ -140,7 +140,7 @@ class SurnameRepository extends Repository
             return returnArr(false, 20002, '删除失败！！');
         }
     }
-
+    
     public function addBrowseNum($request)
     {
         $params = $request->all();
@@ -148,5 +148,16 @@ class SurnameRepository extends Repository
             $res = DB::table('cms_surname')->where('id', $params['id'])->increment('browse_volume');
             return returnArr($res);
         }
+    }
+
+    public function getSurnameAll($request)
+    {
+        $params = $request->all();
+        $area_surname = isset($params['area_surname']) ? $params['area_surname'] : '';
+        $res = DB::table('cms_surname')
+                    ->Where('area_surname', 'like', "%{$area_surname}%")
+                    ->Where('deleted', '0')
+                    ->get();
+        return returnArr($res);
     }
 }

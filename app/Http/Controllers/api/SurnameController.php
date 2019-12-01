@@ -49,4 +49,11 @@ class SurnameController extends Controller
 
         return $result;
     }
+
+    public function getSurnameAll(Request $request)
+    {
+        $result = collect($this->surname->getSurnameAll($request))->toJson();
+
+        return $result;
+    }
 }
