@@ -130,6 +130,8 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/changePassword', 'UserController@changePassword');
     Route::post('/editUserInfo', 'UserController@editUserInfo');
     Route::post('/modifyPwd', 'UserController@modifyPwd');
+    //实名认证
+    Route::post('/realAuthentication', 'UserController@realAuthentication');
     // Route::post('/updateUser', 'UserController@addUser');
     // Route::post('/deleteUser', 'UserController@deleteUser');
     //用户登录
@@ -151,6 +153,10 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //收藏
     Route::post('/saveCollection', 'CollectionController@saveCollection');
     Route::post('/cancelCollection', 'CollectionController@cancelCollection');
+    //宗祠
+    Route::post('/getAncestral', 'AncestralController@getAncestral');
+    //名人烈士
+    Route::post('/getCelebrity', 'CelebrityController@getCelebrity');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

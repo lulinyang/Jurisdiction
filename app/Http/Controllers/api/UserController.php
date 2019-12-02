@@ -73,5 +73,13 @@ class UserController extends Controller
     {
         return collect($this->user->getUserAll($request))->toJson();
     }
+
+    /**
+     * realAuthentication
+     */
+    public function realAuthentication(Request $request)
+    {
+        return collect($this->user->realAuthentication($request))->toJson();
+    }
     
 }
