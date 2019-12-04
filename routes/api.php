@@ -130,6 +130,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/changePassword', 'UserController@changePassword');
     Route::post('/editUserInfo', 'UserController@editUserInfo');
     Route::post('/modifyPwd', 'UserController@modifyPwd');
+    Route::post('/findUser', 'UserController@findUser');
     //实名认证
     Route::post('/realAuthentication', 'UserController@realAuthentication');
     // Route::post('/updateUser', 'UserController@addUser');

@@ -75,11 +75,20 @@ class UserController extends Controller
     }
 
     /**
-     * realAuthentication
+     * 实名认证
      */
     public function realAuthentication(Request $request)
     {
         return collect($this->user->realAuthentication($request))->toJson();
     }
+
+    /**
+     * 个人信息
+     */
+    public function findUser(Request $request)
+    {
+        return collect($this->user->findUser($request))->toJson();
+    }
+    
     
 }

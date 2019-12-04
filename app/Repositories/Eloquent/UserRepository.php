@@ -354,4 +354,14 @@ class UserRepository extends Repository
         }
         return returnArr(false, 20010, '认证失败，请稍后再试！');
     }
+
+    public function findUser($request)
+    {
+        $params = $request->all();
+        if (!isset($params['user_id'])) {
+            return returnArr(false, 20001, '缺少user_id！');
+        }
+        $user = $this->getById($params['user_id']);
+        return returnArr($user);
+    }
 }
