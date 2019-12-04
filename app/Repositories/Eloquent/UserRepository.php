@@ -199,10 +199,14 @@ class UserRepository extends Repository
         if (!isset($params['name'])) {
             return returnArr(false, 20002, '昵称不能为空！');
         }
+       
+        $params['autograph'] = isset($params['autograph']) ? $params['autograph'] : '';
+       
         $arr = [
             'name' => $params['name'],
             'sex' => $params['sex'],
             'headUrl' => $params['headUrl'],
+            'autograph' => $params['autograph'],
             'updated_at' => date('Y-m-d H:i:s'),
         ];
 
