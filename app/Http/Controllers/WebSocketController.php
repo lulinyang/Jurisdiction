@@ -49,7 +49,7 @@ class WebSocketController extends Controller
         }
         
         foreach($toIds as $val) {
-			$ids[] = $val->from_id;
+			$ids[] = $val->to_id;
 		}
         $res = DB::table('cms_user')->whereIn('id', $ids)->get();
         $data = collect(returnArr($res, 100, 'success'))->toJson();
