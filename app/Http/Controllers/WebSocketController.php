@@ -35,10 +35,7 @@ class WebSocketController extends Controller
      */
     public function saveChat($server, $content)
     {   
-        // //推送给所有链接
-        foreach ($server->connections as $fd){
-            $server->push($fd,$content.'------------>');
-        }
+        return collect($content)->toJson(); 
     }
     
 }
