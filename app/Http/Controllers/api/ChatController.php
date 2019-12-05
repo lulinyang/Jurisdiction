@@ -24,4 +24,12 @@ class ChatController extends Controller
     {
         return collect($this->chat->getPrivateLetterList($request))->toJson(); 
     }
+    /**
+     * 更改已读状态
+     */
+    public function updateUnread(Request $request) 
+    {
+        return collect($this->chat->updateUnread($request))->toJson(); 
+    }
+    
 }

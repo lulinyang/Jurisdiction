@@ -102,7 +102,19 @@ class ChatRepository extends Repository
 			)
             ->get();
 		dd($chatList);
-		// $res = DB::table('cms_user')->whereIn('id', $ids)->get();
-	
+		// $res = DB::table('cms_user')->whereIn('id', $ids)->get()
 	}
+
+	public function updateUnread($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+		}
+		$res = DB::table('cms_chat')
+			->where('to_id', $params['uid'])
+			->update(['isRead' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
+		return returnArr($res);
+	}
+	
 }
