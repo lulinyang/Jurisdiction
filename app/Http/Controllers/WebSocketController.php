@@ -24,7 +24,19 @@ class WebSocketController extends Controller
     
     public function getChatList($server, $content, $sendfd) 
     {
-        $server->push($sendfd, $content.$sendfd);
+        $fromIds = DB::table('cms_chat')
+			->where([
+				'to_id'=> $content,
+				'deleted' => 0
+			])->distinct()
+			->get(['from_id']);
+		$ids = [];
+		foreach($fromIds as $val) {
+			$ids[] = $val->from_id;
+		}
+        $res = DB::table('cms_user')->whereIn('id', $ids)->get();
+        $data = collect($res)->toJson();
+        $server->push($sendfd, $data);
     }
 
     /**
