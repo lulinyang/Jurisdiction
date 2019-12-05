@@ -82,7 +82,7 @@ class SwooleServer extends Command
         });
 
         //关闭链接回调
-        $server->on('close', function ($ser, $fd, \Swoole\WebSocket\Server $server) {
+        $server->on('close', function ($ser, $fd) {
             $this->info($fd . '断开链接'.session('uid_fid'));
         });
 
