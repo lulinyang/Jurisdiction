@@ -49,9 +49,9 @@ class SwooleServer extends Command
         
         //连接成功回调
         $server->on('open', function (\Swoole\WebSocket\Server $server, $request) {
-            $query_string = $request->server['query_string'];
             $uid = '';
             try {
+                $query_string = $request->server['query_string'];
                 if($query_string) {
                     $uid = explode("=", $query_string)[1];
                     Redis::sadd('uid_'.$uid, $request->fd);
