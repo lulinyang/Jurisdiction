@@ -32,4 +32,13 @@ class ChatController extends Controller
         return collect($this->chat->updateUnread($request))->toJson(); 
     }
     
+    /**
+     * 获取聊天内容
+     */
+    public function getChatRoomList(Request $request) 
+    {
+        return collect($this->chat->getChatRoomList($request))->toJson(); 
+    }
+    
+    
 }

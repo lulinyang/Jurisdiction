@@ -116,5 +116,34 @@ class ChatRepository extends Repository
 			->update(['isRead' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
 		return returnArr($res);
 	}
+
+	public function getChatRoomList($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+		}
+		$res = DB::table('cms_chat as ch')
+			->join('cms_user as c', function ($join) {
+				$join->on('c.id', '=', 'ch.from_id')->orOn('c.id', '=', 'ch.to_id');
+			})
+			->where('ch.deleted', 0)
+			->where(function ($query) use ($params) {
+                $query->where('ch.from_id', $params['uid'])->orWhere('ch.to_id', $params['uid']);
+            })
+			->select(
+				'c.id',
+				'c.name',
+				'c.headUrl',
+				'c.sex',
+				'ch.created_at as chat_time', 
+				'ch.msgType', 
+				'ch.content',
+				'ch.deleted'
+			)
+			->get();
+		return returnArr($res);
+	}
+	
 	
 }

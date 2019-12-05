@@ -169,6 +169,7 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //获取私信列表
     Route::post('/getPrivateLetterList', 'ChatController@getPrivateLetterList');
     Route::post('/updateUnread', 'ChatController@updateUnread');
+    Route::post('/getChatRoomList', 'ChatController@getChatRoomList');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
