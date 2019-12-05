@@ -84,8 +84,8 @@ class WebSocketController extends Controller
 
 
         $content['id'] = DB::table('cms_chat')->insertGetId($arr);
-        $arr['id'] = $content['uid'];
-        $ids = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['id']);
+        $arr['id'] = $content['from_id'];
+        $ids = DB::table('cms_user')->whereIn('id', [$content['from_id'], $content['to_id']])->get(['id']);
         $fds = [];
         foreach($ids as $val) {
             $fds = array_merge($fds, Redis::sMembers('uid_'.$val->id));
