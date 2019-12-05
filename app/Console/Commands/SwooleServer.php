@@ -72,6 +72,7 @@ class SwooleServer extends Command
                 $controller = new WebSocketController();
                 $controller->$action($server, $data['content']);
             } catch (\Throwable $th) {
+                var_dump($th->getMessage());
                 // //推送给所有链接
                 // foreach ($server->connections as $fd){
                 //     $server->push($fd,$content);
