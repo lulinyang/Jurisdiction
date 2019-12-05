@@ -58,4 +58,25 @@ class ChatRepository extends Repository
 		}
 		return returnArr($res, 20004, '发送失败！');
 	}
+
+	public function getPrivateLetterList($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+		}
+		$fromIds = DB::table('cms_chat')
+			->where([
+				'to_id'=> $params['uid'],
+				'deleted' => 0
+			])->distinct()
+			->get(['from_id']);
+		$ids = [];
+		foreach($fromIds as $val) {
+			$ids[] = $val->from_id;
+		}
+		$res = DB::table('cms_user')->whereIn('id', $ids)->get();
+		dd($res);
+		// dd($fromIds[0]->from_id);
+	}
 }

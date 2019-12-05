@@ -165,7 +165,9 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     //名人烈士
     Route::post('/getCelebrity', 'CelebrityController@getCelebrity');
     //私信
-    // Route::post('/saveChat', 'ChatController@saveChat');
+    Route::post('/saveChat', 'ChatController@saveChat');
+    //获取私信列表
+    Route::post('/getPrivateLetterList', 'ChatController@getPrivateLetterList');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
@@ -188,4 +190,4 @@ Route::get('/test', 'WebSocketController@test');
 
 Route::post('/testCron', 'CronController@test');
 
-Route::post('/saveChat', 'WebSocketController@saveChat');
+// Route::post('/saveChat', 'WebSocketController@saveChat');

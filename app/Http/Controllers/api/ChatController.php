@@ -19,4 +19,9 @@ class ChatController extends Controller
     {
         return collect($this->chat->saveChat($request))->toJson(); 
     }
+    
+    public function getPrivateLetterList(Request $request) 
+    {
+        return collect($this->chat->getPrivateLetterList($request))->toJson(); 
+    }
 }

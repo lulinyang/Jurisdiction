@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Redis;
 
 class WebSocketController extends Controller
 {
-    public function test($server, $content)
+    public function test($server, $content, $sendfd)
     {   
         // //推送给所有链接
         foreach ($server->connections as $fd){
@@ -14,7 +14,7 @@ class WebSocketController extends Controller
         }
     }
 
-    public function add($server, $content)
+    public function add($server, $content, $sendfd)
     {   
         // //推送给所有链接
         foreach ($server->connections as $fd){
@@ -22,18 +22,15 @@ class WebSocketController extends Controller
         }
     }
     
-    public function bindfd($server, $content) 
+    public function getChatList($server, $content, $sendfd) 
     {
-        // //推送给所有链接
-        foreach ($server->connections as $fd){
-            $server->push($fd, $content);
-        }
+        $server->push($sendfd, $content.$sendfd);
     }
 
     /**
      * 私信
      */
-    public function saveChat($server, $content)
+    public function saveChat($server, $content, $sendfd)
     {   
         $arr = [
 			'from_id' => $content['uid'],
@@ -49,12 +46,14 @@ class WebSocketController extends Controller
         foreach($ids as $val) {
             $fds = array_merge($fds, Redis::sMembers('uid_'.$val->id));
         }
+        //获取所有在线fd
         $connections = [];
         foreach ($server->connections as $fd){
             $connections[] = $fd;
         }
         
         foreach($fds as $val) {
+            //只发在线人员
             if(in_array($val, $connections)) {
                 $server->push($val, implode(",", $fds));
             }
