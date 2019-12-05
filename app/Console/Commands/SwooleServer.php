@@ -81,8 +81,9 @@ class SwooleServer extends Command
         });
 
         //关闭链接回调
-        $server->on('close', function ($ser, $fd) {
-            $this->info($fd . '断开链接'.collect($ser)->toJson());
+        $server->on('close', function ($ser, $fd, \Swoole\WebSocket\Server $server) {
+            $query_string = $request->server['query_string'];
+            $this->info($fd . '断开链接'.$query_string);
         });
 
         $server->start();
