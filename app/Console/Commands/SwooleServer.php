@@ -37,13 +37,20 @@ class SwooleServer extends Command
      * @return mixed
      */
     public function handle()
-    {
+    {   
+        
         //创建server
         $server = new \Swoole\WebSocket\Server("0.0.0.0", 9501);
+        // $server->set(array(
+        //     'dispatch_mode'=> 5
+        // ));
         
         //连接成功回调
         $server->on('open', function (\Swoole\WebSocket\Server $server, $request) {
-            $this->info($request->fd . '链接成功');
+            $uid = $request->server['query_string'];
+            $this->info($request->fd . '链接成功'. $uid);
+            //绑定uid
+            // $server->bind(1, 1);
         });
 
         //收到消息回调
