@@ -47,7 +47,10 @@ class SwooleServer extends Command
         
         //连接成功回调
         $server->on('open', function (\Swoole\WebSocket\Server $server, $request) {
-            $uid = $request->server['query_string'];
+            $query_string = $request->server['query_string'];
+            if($uid) {
+                $uid = explode("=", $query_string)[1];
+            }
             $this->info($request->fd . '链接成功'. $uid);
             //绑定uid
             // $server->bind(1, 1);
