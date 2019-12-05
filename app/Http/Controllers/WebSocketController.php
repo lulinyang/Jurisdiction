@@ -47,7 +47,6 @@ class WebSocketController extends Controller
         DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['fd']);
         $fds = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['fd']);
         $res = collect($arr)->toJson();
-        var_dump($res);
         foreach($fds as $val) {
             $server->push($val->fd, $res);
         }

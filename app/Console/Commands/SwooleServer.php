@@ -72,9 +72,9 @@ class SwooleServer extends Command
                 $controller->$action($server, $data['content']);
             } catch (\Throwable $th) {
                 // //推送给所有链接
-                foreach ($server->connections as $fd){
-                    $server->push($fd,$content);
-                }
+                // foreach ($server->connections as $fd){
+                //     $server->push($fd,$content);
+                // }
             }
         });
 
