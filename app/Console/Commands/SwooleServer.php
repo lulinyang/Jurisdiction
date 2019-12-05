@@ -56,7 +56,6 @@ class SwooleServer extends Command
                     $uid = explode("=", $query_string)[1];
                     Redis::sadd('uid_'.$uid, $request->fd);
                     session()->put('uid_fid', 'uid_'.$uid);
-                    // DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
                 }
             } catch (\Throwable $th) {
                

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use DB;
-// use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class WebSocketController extends Controller
 {
@@ -43,12 +43,14 @@ class WebSocketController extends Controller
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		];
-        $id = DB::table('cms_chat')->insertGetId($arr);
-        DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['fd']);
-        $fds = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['fd']);
-        $res = collect($arr)->toJson();
+        DB::table('cms_chat')->insert($arr);
+        $ids = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['id']);
+        $fds = [];
+        foreach($ids as $val) {
+            $fds = fdsay_merge($arr, Redis::sMembers('uid_6'));
+        }
         foreach($fds as $val) {
-            $server->push($val->fd, $res);
+            $server->push($val, implode(",", $fds));
         }
     }
     
