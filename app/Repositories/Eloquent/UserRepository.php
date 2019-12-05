@@ -362,10 +362,20 @@ class UserRepository extends Repository
     public function findUser($request)
     {
         $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+
         if (!isset($params['user_id'])) {
             return returnArr(false, 20001, '缺少user_id！');
         }
         $user = $this->getById($params['user_id']);
+        $follow = DB::table('cms_follow_user')->where(['uid' => $params['uid'], 'follow_id' => $params['user_id']])->first();
+        if($follow) {
+            $user->follow = true;
+        }else {
+            $user->follow = false;
+        }
         return returnArr($user);
     }
 
