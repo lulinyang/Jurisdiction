@@ -28,37 +28,13 @@ class WebSocketController extends Controller
     //
     public function getChatList($server, $uid, $sendfd) 
     {
-        // $fromIds = DB::table('cms_chat')
-		// 	->where([
-		// 		'to_id'=> $content,
-		// 		'deleted' => 0
-        //     ])->where('from_id', '<>', $content)
-        //     ->distinct()
-        //     ->get(['from_id']);
-
-        // $toIds = DB::table('cms_chat')
-		// 	->where([
-		// 		'from_id'=> $content,
-        //         'deleted' => 0,
-        //     ])->where('to_id', '<>', $content)
-        //     ->distinct()
-        // 	->get(['to_id']);
-        $chatIds = DB::table('cms_chat')
-            ->where('deleted', 0)
-            ->where(function ($query) {
-                $query->where('to_id', $uid)->orWhere('from_id', $uid);
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
-		$ids = [];
-		foreach($fromIds as $val) {
-			$ids[] = $val->from_id;
-        }
         
-        foreach($toIds as $val) {
-			$ids[] = $val->to_id;
-		}
-        $res = DB::table('cms_user')->whereIn('id', $ids)->get();
+        $res = DB::table('cms_chat_list as l')
+            ->join('cms_user as c', 'c.id', '=', 'l.chat_id')
+            ->where('l.uid', $uid)
+            ->orderBy('l.created_at', 'desc')
+            ->select('c.*', 'l.created_at as chat_time', 'l.msgType', 'l.content')
+            ->get();
         $data = collect(returnArr($res, 100, 'success'))->toJson();
         $server->push($sendfd, $data);
     }

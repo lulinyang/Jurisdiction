@@ -89,15 +89,13 @@ class ChatRepository extends Repository
 		if (!isset($params['uid'])) {
             return returnArr(false, 20000, '请先登录！');
 		}
-		$chat = DB::table('cms_chat')
-            ->where('deleted', 0)
-            ->where(function ($query) use($params) {
-                $query->where('to_id', $params['uid'])->orWhere('from_id', $params['uid']);
-						})
-						->groupBy('from_id')
-						->orderBy('created_at', 'desc')
+		$chatList = DB::table('cms_chat_list as l')
+						->join('cms_user as c', 'c.id', '=', 'l.chat_id')
+						->where('l.uid', $params['uid'])
+						->orderBy('l.created_at', 'desc')
+						->select('c.*', 'l.created_at as chat_time', 'l.msgType', 'l.content')
             ->get();
-		dd($chat);
+		dd($chatList);
 		// $res = DB::table('cms_user')->whereIn('id', $ids)->get();
 	
 	}
