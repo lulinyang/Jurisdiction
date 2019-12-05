@@ -128,19 +128,18 @@ class ChatRepository extends Repository
             return returnArr(false, 20001, '缺少参数from_id！');
 		}
 		$res = DB::table('cms_chat as ch')
-			->join('cms_user as c', function ($join) {
-				$join->on('c.id', '=', 'ch.from_id')->orOn('c.id', '=', 'ch.to_id');
-			})
-			->where('ch.deleted', 0)
+			->join('cms_user as u', 'u.id', '=', 'ch.from_id')
 			->where(function ($query) use ($params) {
-				$query->where(['ch.from_id' => $params['uid'], 'ch.to_id' => $params['from_id']])
-					->orWhere(['ch.from_id' => $params['from_id'], 'ch.to_id'=>$params['uid']]);
+				$query->where(['ch.from_id' => $params['uid'], 'ch.to_id'=>$params['from_id']])
+					->orWhere(function ($query2) use ($params) {
+						$query2->where(['ch.from_id' => $params['from_id'], 'ch.to_id'=>$params['uid']]);
+					});
 			})
 			->select(
-				'c.id',
-				'c.name',
-				'c.headUrl',
-				'c.sex',
+				'u.id',
+				'u.name',
+				'u.headUrl',
+				'u.sex',
 				'ch.from_id',
 				'ch.to_id',
 				'ch.created_at', 
