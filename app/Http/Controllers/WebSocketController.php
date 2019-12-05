@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 use DB;
 use Illuminate\Support\Facades\Redis;
-
+/**
+ * 100 全局消息
+ */
 class WebSocketController extends Controller
 {
+    
     public function test($server, $content, $sendfd)
     {   
         // //推送给所有链接
@@ -22,20 +25,34 @@ class WebSocketController extends Controller
         }
     }
     
+    //
     public function getChatList($server, $content, $sendfd) 
     {
         $fromIds = DB::table('cms_chat')
 			->where([
 				'to_id'=> $content,
 				'deleted' => 0
-			])->distinct()
-			->get(['from_id']);
+            ])->where('from_id', '<>', $content)
+            ->distinct()
+            ->get(['from_id']);
+
+        $toIds = DB::table('cms_chat')
+			->where([
+				'from_id'=> $content,
+                'deleted' => 0,
+            ])->where('to_id', '<>', $content)
+            ->distinct()
+			->get(['to_id']);
 		$ids = [];
 		foreach($fromIds as $val) {
 			$ids[] = $val->from_id;
+        }
+        
+        foreach($toIds as $val) {
+			$ids[] = $val->from_id;
 		}
         $res = DB::table('cms_user')->whereIn('id', $ids)->get();
-        $data = collect($res)->toJson();
+        $data = collect(returnArr($res, 100, 'success'))->toJson();
         $server->push($sendfd, $data);
     }
 
