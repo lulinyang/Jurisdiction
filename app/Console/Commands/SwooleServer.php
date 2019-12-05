@@ -55,6 +55,7 @@ class SwooleServer extends Command
                 if($query_string) {
                     $uid = explode("=", $query_string)[1];
                     Redis::sadd('uid_'.$uid, $request->fd);
+                    session()->put('uid_fid', 'uid_'.$uid);
                     // DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
                 }
             } catch (\Throwable $th) {
@@ -82,8 +83,7 @@ class SwooleServer extends Command
 
         //关闭链接回调
         $server->on('close', function ($ser, $fd, \Swoole\WebSocket\Server $server) {
-            $query_string = $request->server['query_string'];
-            $this->info($fd . '断开链接'.$query_string);
+            $this->info($fd . '断开链接'.session('uid_fid'));
         });
 
         $server->start();
