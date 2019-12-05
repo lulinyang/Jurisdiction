@@ -136,7 +136,9 @@ class ChatRepository extends Repository
 				'c.name',
 				'c.headUrl',
 				'c.sex',
-				'ch.created_at as chat_time', 
+				'ch.from_id',
+				'ch.to_id',
+				'ch.created_at', 
 				'ch.msgType', 
 				'ch.content',
 				'ch.deleted'
