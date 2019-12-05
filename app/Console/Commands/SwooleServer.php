@@ -61,7 +61,6 @@ class SwooleServer extends Command
             } catch (\Throwable $th) {
                
             }
-            
             $this->info($request->fd . '链接成功'. $uid);
         });
 
@@ -83,6 +82,10 @@ class SwooleServer extends Command
 
         //关闭链接回调
         $server->on('close', function ($ser, $fd) {
+            $res = Redis::sismember(session('uid_fid'), $fd);
+            if($res) {
+                Redis::srem(session('uid_fid'), $fd);
+            }
             $this->info($fd . '断开链接'.session('uid_fid'));
         });
 
