@@ -26,7 +26,7 @@ class WebSocketController extends Controller
     {
         // //推送给所有链接
         foreach ($server->connections as $fd){
-            $server->push($fd, json_encode($server->connections));
+            $server->push($fd, $content);
         }
     }
 
