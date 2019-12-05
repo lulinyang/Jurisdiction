@@ -26,23 +26,30 @@ class WebSocketController extends Controller
     }
     
     //
-    public function getChatList($server, $content, $sendfd) 
+    public function getChatList($server, $uid, $sendfd) 
     {
-        $fromIds = DB::table('cms_chat')
-			->where([
-				'to_id'=> $content,
-				'deleted' => 0
-            ])->where('from_id', '<>', $content)
-            ->distinct()
-            ->get(['from_id']);
+        // $fromIds = DB::table('cms_chat')
+		// 	->where([
+		// 		'to_id'=> $content,
+		// 		'deleted' => 0
+        //     ])->where('from_id', '<>', $content)
+        //     ->distinct()
+        //     ->get(['from_id']);
 
-        $toIds = DB::table('cms_chat')
-			->where([
-				'from_id'=> $content,
-                'deleted' => 0,
-            ])->where('to_id', '<>', $content)
-            ->distinct()
-			->get(['to_id']);
+        // $toIds = DB::table('cms_chat')
+		// 	->where([
+		// 		'from_id'=> $content,
+        //         'deleted' => 0,
+        //     ])->where('to_id', '<>', $content)
+        //     ->distinct()
+        // 	->get(['to_id']);
+        $chatIds = DB::table('cms_chat')
+            ->where('deleted', 0)
+            ->where(function ($query) {
+                $query->where('to_id', $uid)->orWhere('from_id', $uid);
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 		$ids = [];
 		foreach($fromIds as $val) {
 			$ids[] = $val->from_id;
@@ -68,7 +75,32 @@ class WebSocketController extends Controller
 			'content' => $content['content'],
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
-		];
+        ];
+        //把最后一条消息同步到聊天列表，方便查询
+		DB::table('cms_chat_list')
+            ->where('chat_id', $content['uid'])
+            ->orWhere('chat_id', $content['to_id'])->delete();
+        $chat_list = [
+            [
+                'uid' => $arr['from_id'],
+                'chat_id' => $arr['to_id'],
+                'msgType' => $arr['msgType'],
+                'content' => $arr['content'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ],
+            [
+                'uid' => $arr['to_id'],
+                'chat_id' => $arr['from_id'],
+                'msgType' => $arr['msgType'],
+                'content' => $arr['content'],
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        ];
+        DB::table('cms_chat_list')->insert($chat_list);
+
+
         DB::table('cms_chat')->insert($arr);
         $ids = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['id']);
         $fds = [];

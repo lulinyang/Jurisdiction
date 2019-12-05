@@ -52,6 +52,30 @@ class ChatRepository extends Repository
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
 		];
+
+		//把最后一条消息同步到聊天列表，方便查询
+		DB::table('cms_chat_list')
+			->where('chat_id', $params['uid'])
+			->orWhere('chat_id', $params['to_id'])->delete();
+		$chat_list = [
+			[
+				'uid' => $arr['from_id'],
+				'chat_id' => $arr['to_id'],
+				'msgType' => $arr['msgType'],
+				'content' => $arr['content'],
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			],
+			[
+				'uid' => $arr['to_id'],
+				'chat_id' => $arr['from_id'],
+				'msgType' => $arr['msgType'],
+				'content' => $arr['content'],
+				'created_at' => date('Y-m-d H:i:s'),
+				'updated_at' => date('Y-m-d H:i:s')
+			]
+		];
+		DB::table('cms_chat_list')->insert($chat_list);
 		$res = DB::table('cms_chat')->insert($arr);
         if ($res) {
             return returnArr($res, 200, '发送成功！');
@@ -65,18 +89,16 @@ class ChatRepository extends Repository
 		if (!isset($params['uid'])) {
             return returnArr(false, 20000, '请先登录！');
 		}
-		$fromIds = DB::table('cms_chat')
-			->where([
-				'to_id'=> $params['uid'],
-				'deleted' => 0
-			])->distinct()
-			->get(['from_id']);
-		$ids = [];
-		foreach($fromIds as $val) {
-			$ids[] = $val->from_id;
-		}
-		$res = DB::table('cms_user')->whereIn('id', $ids)->get();
-		dd($res);
-		// dd($fromIds[0]->from_id);
+		$chat = DB::table('cms_chat')
+            ->where('deleted', 0)
+            ->where(function ($query) use($params) {
+                $query->where('to_id', $params['uid'])->orWhere('from_id', $params['uid']);
+						})
+						->groupBy('from_id')
+						->orderBy('created_at', 'desc')
+            ->get();
+		dd($chat);
+		// $res = DB::table('cms_user')->whereIn('id', $ids)->get();
+	
 	}
 }
