@@ -89,6 +89,45 @@ class UserController extends Controller
     {
         return collect($this->user->findUser($request))->toJson();
     }
+
+    /**
+     * 关注
+     */
+    public function followUser(Request $request)
+    {
+        return collect($this->user->followUser($request))->toJson();
+    }
     
+    /**
+     * 取消关注
+     */
+    public function removeConcerns(Request $request)
+    {
+        return collect($this->user->removeConcerns($request))->toJson();
+    }
+
+    /**
+     * 获取关注未读数
+     */
+    public function getUnread(Request $request)
+    {
+        return collect($this->user->getUnread($request))->toJson();
+    }
+    
+    /**
+     * 获取关注列表 
+     */
+    public function getFollowList(Request $request)
+    {
+        return collect($this->user->getFollowList($request))->toJson();
+    }
+    
+    /**
+     * 关注列表的提示消息
+     */
+    public function getFollowListMessage(Request $request)
+    {
+        return collect($this->user->getFollowListMessage($request))->toJson();
+    }
     
 }

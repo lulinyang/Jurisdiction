@@ -368,4 +368,108 @@ class UserRepository extends Repository
         $user = $this->getById($params['user_id']);
         return returnArr($user);
     }
+
+    public function followUser($request)
+    {
+        $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+        if (!isset($params['follow_id'])) {
+            return returnArr(false, 20001, '缺少follow_id参数！');
+        }
+        $arr = [
+            'uid' => $params['uid'],
+            'follow_id' => $params['follow_id'],
+            'created_at' => date('Y-m-d H:i:s', time())
+        ];
+        $follow = DB::table('cms_follow_user')->where(['uid' => $params['uid'], 'follow_id' => $params['follow_id']])->first();
+        if($follow) {
+            return returnArr($follow, 200, '已关注！');
+        }
+        $user = DB::table('cms_user')->where(['id' => $params['uid'], 'deleted' => 0])->first();
+        $new_tel = substr($user->username, 0, 3).'****'.substr($user->username, 7);
+        $message = $user->name.'('.$new_tel.') 关注了您';
+        $messageArr = [
+            'follow_id' => $params['uid'],
+            'uid' => $params['follow_id'],
+            'message' => $message,
+            'created_at' => date('Y-m-d H:i:s', time())
+        ];
+        DB::beginTransaction();
+        try {
+            DB::table('cms_follow_user')->insert($arr);
+            DB::table('cms_system_message')->insert($messageArr);
+            DB::commit();
+            return returnArr(true, 200, '关注成功！');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return returnArr(false, 20002, '关注失败！');
+        }
+    }
+
+    public function removeConcerns($request)
+    {
+        $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+        if (!isset($params['follow_id'])) {
+            return returnArr(false, 20001, '缺少follow_id参数！');
+        }
+        $follow = DB::table('cms_follow_user')->where(['uid' => $params['uid'], 'follow_id' => $params['follow_id']])->first();
+        if(!$follow) {
+            return returnArr($follow, 200, '已取消关注！');
+        }
+
+        $user = DB::table('cms_user')->where(['id' => $params['uid'], 'deleted' => 0])->first();
+        $new_tel = substr($user->username, 0, 3).'****'.substr($user->username, 7);
+        $message = $user->name.'('.$new_tel.') 取消关注了您';
+        $messageArr = [
+            'follow_id' => $params['uid'],
+            'uid' => $params['follow_id'],
+            'message' => $message,
+            'created_at' => date('Y-m-d H:i:s', time())
+        ];
+        DB::beginTransaction();
+        try {
+            DB::table('cms_follow_user')->where(['uid' => $params['uid'], 'follow_id' => $params['follow_id']])->delete();
+            DB::table('cms_system_message')->insert($messageArr);
+            DB::commit();
+            return returnArr(true, 200, '已取消关注！');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return returnArr(false, 20002, '操作失败，请稍候再试！');
+        }
+    }
+
+    public function getUnread($request)
+    {
+        $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+        $res = DB::table('cms_follow_user')->where('uid', $params['uid'])->count();
+        return returnArr($res); 
+    }
+
+    public function getFollowList($request)
+    {
+        $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+        $res = DB::table('cms_follow_user')->where('uid', $params['uid'])->get();
+        return returnArr($res); 
+    }
+
+    public function getFollowListMessage($request)
+    {
+        $params = $request->all();
+        if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+        }
+      
+    }
+    
 }

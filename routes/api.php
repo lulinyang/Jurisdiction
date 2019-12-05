@@ -131,6 +131,12 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/editUserInfo', 'UserController@editUserInfo');
     Route::post('/modifyPwd', 'UserController@modifyPwd');
     Route::post('/findUser', 'UserController@findUser');
+    Route::post('/followUser', 'UserController@followUser');
+    Route::post('/removeConcerns', 'UserController@removeConcerns');
+    Route::post('/getUnread', 'UserController@getUnread');
+    Route::post('/getFollowList', 'UserController@getFollowList');
+    Route::post('/getFollowListMessage', 'UserController@getFollowListMessage');
+    
     //实名认证
     Route::post('/realAuthentication', 'UserController@realAuthentication');
     // Route::post('/updateUser', 'UserController@addUser');
