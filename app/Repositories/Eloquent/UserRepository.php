@@ -372,9 +372,9 @@ class UserRepository extends Repository
         $user = $this->getById($params['user_id']);
         $follow = DB::table('cms_follow_user')->where(['uid' => $params['uid'], 'follow_id' => $params['user_id']])->first();
         if($follow) {
-            $user->follow = true;
+            $user->isFollow = true;
         }else {
-            $user->follow = false;
+            $user->isFollow = false;
         }
         return returnArr($user);
     }
