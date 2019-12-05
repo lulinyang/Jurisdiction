@@ -130,7 +130,7 @@ class ChatRepository extends Repository
 			->where('ch.deleted', 0)
 			->where(function ($query) use ($params) {
                 $query->where('ch.from_id', $params['uid'])->orWhere('ch.to_id', $params['uid']);
-            })
+            })->groupBy('ch.id')
 			->select(
 				'c.id',
 				'c.name',
