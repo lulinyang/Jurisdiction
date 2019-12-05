@@ -33,7 +33,13 @@ class WebSocketController extends Controller
             ->join('cms_user as c', 'c.id', '=', 'l.chat_id')
             ->where('l.uid', $uid)
             ->orderBy('l.created_at', 'desc')
-            ->select('c.*', 'l.created_at as chat_time', 'l.msgType', 'l.content')
+            ->select(
+				'c.*', 
+				'l.created_at as chat_time', 
+				'l.msgType', 
+				'l.content',
+				DB::raw("(SELECT COUNT(id) FROM cms_chat WHERE deleted = 0 AND to_id = l.uid) as unread_num")
+			)
             ->get();
         $data = collect(returnArr($res, 100, 'success'))->toJson();
         $server->push($sendfd, $data);
