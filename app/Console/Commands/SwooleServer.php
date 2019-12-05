@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\WebSocketController;
 use DB;
+use Illuminate\Support\Facades\Redis;
 
 class SwooleServer extends Command
 {
@@ -53,7 +54,8 @@ class SwooleServer extends Command
             try {
                 if($query_string) {
                     $uid = explode("=", $query_string)[1];
-                    DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
+                    Redis::sadd('uid_'.$uid, $request->fd);
+                    // DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
                 }
             } catch (\Throwable $th) {
                
@@ -79,7 +81,18 @@ class SwooleServer extends Command
         });
 
         //关闭链接回调
-        $server->on('close', function ($ser, $fd) {
+        $server->on('close', function (\Swoole\WebSocket\Server $server, $fd) {
+            $query_string = $request->server['query_string'];
+            $uid = '';
+            try {
+                if($query_string) {
+                    $uid = explode("=", $query_string)[1];
+                    Redis::srem('uid_'.$uid, $request->fd);
+                    // DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
+                }
+            } catch (\Throwable $th) {
+               
+            }
             $this->info($fd . '断开链接');
         });
 
