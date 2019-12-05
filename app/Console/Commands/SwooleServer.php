@@ -53,7 +53,7 @@ class SwooleServer extends Command
             try {
                 if($query_string) {
                     $uid = explode("=", $query_string)[1];
-                    DB::table('users')->where('id', $uid)->update(['fd' => $request->fd]);
+                    DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
                 }
             } catch (\Throwable $th) {
                 // $this->info($request->fd . '链接成功'. $uid);
