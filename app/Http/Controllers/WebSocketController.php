@@ -51,12 +51,12 @@ class WebSocketController extends Controller
     public function saveChat($server, $content, $sendfd)
     {   
         $arr = [
-			'from_id' => $content['uid'],
+			'from_id' => $content['from_id'],
 			'to_id' => $content['to_id'],
 			'msgType' => $content['msgType'],
 			'content' => $content['content'],
 			'created_at' => date('Y-m-d H:i:s'),
-			'updated_at' => date('Y-m-d H:i:s')
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
         //把最后一条消息同步到聊天列表，方便查询
 		DB::table('cms_chat_list')
@@ -83,7 +83,8 @@ class WebSocketController extends Controller
         DB::table('cms_chat_list')->insert($chat_list);
 
 
-        DB::table('cms_chat')->insert($arr);
+        $content['id'] = DB::table('cms_chat')->insertGetId($arr);
+        $arr['id'] = $content['uid'];
         $ids = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['id']);
         $fds = [];
         foreach($ids as $val) {
@@ -94,11 +95,10 @@ class WebSocketController extends Controller
         foreach ($server->connections as $fd){
             $connections[] = $fd;
         }
-        
         foreach($fds as $val) {
             //只发在线人员
             if(in_array($val, $connections)) {
-                $server->push($val, implode(",", $fds));
+                $server->push($val, collect($content)->toJson());
             }
         }
     }
