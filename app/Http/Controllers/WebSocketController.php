@@ -60,7 +60,7 @@ class WebSocketController extends Controller
         ];
         //把最后一条消息同步到聊天列表，方便查询
 		DB::table('cms_chat_list')
-            ->where('chat_id', $content['uid'])
+            ->where('chat_id', $content['from_id'])
             ->orWhere('chat_id', $content['to_id'])->delete();
         $chat_list = [
             [
