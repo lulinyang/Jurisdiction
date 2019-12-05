@@ -56,12 +56,10 @@ class SwooleServer extends Command
                     DB::table('cms_user')->where('id', $uid)->update(['fd' => $request->fd]);
                 }
             } catch (\Throwable $th) {
-                // $this->info($request->fd . '链接成功'. $uid);
+               
             }
             
             $this->info($request->fd . '链接成功'. $uid);
-            //绑定uid
-            // $server->bind(1, 1);
         });
 
         //收到消息回调

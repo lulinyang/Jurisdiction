@@ -35,7 +35,10 @@ class WebSocketController extends Controller
      */
     public function saveChat($server, $content)
     {   
-        return collect($content)->toJson(); 
+        $res = collect($content)->toJson(); 
+        foreach ($server->connections as $fd){
+            $server->push($fd, $res);
+        }
     }
     
 }
