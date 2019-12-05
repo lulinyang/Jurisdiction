@@ -35,7 +35,7 @@ class WebSocketController extends Controller
      */
     public function saveChat($server, $content)
     {   
-        $user = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get('fd');
+        $user = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['fd']);
         $res = collect($user)->toJson();
         foreach ($server->connections as $fd){
             $server->push($fd, $res);
