@@ -164,6 +164,8 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getAncestral', 'AncestralController@getAncestral');
     //名人烈士
     Route::post('/getCelebrity', 'CelebrityController@getCelebrity');
+    //私信
+    Route::post('/saveChat', 'ChatController@saveChat');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

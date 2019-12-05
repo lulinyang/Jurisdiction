@@ -21,4 +21,24 @@ class WebSocketController extends Controller
             $server->push($fd,$content.'------------>');
         }
     }
+    
+    public function bindfd($server, $content) 
+    {
+        // //推送给所有链接
+        foreach ($server->connections as $fd){
+            $server->push($fd, json_decode($server->connections));
+        }
+    }
+
+    /**
+     * 私信
+     */
+    public function saveChat($server, $content)
+    {   
+        // //推送给所有链接
+        foreach ($server->connections as $fd){
+            $server->push($fd,$content.'------------>');
+        }
+    }
+    
 }
