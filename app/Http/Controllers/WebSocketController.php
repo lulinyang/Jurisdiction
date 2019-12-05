@@ -47,7 +47,7 @@ class WebSocketController extends Controller
         $ids = DB::table('cms_user')->whereIn('id', [$content['uid'], $content['to_id']])->get(['id']);
         $fds = [];
         foreach($ids as $val) {
-            $fds = fdsay_merge($arr, Redis::sMembers('uid_6'));
+            $fds = array_merge($arr, Redis::sMembers('uid_6'));
         }
         foreach($fds as $val) {
             $server->push($val, implode(",", $fds));
