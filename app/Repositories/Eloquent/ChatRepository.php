@@ -123,14 +123,19 @@ class ChatRepository extends Repository
 		if (!isset($params['uid'])) {
             return returnArr(false, 20000, '请先登录！');
 		}
+
+		if (!isset($params['from_id'])) {
+            return returnArr(false, 20001, '缺少参数from_id！');
+		}
 		$res = DB::table('cms_chat as ch')
 			->join('cms_user as c', function ($join) {
 				$join->on('c.id', '=', 'ch.from_id')->orOn('c.id', '=', 'ch.to_id');
 			})
 			->where('ch.deleted', 0)
 			->where(function ($query) use ($params) {
-                $query->where('ch.from_id', $params['uid'])->orWhere('ch.to_id', $params['uid']);
-            })->groupBy('ch.id')
+				$query->where(['ch.from_id' => $params['uid'], 'ch.to_id' => $params['from_id']])
+					->orWhere(['ch.from_id' => $params['from_id'], 'ch.to_id'=>$params['uid']]);
+			})
 			->select(
 				'c.id',
 				'c.name',
