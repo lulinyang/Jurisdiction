@@ -49,6 +49,7 @@ class WebSocketController extends Controller
         foreach($ids as $val) {
             $fds = array_merge($arr, Redis::sMembers('uid_'.$val->id));
         }
+        var_dump($fds);
         foreach($fds as $val) {
             $server->push($val, implode(",", $fds));
         }
