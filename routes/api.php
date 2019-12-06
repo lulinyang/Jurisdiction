@@ -170,6 +170,8 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getPrivateLetterList', 'ChatController@getPrivateLetterList');
     Route::post('/updateUnread', 'ChatController@updateUnread');
     Route::post('/getChatRoomList', 'ChatController@getChatRoomList');
+    //上传图片
+    Route::post('/upChatImage', 'CommonController@upChatImage');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

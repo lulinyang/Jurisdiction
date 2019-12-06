@@ -115,6 +115,25 @@ class CommonController extends Controller
             return returnApi('\/uploads\/'.$path);
         }
     }
+    /**
+     * 上传聊天记录的图片，方便管理
+     */
+    public function upChatImage(Request $request)
+    {
+        if (!$request->hasFile('img')) {
+            return returnApi(false, 20001, '文件不存在！');
+        } else {
+            $img = $request->file('img');
+            // 获取后缀名
+            $ext = $img->extension();
+            // 新文件名
+            $saveName = time().rand().'.'.$ext;
+            // 使用 store 存储文件
+            $path = $img->store(date('Ymd'));
+
+            return returnApi('\/uploads\/chat\/'.$path);
+        }
+    }
 
     public function sendMsg(Request $request)
     {
@@ -151,7 +170,6 @@ class CommonController extends Controller
         $appsecret = '336HRSiT';
         $version = 'v1';
         $record = DB::table('cms_weather')->where('city_id', $cityid)->orderBy('created_at', 'desc')->first();
-        // dd($record);
         if($record) {
             $created_at = strtotime($record->created_at);
             if(time() - $created_at < 600) {
@@ -161,7 +179,6 @@ class CommonController extends Controller
         $url = 'https://www.tianqiapi.com/api/?appid='. $appid .'&appsecret='. $appsecret .'&version='.$version.'&cityid='. $cityid;
         $res = doCurl($url);
         $weather = json_decode($res, true);
-        // dd($weather['data']);
         $arr = [
             'city_id' => $weather['cityid'],
             'city_name' => $weather['city'],
@@ -185,7 +202,6 @@ class CommonController extends Controller
 
     public function getHuangLi(Request $request) 
     {
-        // $params = $request->all();
         $res = DB::table('cms_yellow_calendar')->orderBy('created_at', 'desc')->first();
         return returnApi($res);
     }
@@ -198,23 +214,15 @@ class CommonController extends Controller
         if(isset($params['month'])) {
             $month = $params['month'];
         }
-
         if(isset($params['day'])) {
             $day = $params['day'];
         }
-    
         $res = DB::table('cms_history_today')
             ->where([
                 'month' => $month,
                 'day' => $day
             ])->orderBy('created_at', 'desc')
             ->get();
-        // dd($res[0]->title);
-        // $titles = [];
-        // foreach($res as $val) {
-        //     $titles[] = $val->title;
-        // }
-        // $res = DB::table('cms_history_today')->whereIn('title', $titles)->get();
         return returnApi($res);
     }
 
