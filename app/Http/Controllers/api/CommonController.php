@@ -129,9 +129,9 @@ class CommonController extends Controller
             // 新文件名
             $saveName = time().rand().'.'.$ext;
             // 使用 store 存储文件
-            $path = $img->store(date('Ymd'));
+            $path = $img->store('\/chat\/'.date('Ymd'));
 
-            return returnApi('/uploads/chat/'.$path);
+            return returnApi('\/uploads\/'.$path);
         }
     }
 
