@@ -131,7 +131,7 @@ class CommonController extends Controller
             // 使用 store 存储文件
             $path = $img->store(date('Ymd'));
 
-            return returnApi('\/uploads\/chat\/'.$path);
+            return returnApi('/uploads/chat/'.$path);
         }
     }
 
