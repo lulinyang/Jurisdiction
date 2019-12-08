@@ -139,8 +139,6 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     
     //实名认证
     Route::post('/realAuthentication', 'UserController@realAuthentication');
-    // Route::post('/updateUser', 'UserController@addUser');
-    // Route::post('/deleteUser', 'UserController@deleteUser');
     //用户登录
     Route::post('/login', 'UserController@login');
     //发布话题
@@ -162,6 +160,13 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/cancelCollection', 'CollectionController@cancelCollection');
     //宗祠
     Route::post('/getAncestral', 'AncestralController@getAncestral');
+    Route::post('/applyAncestral', 'AncestralController@applyAncestral');
+    Route::post('/cancelAncestral', 'AncestralController@cancelAncestral');
+    Route::post('/getAncestralApp', 'AncestralController@getAncestralApp');
+    Route::post('/getAlreadyAncestral', 'AncestralController@getAlreadyAncestral');
+    Route::post('/getApplyAncestral', 'AncestralController@getApplyAncestral');
+    Route::post('/getAncestralInfo', 'AncestralController@getAncestralInfo');
+    
     //名人烈士
     Route::post('/getCelebrity', 'CelebrityController@getCelebrity');
     //私信
