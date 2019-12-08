@@ -135,6 +135,7 @@ class ChatRepository extends Repository
 						$query2->where(['ch.from_id' => $params['from_id'], 'ch.to_id'=>$params['uid']]);
 					});
 			})
+			->orderBy('ch.created_at', 'asc')
 			->select(
 				'u.id',
 				'u.name',
