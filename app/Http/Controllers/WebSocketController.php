@@ -38,7 +38,7 @@ class WebSocketController extends Controller
 				'l.created_at as chat_time', 
 				'l.msgType', 
 				'l.content',
-				DB::raw("(SELECT COUNT(id) FROM cms_chat WHERE deleted = 0 AND isRead = 0 AND to_id = l.uid) as unread_num")
+				DB::raw("(SELECT COUNT(id) FROM cms_chat WHERE deleted = 0 AND isRead = 0 AND to_id = l.uid AND from_id = l.chat_id) as unread_num")
 			)
             ->get();
         $data = collect(returnArr($res, 100, 'success'))->toJson();

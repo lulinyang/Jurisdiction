@@ -111,8 +111,14 @@ class ChatRepository extends Repository
 		if (!isset($params['uid'])) {
             return returnArr(false, 20000, '请先登录！');
 		}
+
+		if (!isset($params['from_id'])) {
+            return returnArr(false, 20001, '缺少from_id参数！');
+		}
+		// 
 		$res = DB::table('cms_chat')
 			->where('to_id', $params['uid'])
+			->where('from_id', $params['from_id'])
 			->update(['isRead' => 1, 'updated_at' => date('Y-m-d H:i:s')]);
 		return returnArr($res);
 	}
