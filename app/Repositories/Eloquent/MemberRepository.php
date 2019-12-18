@@ -56,8 +56,6 @@ class MemberRepository extends Repository
             }
             $res = $this->model->create($params);
 
-            // $res = DB::table('cms_member')->insert($params);
-            // dd($res);
             if ($res) {
                 return returnArr($res);
             }
@@ -88,7 +86,7 @@ class MemberRepository extends Repository
     public function getMember($request)
     {
         $params = $request->all();
-        if (!$params['id']) {
+        if (!isset($params['id'])) {
             return returnArr(false, 20001, '缺少id参数！');
         }
         $res = DB::table('cms_member')->where(['deleted' => 0, 'id' => $params['id']])->first();

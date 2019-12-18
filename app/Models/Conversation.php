@@ -13,7 +13,7 @@ class Conversation extends Model
      * @var array
      */
     protected $fillable = [
-        'id', 'content', 'imgs', 'uid', 'browse_volume', 'deleted', 'created_at', 'updated_at'
+        'id', 'ancestral_id', 'content', 'imgs', 'uid', 'browse_volume', 'deleted', 'created_at', 'updated_at'
     ];
 
     /**

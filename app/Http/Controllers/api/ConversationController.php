@@ -38,4 +38,15 @@ class ConversationController extends Controller
 
         return $result;
     }
+
+    /**
+     * 删除话题
+     */
+    public function delConversationList(Request $request)
+    {
+        $result = collect($this->conversation->delConversationList($request))->toJson();
+
+        return $result;
+    }
+    
 }

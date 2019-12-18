@@ -352,5 +352,179 @@ class AncestralRepository extends Repository
 		return $ids;
 	}
 	
+	public function getAncestralAll($request)
+	{
+		$res = DB::table('cms_ancestral_hall')->where('deleted', 0)->select('id', 'name')->get();
+		return returnArr($res);
+	}
+
+	public function addNotice($request)
+	{
+		$params = $request->all();
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id！');
+		}
+
+		if (!isset($params['content'])) {
+			return returnArr(false, 20001, '公告内容必填！');
+		}
+		$userId = \Auth::guard('customer')->user()->id;
+		$arr = [
+			'ancestral_id' => $params['ancestral_id'],
+			'content' => $params['content'],
+			'create_user' => $userId,
+			'created_at' => date('Y-m-d H:i:s')
+		];
+		$res = DB::table('cms_notice')->insert($arr);
+		if($res) {
+			return returnArr($res, 200, '添加成功！');
+		}
+		return returnArr($res, 200, '添加失败！');
+	}
+
+	public function getNoticeList($request)
+	{
+		$params = $request->all();
+		$pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
+		$ancestral_id = isset($params['ancestral_id']) ? $params['ancestral_id'] : '0';
+		$content = isset($params['content']) ? $params['content'] : '';
+		$flied = 'n.ancestral_id';
+		if($ancestral_id === '0') {
+			$flied = 'n.deleted';
+		}
+		$paginate = DB::table('cms_notice as n')
+			->leftJoin('cms_ancestral_hall as a', function ($join) {
+				$join->on('n.ancestral_id', '=', 'a.id');
+			})
+			->leftJoin('cms_customer as c', function ($join) {
+				$join->on('n.create_user', '=', 'c.id');
+			})
+			->Where('n.deleted', 0)
+			->where($flied, $ancestral_id)
+			->where('n.content', 'like', "%{$content}%")
+			->orderBy('n.created_at', 'desc')
+			->select(
+				'n.*',
+				'c.username as created_user_name',
+				'a.name as ancestral_name'
+			)
+			->paginate($pageSize);
+		return returnArr(collection($paginate));
+	}
+
+	public function editNotice($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少id！');
+		}
+
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20002, '缺少ancestral_id！');
+		}
+
+		if (!isset($params['content'])) {
+			return returnArr(false, 20003, '公告内容必填！');
+		}
+		$userId = \Auth::guard('customer')->user()->id;
+		$arr = [
+			'ancestral_id' => $params['ancestral_id'],
+			'content' => $params['content'],
+			'update_user' => $userId,
+			'updated_at' => date('Y-m-d H:i:s')
+		];
+		$res = DB::table('cms_notice')->where('id', $params['id'])->update($arr);
+		if($res) {
+			return returnArr($res, 200, '编辑成功！');
+		}
+		return returnArr($res, 20004, '编辑失败！');
+	}
 	
+	public function delNotice($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少id！');
+		}
+		$userId = \Auth::guard('customer')->user()->id;
+		$arr = [
+			'deleted' => 1, 
+			'updated_at' => date('Y-m-d H:i:s'),
+			'update_user' => $userId
+		];
+		$res = DB::table('cms_notice')->where('id', $params['id'])->update($arr);
+		if($res) {
+			return returnArr($res, 200, '删除成功！');
+		}
+		return returnArr($res, 20002, '删除失败！');
+	}
+
+	public function addVote($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id！');
+		}
+		
+		if (!isset($params['title'])) {
+			return returnArr(false, 20001, '投票描述不能为空！');
+		}
+
+		if (!isset($params['contents'])) {
+			return returnArr(false, 20002, '投票对象不能为空！');
+		}
+		$arr = [
+			'ancestral_id' => $params['ancestral_id'],
+			'title' => $params['title'],
+			'created_at' => date('Y-m-d H:i:s'),
+			'uid' => $params['uid']
+		];
+		try {
+			DB::beginTransaction();
+			$id = DB::table('cms_vote_title')->insertGetId($arr);
+			foreach($params['contents'] as $key => $val) {
+				$params['contents'][$key]['vote_id'] = $id;
+				$params['contents'][$key]['created_at'] = date('Y-m-d H:i:s');
+			}
+			// dd($params['contents']);
+			$res = DB::table('cms_vote_content')->insert($params['contents']);
+			if($res) {
+				DB::commit();
+				return returnArr($res, 200, '发布成功！');
+			}
+			DB::rollBack();
+			return returnArr(false, 20002, '发布失败！');
+		} catch (\Throwable $th) {
+			DB::rollBack();
+			return returnArr(false, 20002, '发布失败！');
+		}
+	}
+
+	public function getVoteList($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id！');
+		}
+
+		$pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
+		$paginate = DB::table('cms_vote_title')->where('deleted', 0)
+			->select(
+				'*',
+				DB::raw("(SELECT name FROM cms_ancestral_hall WHERE id = ancestral_id) as ancestral_name"),
+				DB::raw("(SELECT name FROM cms_user WHERE id = uid) as username"),
+				DB::raw("(SELECT headUrl FROM cms_user WHERE id = uid) as headUrl")
+			)
+			->paginate($pageSize);
+			
+		return returnArr(collection($paginate));
+	}
 }

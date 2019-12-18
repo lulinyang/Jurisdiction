@@ -94,8 +94,21 @@ Route::group(['middleware' => 'customer', 'namespace' => 'api'], function () {
      */
     Route::post('/addAncestral', 'AncestralController@addAncestral');
     Route::get('/getAncestral', 'AncestralController@getAncestral');
+    Route::get('/getAncestralAll', 'AncestralController@getAncestralAll');
     Route::get('/getAncestralById', 'AncestralController@getAncestralById');
     Route::post('/delAncestral', 'AncestralController@delAncestral');
+    /**
+     * 宗祠公告管理
+     */
+    Route::post('/addNotice', 'AncestralController@addNotice');
+    Route::post('/editNotice', 'AncestralController@editNotice');
+    Route::get('/getNoticeList', 'AncestralController@getNoticeList');
+    Route::post('/delNotice', 'AncestralController@delNotice');
+    /**
+     * 话题管理
+     */
+    Route::get('/getConversationList', 'ConversationController@getConversationList');
+    Route::post('/delConversationList', 'ConversationController@delConversationList');
 });
 
 //公共接口
@@ -175,6 +188,14 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getPrivateLetterList', 'ChatController@getPrivateLetterList');
     Route::post('/updateUnread', 'ChatController@updateUnread');
     Route::post('/getChatRoomList', 'ChatController@getChatRoomList');
+    //族谱拓扑图
+    Route::post('/getTreeChart', 'TopologicalGraphController@getTreeChart');
+    //任务简介
+    Route::post('/getMember', 'MemberController@getMember');
+    //发起投票
+    Route::post('/addVote', 'AncestralController@addVote');
+    //获取投票列表
+    Route::post('/getVoteList', 'AncestralController@getVoteList');
     
 });
 

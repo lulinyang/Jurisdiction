@@ -46,25 +46,37 @@ class ConversationRepository extends Repository
 
 	public function getConversationList($request)
 	{
-		$data = $request->all();
+		$params = $request->all();
 		$pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+		$ancestral_id = isset($params['ancestral_id']) ? $params['ancestral_id'] : '-1';
+		$name = isset($params['name']) ? $params['name'] : '';
+		$flied = 'c.ancestral_id';
+		if($ancestral_id === '-1') {
+			$flied = 'c.deleted';
+			$ancestral_id = 0;
+		}
 		$paginate = DB::table('cms_conversation as c')
-							->leftjoin('cms_user as u', function ($join) {
-									$join->on('c.uid', '=', 'u.id');
-					})
-					->Where('c.deleted', '=', '0')
-					->Where('u.deleted', '=', '0')
-					->orderBy('c.created_at', 'desc')
-					->select(
-						'c.*', 
-						'u.id as uid', 
-						'u.name', 
-						'u.sex', 
-						'u.headUrl',
-						DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
-						DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num")
-					)
-					->paginate($pageSize);
+			->leftjoin('cms_user as u', function ($join) {
+				$join->on('c.uid', '=', 'u.id');
+			})
+			->Where('c.deleted', '=', '0')
+			->Where('u.deleted', '=', '0')
+			->where($flied, $ancestral_id)
+			->where('u.name', 'like', "%{$name}%")
+			->orderBy('c.created_at', 'desc')
+			->select(
+				'c.*', 
+				'u.id as uid', 
+				'u.name', 
+				'u.sex', 
+				'u.headUrl',
+				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
+				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num"),
+				DB::raw("(SELECT name FROM cms_ancestral_hall WHERE id = c.ancestral_id) as ancestral_name")
+			)
+			// ->toSql();
+			// return returnArr($paginate);
+			->paginate($pageSize);
         return collection(returnArr($paginate));
 	}
 
@@ -118,6 +130,19 @@ class ConversationRepository extends Repository
             $res = DB::table('cms_conversation')->where('id', $params['id'])->increment('browse_volume');
             return returnArr($res);
         }
-    }
+	}
+	
+	public function delConversationList($request)
+	{
+		$params = $request->all();
+		if (!isset($params['id'])) {
+            return returnArr(false, 20001, '缺少ID参数！');
+		}
+       
+		$res = DB::table('cms_conversation')->where('id', $params['id'])->update(['deleted' => 1]);
+		return returnArr($res);
+       
+	}
+	
 	
 }

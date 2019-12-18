@@ -129,7 +129,11 @@ class TopologicalGraphRepository extends Repository
 
     public function getTreeChart($request)
     {
-        $surnameId = $request->all()['surname_id'];
+        $params =  $request->all();
+        if(!isset($params['surname_id'])) {
+            return returnArr(false, 20001, '缺少surname_id参数');
+        }
+        $surnameId = $params['surname_id'];
         $res = DB::table('cms_topological_graph as tg')
                 ->select(
                     'tg.id',

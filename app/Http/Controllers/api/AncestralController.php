@@ -83,7 +83,60 @@ class AncestralController extends Controller
         return collect($this->ancestral->getAncestralInfo($request))->toJson(); 
     }
     
+    /**
+     * 得到全部宗祠
+     */
+    public function getAncestralAll(Request $request) 
+    {
+        return collect($this->ancestral->getAncestralAll($request))->toJson(); 
+    }
+
+    /**
+     * 添加公告
+     */
+    public function addNotice(Request $request) 
+    {
+        return collect($this->ancestral->addNotice($request))->toJson(); 
+    }
+    /**
+     * 公告列表
+     */
+    public function getNoticeList(Request $request) 
+    {
+        return collect($this->ancestral->getNoticeList($request))->toJson(); 
+    }
     
+    /**
+     * 编辑公告
+     */
+    public function editNotice(Request $request) 
+    {
+        return collect($this->ancestral->editNotice($request))->toJson(); 
+    }
+
+    /**
+     * 删除公告
+     */
+    public function delNotice(Request $request) 
+    {
+        return collect($this->ancestral->delNotice($request))->toJson(); 
+    }
+
+    /**
+     * 发起投票
+     */
+    public function addVote(Request $request) 
+    {
+        return collect($this->ancestral->addVote($request))->toJson(); 
+    }
+    
+    /**
+     * 获取投票列表
+     */
+    public function getVoteList(Request $request) 
+    {
+        return collect($this->ancestral->getVoteList($request))->toJson(); 
+    }
     
     
 }
