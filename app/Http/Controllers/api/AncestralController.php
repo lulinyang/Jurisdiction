@@ -137,6 +137,53 @@ class AncestralController extends Controller
     {
         return collect($this->ancestral->getVoteList($request))->toJson(); 
     }
-    
+
+    /**
+     * 获取投票内容
+     */
+    public function getVoteItem(Request $request) 
+    {
+        return collect($this->ancestral->getVoteItem($request))->toJson(); 
+    }
+
+    /**
+     * 投票
+     */
+    public function activeVoteItem(Request $request) 
+    {
+        return collect($this->ancestral->activeVoteItem($request))->toJson(); 
+    }
+
+    /**
+     * 最新公告
+     */
+    public function getNoticeNew(Request $request) 
+    {
+        return collect($this->ancestral->getNoticeNew($request))->toJson(); 
+    }
+
+    /**
+     * 保存宗祠建议内容
+     */
+    public function saveProposal(Request $request) 
+    {
+        return collect($this->ancestral->saveProposal($request))->toJson(); 
+    }
+
+    /**
+     * 获取宗祠建议内容
+     */
+    public function getProposalList(Request $request) 
+    {
+        return collect($this->ancestral->getProposalList($request))->toJson(); 
+    }
+
+    /**
+     * 获取宗祠的文件列表
+     */
+    public function getAncestralFileList(Request $request) 
+    {
+        return collect($this->ancestral->getAncestralFileList($request))->toJson(); 
+    }
     
 }

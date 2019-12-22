@@ -267,6 +267,76 @@ class CommonController extends Controller
         }  
 		
     }
+
+    /**
+     * 保存宗祠文件
+     */
+    public function uploadAncestralFile(Request $request)
+    {
+        $params = $request->all();
+        if (!isset($params['ancestral_id'])) {
+			return returnApi(false, 20001, '缺少ancestral_id参数！');
+        }
+        
+        $file = $this->upAncestralFile($request, $params['ancestral_id']);
+        if(!$file[0]) {
+            return returnApi(false, 20002, $file[1]);
+        }
+
+        $arr = [
+            'ancestral_id' => $params['ancestral_id'],
+            'link' => $file[1]['link'],
+            'filesize' => $file[1]['filesize'],
+            'old_name' => $file[1]['originalName'],
+            'name' => $file[1]['originalName'],
+            'ext' => $file[1]['ext'],
+            'created_at' => date('Y-m-d H:i:s', time()),
+            'updated_at' => date('Y-m-d H:i:s', time())
+        ];
+        if(isset($params['uid'])) {
+            $arr['uid'] = $params['uid'];
+        }
+
+        if(isset($params['name'])) {
+            $arr['name'] = $params['name'];
+        }
+        
+        $res = DB::table('cms_upload_file')->insert($arr);
+		if($res) {
+			return returnApi($res, 200, '发布成功！');
+		}
+		return returnApi($res, 20003, '发布失败！');
+    }
+
+    /**
+     * 上传宗祠文件
+     */
+    public function upAncestralFile($request, $ancestral_id)
+    {
+        if (!$request->hasFile('file')) {
+            return [false, '文件不存在！'];
+        } else {
+            $file = $request->file('file');
+            $filesize = $file -> getClientSize();
+            if($filesize > 5 * 1024 * 1024) {
+                return [false, '文件太大，最大可上传5M！']; 
+            }
+            $originalName = explode(".", $file->getClientOriginalName())[0];
+            // 获取后缀名
+            $ext = $file->extension();
+            // 新文件名
+            $saveName = time().rand().'.'.$ext;
+            // 使用 store 存储文件
+            $path = $file->store('\/ancestral\/'.'\/'.$ancestral_id.'\/'.date('Ymd'));
+
+            return [true, [
+                'link' => '\/uploads\/'.$path,
+                'filesize' => $filesize,
+                'originalName' => $originalName,
+                'ext' => $ext
+            ]];
+        }
+    }
     
 }
 

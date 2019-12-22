@@ -527,4 +527,155 @@ class AncestralRepository extends Repository
 			
 		return returnArr(collection($paginate));
 	}
+
+	public function getVoteItem($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+
+		if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少ID参数！');
+		}
+		$res = DB::table('cms_vote_title')->where(['deleted'=>0, 'id' => $params['id']])->first();
+		$res->vote_content = DB::table('cms_vote_content')->where(['deleted'=>0, 'vote_id' => $params['id']])->get();
+		$sql_check = "SELECT * from cms_vote_content WHERE vote_id = ? AND FIND_IN_SET(?, user_ids)";
+		$item = DB::select($sql_check, [$params['id'], $params['uid']]);
+		if($item) {
+			$res->isVote = true;
+		}else {
+			$res->isVote = false;
+		}
+		return returnArr($res);
+	}
+
+	public function activeVoteItem($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+
+		if (!isset($params['vote_id'])) {
+			return returnArr(false, 20001, '缺少vote_id参数！');
+		}
+		if (!isset($params['id'])) {
+			return returnArr(false, 20002, '缺少id参数！');
+		}
+
+		$sql_check = "SELECT * from cms_vote_content WHERE vote_id = ? AND FIND_IN_SET(?, user_ids)";
+		$item = DB::select($sql_check, [$params['vote_id'], $params['uid']]);
+		if($item) {
+			return returnArr(false, 20003, '您已投过票不能重复投票！');
+		}
+		$voteItem = DB::table('cms_vote_content')->where('id', $params['id'])->first();
+		$sql = "UPDATE cms_vote_content SET user_ids=? WHERE id = ?";
+		if($voteItem->user_ids) {
+			$sql = "UPDATE cms_vote_content SET user_ids=CONCAT(user_ids,',',?) WHERE id = ?";
+		}
+		$res = DB::update($sql, [$params['uid'], $params['id']]);
+		if($res) {
+			return returnArr($res, 200, '投票成功！');
+		}else {
+			return returnArr($res, 20004, '投票失败，请稍后再试！');
+		}
+	}
+
+	public function getNoticeNew($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+	
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id参数！');
+		}
+		$where = [
+			'deleted' => 0,
+			'ancestral_id' => $params['ancestral_id']
+		];
+		$res = DB::table('cms_notice')->where($where)->orderBy('created_at', 'desc')->first();
+		return returnArr($res);
+	}
+
+	public function saveProposal($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+	
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id参数！');
+		}
+
+		if (!isset($params['content'])) {
+			return returnArr(false, 20002, '建议内容必填！');
+		}
+		$arr = [
+			'uid' => $params['uid'],
+			'ancestral_id' => $params['ancestral_id'],
+			'content' => $params['content'],
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s')
+		];
+		$res = DB::table('cms_proposal')->insert($arr);
+		if($res) {
+			return returnArr($res, 200, '发布成功！');
+		}
+		return returnArr($res, 20003, '发布失败！');
+	}
+
+	public function getProposalList($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+	
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id参数！');
+		}
+		
+		$where = [
+			'p.deleted' => 0,
+			'p.ancestral_id' => $params['ancestral_id']
+		];
+		$pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
+		$type = isset($params['type']) ? $params['type'] : 0;
+		if($type != 0) {
+			$where['p.uid'] = $params['uid'];
+		}
+		$paginate = DB::table('cms_proposal as p')
+			->leftJoin('cms_user as u', function ($join) {
+				$join->on('p.uid', '=', 'u.id');
+			})->where($where)
+			->orderBy('p.created_at', 'desc')
+			->select('p.*', 'u.name', 'u.headUrl')
+			->paginate($pageSize);
+		return returnArr($paginate);
+	}
+
+	public function getAncestralFileList($request) 
+	{
+		$params = $request->all();
+	
+		if (!isset($params['ancestral_id'])) {
+			return returnArr(false, 20001, '缺少ancestral_id参数！');
+		}
+
+		$where = [
+			'deleted' => 0,
+			'ancestral_id' => $params['ancestral_id']
+		];
+		$pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
+		$paginate = DB::table('cms_upload_file')
+			->where($where)
+			->orderBy('created_at', 'desc')
+			->paginate($pageSize);
+		return returnArr($paginate);
+	}
+	
 }

@@ -123,6 +123,8 @@ Route::group(['namespace' => 'api'], function () {
     Route::post('/setPosition', 'CommonController@setPosition');
     //上传图片
     Route::post('/upChatImage', 'CommonController@upChatImage');
+    //上传文件
+    Route::post('/uploadAncestralFile', 'CommonController@uploadAncestralFile');
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
@@ -196,7 +198,20 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/addVote', 'AncestralController@addVote');
     //获取投票列表
     Route::post('/getVoteList', 'AncestralController@getVoteList');
-    
+    //获取投票内容
+    Route::post('/getVoteItem', 'AncestralController@getVoteItem');
+    //投票
+    Route::post('/activeVoteItem', 'AncestralController@activeVoteItem');
+    //获取最新公告
+    Route::post('/getNoticeNew', 'AncestralController@getNoticeNew');
+    //公告列表
+    Route::post('/getNoticeList', 'AncestralController@getNoticeList');
+    //保存宗祠建议内容
+    Route::post('/saveProposal', 'AncestralController@saveProposal');
+    //获取宗祠建议内容
+    Route::post('/getProposalList', 'AncestralController@getProposalList');
+    //获取宗祠的文件列表
+    Route::post('/getAncestralFileList', 'AncestralController@getAncestralFileList');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
