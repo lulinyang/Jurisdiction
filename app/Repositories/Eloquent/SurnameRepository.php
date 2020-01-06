@@ -47,6 +47,11 @@ class SurnameRepository extends Repository
     public function addGenealogy($request)
     {
         $params = $request->all();
+        // dd($params);administrators
+        if(!isset($params['administrators'])) {
+            return returnArr(false, 20001, '管理员必填！');
+        }
+        
         if (!isset($params['id'])) {
             $user = \Auth::guard('customer')->user();
             $params['user_id'] = $user->id;
@@ -54,12 +59,35 @@ class SurnameRepository extends Repository
             $params['orgname'] = $user->orgname;
             $params['username'] = $user->username;
             $res = $this->model->create($params);
+            foreach($params['administrators'] as $key => $val) {
+                $data = [
+                    'surname_id' => $res->id,
+                    'uid' => $val,
+                    'isApply' => 1,
+                    'identity' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                DB::table('cms_surname_user')->insert($data);
+            }
             if ($res) {
                 return returnArr($res, 200, '创建成功！');
             } else {
                 return returnArr(false, 20002, '创建失败！');
             }
         } else {
+            DB::table('cms_surname_user')->where(['surname_id' => $params['id'], 'identity' => 1])->delete();
+            foreach($params['administrators'] as $key => $val) {
+                $data = [
+                    'surname_id' => $params['id'],
+                    'uid' => $val,
+                    'isApply' => 1,
+                    'identity' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+                DB::table('cms_surname_user')->insert($data);
+            }
             $arr = [
                 'area_surname' => $params['area_surname'],
                 'thumbnail' => $params['thumbnail'],
@@ -110,24 +138,45 @@ class SurnameRepository extends Repository
             ])->count();
         //收藏总数
         $collection_num  = DB::table('cms_collection')
-        ->where([
-            'type' => 2,
-            'theme_id' => $params['id']
-        ])->count();
+            ->where([
+                'type' => 2,
+                'theme_id' => $params['id']
+            ])->count();
         //评论总数
         $comment_num  = DB::table('cms_comment')
-        ->where([
-            'type' => 2,
-            'theme_id' => $params['id']
-        ])->count();
+            ->where([
+                'type' => 2,
+                'theme_id' => $params['id']
+            ])->count();
+        //管理员
+        $administrators = DB::table('cms_surname_user')
+            ->where([
+                'identity' => 1,
+                'surname_id' => $params['id']
+            ])->get();
+        $admin_ids = [];
+        foreach($administrators as $key => $val) {
+            $admin_ids[] = strval($val->uid);
+        }
+        //所有成员
+        $members = DB::table('cms_surname_user')
+            ->where([
+                'isApply' => 1,
+                'surname_id' => $params['id']
+            ])->get();
+        $member_ids = [];
+        foreach($members as $key => $val) {
+            $member_ids[] = strval($val->uid);
+        }
         $result = $this->getById($params['id']);
         $result->isFabulous = $fabulous;
         $result->fabulous_num = $fabulous_num;
         $result->isCollection = $collection;
         $result->collection_num = $collection_num;
         $result->comment_num = $comment_num;
-        // DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 1 AND theme_id = a.id) as comment_num");
-        return collection(returnArr($result));
+        $result->administrators = $admin_ids;
+        $result->members = $member_ids;
+        return returnArr($result);
     }
 
     public function deleteGenealogy($request)

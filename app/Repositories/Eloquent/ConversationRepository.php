@@ -140,8 +140,37 @@ class ConversationRepository extends Repository
 		}
        
 		$res = DB::table('cms_conversation')->where('id', $params['id'])->update(['deleted' => 1]);
-		return returnArr($res);
-       
+		return returnArr($res);  
+	}
+
+	public function getMyTopic($request)
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+            return returnArr(false, 20000, '请先登录！');
+		}
+
+		$pageSize = isset($data['pageSize']) ? $data['pageSize'] : 8;
+		$paginate = DB::table('cms_conversation as c')
+			->leftjoin('cms_user as u', function ($join) {
+				$join->on('c.uid', '=', 'u.id');
+			})
+			->Where('c.deleted', '=', '0')
+			->Where('u.deleted', '=', '0')
+			->Where('c.uid', '=', $params['uid'])
+			->orderBy('c.created_at', 'desc')
+			->select(
+				'c.*', 
+				'u.id as uid', 
+				'u.name', 
+				'u.sex', 
+				'u.headUrl',
+				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
+				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num"),
+				DB::raw("(SELECT name FROM cms_ancestral_hall WHERE id = c.ancestral_id) as ancestral_name")
+			)
+			->paginate($pageSize);
+        return collection(returnArr($paginate));
 	}
 	
 	

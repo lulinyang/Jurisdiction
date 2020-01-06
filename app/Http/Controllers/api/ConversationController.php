@@ -48,5 +48,16 @@ class ConversationController extends Controller
 
         return $result;
     }
+
+    /**
+     * 获取我的话题
+     */
+    public function getMyTopic(Request $request)
+    {
+        $result = collect($this->conversation->getMyTopic($request))->toJson();
+
+        return $result;
+    }
+    
     
 }

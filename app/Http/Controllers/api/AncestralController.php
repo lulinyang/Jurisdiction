@@ -185,5 +185,13 @@ class AncestralController extends Controller
     {
         return collect($this->ancestral->getAncestralFileList($request))->toJson(); 
     }
+
+    /**
+     * 获取我的宗祠
+     */
+    public function getMyAncestral(Request $request) 
+    {
+        return collect($this->ancestral->getAlreadyAncestral($request))->toJson(); 
+    }
     
 }

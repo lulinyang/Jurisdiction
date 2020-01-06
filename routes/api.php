@@ -212,6 +212,10 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getProposalList', 'AncestralController@getProposalList');
     //获取宗祠的文件列表
     Route::post('/getAncestralFileList', 'AncestralController@getAncestralFileList');
+    //获取我的话题
+    Route::post('/getMyTopic', 'ConversationController@getMyTopic');
+    //获取我的宗祠
+    Route::post('/getMyAncestral', 'AncestralController@getMyAncestral');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
