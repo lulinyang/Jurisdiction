@@ -230,7 +230,7 @@ class SurnameRepository extends Repository
             ->first();
 
         if($surname) {
-            return returnArr(true, 2000, '已提交申请，请耐心等候！');
+            return returnArr(true, 200, '已提交申请，请耐心等候！');
         }
 
         $data = [
@@ -241,7 +241,7 @@ class SurnameRepository extends Repository
         ];
         $res = DB::table('cms_surname_user')->insert($data);
         if($res) {
-            return returnArr($res, 2000, '已提交申请，请耐心等候！');
+            return returnArr($res, 200, '已提交申请，请耐心等候！');
         }
         return returnArr($res, 20002, '申请失败，请稍后再试！');
     }
