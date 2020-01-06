@@ -56,4 +56,14 @@ class SurnameController extends Controller
 
         return $result;
     }
+
+    /**
+     * 申请族谱
+     */
+    public function applySurname(Request $request)
+    {
+        $result = collect($this->surname->applySurname($request))->toJson();
+
+        return $result;
+    }
 }

@@ -209,4 +209,41 @@ class SurnameRepository extends Repository
                     ->get();
         return returnArr($res);
     }
+
+    public function applySurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+        
+        if (!isset($params['surname_id'])) {
+			return returnArr(false, 20001, '缺少surname_id参数！');
+        }
+        
+        $surname = DB::table('cms_surname_user')
+            ->Where([
+                'uid' => $params['uid'],
+                'surname_id' => $params['surname_id'],
+                'deleted' => 0
+            ])
+            ->first();
+
+        if($surname) {
+            return returnArr(true, 2000, '已提交申请，请耐心等候！');
+        }
+
+        $data = [
+            'surname_id' => $params['surname_id'],
+            'uid' => $params['uid'],
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+        $res = DB::table('cms_surname_user')->insert($data);
+        if($res) {
+            return returnArr($res, 2000, '已提交申请，请耐心等候！');
+        }
+        return returnArr($res, 20002, '申请失败，请稍后再试！');
+    }
+    
 }
