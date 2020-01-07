@@ -218,6 +218,9 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getMyAncestral', 'AncestralController@getMyAncestral');
     //申请族谱
     Route::post('/applySurname', 'SurnameController@applySurname');
+    //获取审核的宗祠列表
+    Route::post('/getAuditingAncestral', 'AncestralController@getAuditingAncestral');
+    
     
 });
 

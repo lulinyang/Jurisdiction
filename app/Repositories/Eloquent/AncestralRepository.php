@@ -677,5 +677,31 @@ class AncestralRepository extends Repository
 			->paginate($pageSize);
 		return returnArr($paginate);
 	}
-	
+
+	public function getAuditingAncestral($request) 
+	{
+		$params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+		}
+		$sql = "SELECT id from cms_ancestral_hall WHERE deleted = 0 AND FIND_IN_SET(?, administrators)";
+		$ancestrals = DB::select($sql, [$params['uid']]);
+		$ancetral_ids = [];
+		foreach($ancestrals as $key => $val) {
+			$ancetral_ids[] = $val->id;
+		}
+		$res = DB::table('cms_apply_ancestral as a')
+			->leftJoin('cms_user as u', function ($join) {
+				$join->on('a.uid', '=', 'u.id');
+			})
+			->leftJoin('cms_ancestral_hall as h', function ($join) {
+				$join->on('a.ancetral_id', '=', 'h.id');
+			})
+			->whereIn('a.ancetral_id', $ancetral_ids)
+			->where('a.deleted', 0)
+			->where('a.isApply', 0)
+			->select('a.*', 'u.name', 'u.username', 'u.sex', 'u.headUrl', 'h.name as ancetral_name')
+			->get();
+		return returnArr($res);
+	}
 }

@@ -193,5 +193,12 @@ class AncestralController extends Controller
     {
         return collect($this->ancestral->getAlreadyAncestral($request))->toJson(); 
     }
-    
+
+    /**
+     * 获取审核的宗祠列表
+     */
+    public function getAuditingAncestral(Request $request) 
+    {
+        return collect($this->ancestral->getAuditingAncestral($request))->toJson(); 
+    }
 }
