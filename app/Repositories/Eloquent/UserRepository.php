@@ -439,7 +439,8 @@ class UserRepository extends Repository
             'follow_id' => $params['uid'],
             'uid' => $params['follow_id'],
             'message' => $message,
-            'created_at' => date('Y-m-d H:i:s', time())
+            'created_at' => date('Y-m-d H:i:s', time()),
+            'updated_at' => date('Y-m-d H:i:s', time())
         ];
         DB::beginTransaction();
         try {

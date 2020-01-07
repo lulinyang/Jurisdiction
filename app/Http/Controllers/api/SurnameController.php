@@ -66,4 +66,15 @@ class SurnameController extends Controller
 
         return $result;
     }
+
+    /**
+     * 获取审核的族谱列表
+     */
+    public function getAuditingSurname(Request $request)
+    {
+        $result = collect($this->surname->getAuditingSurname($request))->toJson();
+
+        return $result;
+    }
+
 }

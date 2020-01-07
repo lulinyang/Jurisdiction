@@ -220,8 +220,8 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/applySurname', 'SurnameController@applySurname');
     //获取审核的宗祠列表
     Route::post('/getAuditingAncestral', 'AncestralController@getAuditingAncestral');
-    
-    
+    //获取审核的族谱列表
+    Route::post('/getAuditingSurname', 'SurnameController@getAuditingSurname');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

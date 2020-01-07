@@ -245,5 +245,41 @@ class SurnameRepository extends Repository
         }
         return returnArr($res, 20002, '申请失败，请稍后再试！');
     }
+
+    public function getAuditingSurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+
+        $surnames = DB::table('cms_surname_user')
+            ->where([
+                'uid' => $params['uid'], 
+                'identity' => 1, 
+                'isApply' => 1, 
+                'deleted' => 0
+            ])->get();
+        $surname_ids = [];
+        foreach($surnames as $key => $val) {
+            $surname_ids[] = $val->surname_id;
+        }
+        $res = DB::table('cms_surname_user as s')
+            ->leftJoin('cms_user as u', function ($join) {
+                $join->on('s.uid', '=', 'u.id');
+            })
+            ->leftJoin('cms_surname as su', function ($join) {
+                $join->on('s.surname_id', '=', 'su.id');
+            })
+            ->where([
+                's.identity' => 0, 
+                's.isApply' => 0, 
+                's.deleted' => 0
+            ])->whereIn('s.surname_id', $surname_ids)
+            ->select('s.*', 'u.name', 'u.username', 'u.sex', 'u.headUrl', 'su.area_surname')
+            ->get();
+        return returnArr($res);
+    }
+    
     
 }
