@@ -272,8 +272,7 @@ class SurnameRepository extends Repository
                 $join->on('s.surname_id', '=', 'su.id');
             })
             ->where([
-                's.identity' => 0, 
-                's.isApply' => 0, 
+                's.identity' => 0,
                 's.deleted' => 0
             ])->whereIn('s.surname_id', $surname_ids)
             ->select('s.*', 'u.name', 'u.username', 'u.sex', 'u.headUrl', 'su.area_surname')
