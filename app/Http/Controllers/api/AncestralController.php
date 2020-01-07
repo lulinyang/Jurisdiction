@@ -201,4 +201,20 @@ class AncestralController extends Controller
     {
         return collect($this->ancestral->getAuditingAncestral($request))->toJson(); 
     }
+
+    /**
+     * 拒绝宗祠申请
+     */
+    public function refuseAuditingAncestral(Request $request) 
+    {
+        return collect($this->ancestral->refuseAuditingAncestral($request))->toJson(); 
+    }
+
+    /**
+     * 同意宗祠申请
+     */
+    public function agreeAuditingAncestral(Request $request) 
+    {
+        return collect($this->ancestral->agreeAuditingAncestral($request))->toJson(); 
+    }
 }

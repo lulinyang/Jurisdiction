@@ -77,4 +77,23 @@ class SurnameController extends Controller
         return $result;
     }
 
+    /**
+     * 拒绝族谱申请
+     */
+    public function refuseAuditingSurname(Request $request)
+    {
+        $result = collect($this->surname->refuseAuditingSurname($request))->toJson();
+
+        return $result;
+    }
+    /**
+     * 同意族谱申请
+     */
+     public function agreeAuditingSurname(Request $request)
+     {
+         $result = collect($this->surname->agreeAuditingSurname($request))->toJson();
+ 
+         return $result;
+     }
+    
 }

@@ -279,6 +279,84 @@ class SurnameRepository extends Repository
             ->get();
         return returnArr($res);
     }
+
+    public function refuseAuditingSurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+
+        if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少ID参数！');
+        }
+
+        if (!isset($params['sys_uid'])) {
+			return returnArr(false, 20002, '缺少sys_uid参数！');
+        }
+
+        if (!isset($params['surname_name'])) {
+			return returnArr(false, 20003, '缺少surname_name参数！');
+        }
+    
+        $res = DB::table('cms_surname_user')
+            ->where('id', $params['id'])
+            ->update([
+                'auditing_uid' => $params['uid'],
+                'isApply' => 2,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        if($res) {
+            $messageArr = [
+                'uid' => $params['sys_uid'],
+                'message' => "管理员拒绝了你申请查看《{$params['surname_name']}》族谱权限",
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+            DB::table('cms_system_message')->insert($messageArr);
+            return returnArr($res, 200, '已拒绝！');
+        }
+        return returnArr($res, 20002, '操作失败请稍后再试！');
+    }
+    
+    public function agreeAuditingSurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+
+        if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少ID参数！');
+        }
+
+        if (!isset($params['sys_uid'])) {
+			return returnArr(false, 20002, '缺少sys_uid参数！');
+        }
+
+        if (!isset($params['surname_name'])) {
+			return returnArr(false, 20003, '缺少surname_name参数！');
+        }
+
+        $res = DB::table('cms_surname_user')
+            ->where('id', $params['id'])
+            ->update([
+                'auditing_uid' => $params['uid'],
+                'isApply' => 1,
+                'updated_at' => date('Y-m-d H:i:s')
+            ]);
+        if($res) {
+            $messageArr = [
+                'uid' => $params['sys_uid'],
+                'message' => "管理员通过了你申请查看《{$params['surname_name']}》族谱权限",
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+            DB::table('cms_system_message')->insert($messageArr);
+            return returnArr($res, 200, '已同意！');
+        }
+        return returnArr($res, 20002, '操作失败请稍后再试！');
+    }
     
     
 }

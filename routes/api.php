@@ -222,6 +222,14 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/getAuditingAncestral', 'AncestralController@getAuditingAncestral');
     //获取审核的族谱列表
     Route::post('/getAuditingSurname', 'SurnameController@getAuditingSurname');
+    //拒绝族谱申请
+    Route::post('/refuseAuditingSurname', 'SurnameController@refuseAuditingSurname');
+    //同意族谱申请
+    Route::post('/agreeAuditingSurname', 'SurnameController@agreeAuditingSurname');
+    //拒绝宗祠申请
+    Route::post('/refuseAuditingAncestral', 'AncestralController@refuseAuditingAncestral');
+    //同意宗祠申请
+    Route::post('/agreeAuditingAncestral', 'AncestralController@agreeAuditingAncestral');
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');
