@@ -225,7 +225,8 @@ class SurnameRepository extends Repository
             ->Where([
                 'uid' => $params['uid'],
                 'surname_id' => $params['surname_id'],
-                'deleted' => 0
+                'deleted' => 0,
+                'isApply' => 0
             ])
             ->first();
 
