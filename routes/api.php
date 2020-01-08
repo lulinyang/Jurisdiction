@@ -230,6 +230,9 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/refuseAuditingAncestral', 'AncestralController@refuseAuditingAncestral');
     //同意宗祠申请
     Route::post('/agreeAuditingAncestral', 'AncestralController@agreeAuditingAncestral');
+    //删除评论
+    Route::post('/delComment', 'CommentController@delComment');
+    
 });
 
 // Route::post('/upOssAudio', 'Controller@upOssAudio');

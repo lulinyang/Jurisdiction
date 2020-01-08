@@ -116,6 +116,25 @@ class CommentRepository extends Repository
 		return returnArr($data);
 	}
 
+	public function delComment($request)
+	{
+		$params = $request->all();
+		if (!isset($params['id'])) {
+            return returnArr(false, 20001, '缺少id参数！');
+		}
+
+		$arr = [
+			'deleted' => 1,
+			'updated_at' => date('Y-m-d H:i:s')
+		];
+		
+		$res = DB::table('cms_comment')->where('id', $params['id'])->update($arr);
+		if($res) {
+			return returnArr($res, 200, "删除成功");
+		}
+		return returnArr($res, 20002, "删除失败");
+	}
+
 	private function getTree($data, $pid = 0, $params)
     {
         $tree = array();

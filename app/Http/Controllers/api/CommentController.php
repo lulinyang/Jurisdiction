@@ -24,4 +24,14 @@ class CommentController extends Controller
     {
         return collect($this->comment->getComment($request))->toJson();
     }
+
+    /**
+     * 删除评论
+     */
+    public function delComment(Request $request)
+    {
+        $result = collect($this->comment->delComment($request))->toJson();
+
+        return $result;
+    }
 }

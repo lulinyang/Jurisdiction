@@ -59,5 +59,4 @@ class ConversationController extends Controller
         return $result;
     }
     
-    
 }
