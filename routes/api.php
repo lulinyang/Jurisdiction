@@ -234,6 +234,8 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/agreeAuditingAncestral', 'AncestralController@agreeAuditingAncestral');
     //删除评论
     Route::post('/delComment', 'CommentController@delComment');
+    //获取系统消息
+    Route::post('/getSysMessageList', 'CommonController@getSysMessageList');
     
 });
 

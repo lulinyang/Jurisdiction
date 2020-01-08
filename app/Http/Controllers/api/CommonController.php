@@ -337,6 +337,21 @@ class CommonController extends Controller
             ]];
         }
     }
+
+    public function getSysMessageList(Request $request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+        $pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
+        $paginate = DB::table('cms_system_message')
+            ->where('deleted', 0)
+            ->where('uid', $params['uid'])
+            ->orderBy('created_at', 'desc')
+            ->paginate($pageSize);
+        return collection(returnArr($paginate));
+    }
     
 }
 
