@@ -89,11 +89,20 @@ class SurnameController extends Controller
     /**
      * 同意族谱申请
      */
-     public function agreeAuditingSurname(Request $request)
-     {
-         $result = collect($this->surname->agreeAuditingSurname($request))->toJson();
- 
-         return $result;
-     }
-    
+    public function agreeAuditingSurname(Request $request)
+    {
+        $result = collect($this->surname->agreeAuditingSurname($request))->toJson();
+
+        return $result;
+    }
+
+     /**
+      * 获取我的族谱
+      */
+    public function getMySurname(Request $request)
+    {
+        $result = collect($this->surname->getMySurname($request))->toJson();
+
+        return $result;
+    }
 }

@@ -226,8 +226,7 @@ class SurnameRepository extends Repository
                 'uid' => $params['uid'],
                 'surname_id' => $params['surname_id'],
                 'deleted' => 0,
-                'isApply' => 0
-            ])
+            ])->where('isApply', '!=', 2)
             ->first();
 
         if($surname) {
@@ -367,5 +366,19 @@ class SurnameRepository extends Repository
         return returnArr($res, 20002, '操作失败请稍后再试！');
     }
     
+    public function getMySurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+        $surnames = DB::table('cms_surname_user')->where('uid', $params['uid'])->get();
+        $surname_ids = [];
+        foreach($surnames as $key => $val) {
+            $surname_ids[] = $val->surname_id;
+        }
+        $res = DB::table('cms_surname')->whereIn('id', $surname_ids)->get();
+        return returnArr($res);
+    }
     
 }
