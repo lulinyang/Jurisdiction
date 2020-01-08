@@ -298,6 +298,11 @@ class SurnameRepository extends Repository
         if (!isset($params['surname_name'])) {
 			return returnArr(false, 20003, '缺少surname_name参数！');
         }
+
+        $item = DB::table('cms_surname_user')->where('id', $params['id'])->first();
+        if($item->isApply > 0) {
+            return returnArr(false, 20004, '此申请其它管理员已处理！');
+        }
     
         $res = DB::table('cms_surname_user')
             ->where('id', $params['id'])

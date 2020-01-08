@@ -722,6 +722,12 @@ class AncestralRepository extends Repository
 
         if (!isset($params['ancestral_name'])) {
 			return returnArr(false, 20003, '缺少ancestral_name参数！');
+		}
+		
+
+		$item = DB::table('cms_apply_ancestral')->where('id', $params['id'])->first();
+        if($item->isApply > 0) {
+            return returnArr(false, 20004, '此申请其它管理员已处理！');
         }
     
         $res = DB::table('cms_apply_ancestral')
@@ -761,6 +767,11 @@ class AncestralRepository extends Repository
 
         if (!isset($params['ancestral_name'])) {
 			return returnArr(false, 20003, '缺少ancestral_name参数！');
+		}
+
+		$item = DB::table('cms_apply_ancestral')->where('id', $params['id'])->first();
+        if($item->isApply > 0) {
+            return returnArr(false, 20004, '此申请其它管理员已处理！');
         }
 
         $res = DB::table('cms_apply_ancestral')
