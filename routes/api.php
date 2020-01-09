@@ -126,6 +126,7 @@ Route::group(['namespace' => 'api'], function () {
     //上传文件
     Route::post('/uploadAncestralFile', 'CommonController@uploadAncestralFile');
     Route::post('/aliPayApp', 'AliPayController@aliPayApp');
+    
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
@@ -246,7 +247,7 @@ Route::post('/upEditImage', 'Controller@upEditImage');
 // Route::any('/wechat', 'WeChatController@serve');
 // Route::any('/getToken', 'WeChatController@getToken');
 // Route::any('/createMenu', 'WeChatController@createMenu');
-
+Route::any('/paySuccess', 'HomeController@paySuccess');
 // IS_INTERNAL=false
 // ALIOSS_CITY=北京
 // ALIOSS_NETWORK_TYPE=经典网络

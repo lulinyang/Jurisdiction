@@ -39,7 +39,7 @@ class AliPayController extends Controller
 
         $config = config('alipay.pay');
 
-        $config['return_url'] = $config['return_url'].'?id='.$request->id;
+        // $config['return_url'] = $config['return_url'];
 
         return Pay::alipay($config)->app($aliPayOrder);
     }
