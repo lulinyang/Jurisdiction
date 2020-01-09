@@ -125,6 +125,7 @@ Route::group(['namespace' => 'api'], function () {
     Route::post('/upChatImage', 'CommonController@upChatImage');
     //上传文件
     Route::post('/uploadAncestralFile', 'CommonController@uploadAncestralFile');
+    Route::post('/aliPayApp', 'AliPayController@aliPayApp');
 });
 //用户端接口
 Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
