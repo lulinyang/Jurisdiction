@@ -15,7 +15,7 @@ class AliPayController extends Controller
     {
         $aliPayOrder = [
             'out_trade_no' => time(),
-            'total_amount' => $order->total_amount, // 支付金额
+            'total_amount' => 0.01, // 支付金额
             'subject'      => $request->subject ?? '支付宝手机网页支付' // 备注
         ];
 

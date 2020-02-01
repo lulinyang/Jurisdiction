@@ -66,16 +66,23 @@ class CelebrityRepository extends Repository
 		$pageSize = isset($params['pageSize']) ? $params['pageSize'] : 8;
 		$name = isset($params['name']) ? $params['name'] : '';
 		$name_word = isset($params['name_word']) ? $params['name_word'] : '';
+		$active = isset($params['active']) ? $params['active'] : 0;
+		if($active === 0) {
+			$orderby = 'a.created_at';
+		}else {
+			$orderby = 'a.browse_num';
+		}
 		$paginate = DB::table('cms_celebrity as a')
                     ->leftJoin('cms_customer as c', function ($join) {
                         $join->on('a.created_user', '=', 'c.id');
 					})->Where('a.name', 'like', "%{$name}%")
 					->Where('a.name_word', 'like', "%{$name_word}%")
 					->Where('a.deleted', 0)
-					->orderBy('a.created_at', 'desc')
+					->orderBy($orderby, 'desc')
 					->select(
 						'a.*',
-						'c.username as created_user_name'
+						'c.username as created_user_name',
+						DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 5 AND theme_id = a.id) as comment_num")
 					)
 					->paginate($pageSize);
 		return returnArr(collection($paginate));
@@ -105,4 +112,63 @@ class CelebrityRepository extends Repository
 		}	
 		return returnArr($res, 20005, '删除失败！');
 	}
+
+	public function getCelebrityInfo($request)
+	{
+		$params = $request->all();
+        if (!isset($params['id'])) {
+            return returnArr(false, 20001, '缺少参数id！');
+        }
+        //是否点赞/收藏
+        $fabulous = false;
+        $collection = false;
+        if (isset($params['uid'])) {
+            $result = DB::table('cms_fabulous')
+                ->where([
+                    'type' => 5,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();
+
+            $result2 = DB::table('cms_collection')
+                ->where([
+                    'type' => 5,
+                    'uid' => $params['uid'],
+                    'theme_id' => $params['id']
+                ])->first();        
+            $fabulous = $result ? true : false;
+            $collection = $result2 ? true : false;
+        }
+        //点赞总数
+        $fabulous_num = DB::table('cms_fabulous')
+            ->where([
+                'type' => 5,
+                'theme_id' => $params['id']
+            ])->count();
+        //收藏总数
+        $collection_num  = DB::table('cms_collection')
+        ->where([
+            'type' => 5,
+            'theme_id' => $params['id']
+        ])->count();
+        // dd($fabulous_num);
+        $res = DB::table('cms_celebrity')
+               	->Where('deleted', 0)
+                ->where('id', $params['id'])
+                ->first();
+        $res->isFabulous = $fabulous;
+        $res->fabulous_num = $fabulous_num;
+        $res->isCollection = $collection;
+        $res->collection_num = $collection_num;
+        return returnArr($res);
+	}
+	
+	public function addBrowseNumCelebrity($request)
+    {
+        $params = $request->all();
+        if (isset($params['id'])) {
+            $res = DB::table('cms_celebrity')->where('id', $params['id'])->increment('browse_num');
+            return returnArr($res);
+        }
+    }
 }

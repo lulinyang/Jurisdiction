@@ -34,4 +34,14 @@ class CelebrityController extends Controller
     {
         return collect($this->celebrity->delCelebrity($request))->toJson(); 
     }
+
+    public function getCelebrityInfo(Request $request) 
+    {
+        return collect($this->celebrity->getCelebrityInfo($request))->toJson(); 
+    }
+
+    public function addBrowseNumCelebrity(Request $request) 
+    {
+        return collect($this->celebrity->addBrowseNumCelebrity($request))->toJson(); 
+    }
 }

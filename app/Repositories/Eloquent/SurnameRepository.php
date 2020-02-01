@@ -380,5 +380,31 @@ class SurnameRepository extends Repository
         $res = DB::table('cms_surname')->whereIn('id', $surname_ids)->get();
         return returnArr($res);
     }
+
+    public function getCollSurname($request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+
+        if (!isset($params['type'])) {
+			return returnArr(false, 20001, '缺少type参数');
+        }
+
+        // cms_collection
+        $themeids = DB::table('cms_collection')->where([
+                'uid' => $params['uid'],
+                'type' => $params['type']
+            ])->select('theme_id')
+            ->get();
+        $ids = [];
+        foreach($themeids as $key => $val) {
+            $ids[] = $val->theme_id;
+        }
+        $res = DB::table('cms_surname')->whereIn('id', $ids)->get();
+        return returnArr($res);
+    }
+    
     
 }

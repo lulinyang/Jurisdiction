@@ -125,7 +125,9 @@ Route::group(['namespace' => 'api'], function () {
     Route::post('/upChatImage', 'CommonController@upChatImage');
     //上传文件
     Route::post('/uploadAncestralFile', 'CommonController@uploadAncestralFile');
+    //支付测试
     Route::post('/aliPayApp', 'AliPayController@aliPayApp');
+    Route::post('/aliPay', 'AliPayController@aliPay');
     
 });
 //用户端接口
@@ -238,6 +240,14 @@ Route::group(['middleware' => 'user.api', 'namespace' => 'api'], function () {
     Route::post('/delComment', 'CommentController@delComment');
     //获取系统消息
     Route::post('/getSysMessageList', 'CommonController@getSysMessageList');
+    //标记已读
+    Route::post('/readSysMessage', 'CommonController@readSysMessage');
+    //获取收藏的族谱
+    Route::post('/getCollSurname', 'SurnameController@getCollSurname');
+    //获取名人传记详情
+    Route::post('/getCelebrityInfo', 'CelebrityController@getCelebrityInfo');
+    //记录浏览次数（名人传记）
+    Route::post('/addBrowseNumCelebrity', 'CelebrityController@addBrowseNumCelebrity');
     
 });
 

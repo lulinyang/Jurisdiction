@@ -742,7 +742,7 @@ class AncestralRepository extends Repository
                 'uid' => $params['sys_uid'],
                 'message' => "管理员拒绝了你申请加入《{$params['ancestral_name']}》",
                 'created_at' => date('Y-m-d H:i:s', time()),
-                'updated_at' => date('Y-m-d H:i:s')
+                'updated_at' => date('Y-m-d H:i:s', time())
             ];
             DB::table('cms_system_message')->insert($messageArr);
             return returnArr($res, 200, '已拒绝！');

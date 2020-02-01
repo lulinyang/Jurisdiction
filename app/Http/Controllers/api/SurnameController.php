@@ -105,4 +105,14 @@ class SurnameController extends Controller
 
         return $result;
     }
+
+    /**
+     * 获取收藏的族谱
+     */
+    public function getCollSurname(Request $request)
+    {
+        $result = collect($this->surname->getCollSurname($request))->toJson();
+
+        return $result;
+    }
 }

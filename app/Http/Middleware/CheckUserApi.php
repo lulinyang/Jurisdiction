@@ -28,9 +28,10 @@ class CheckUserApi
                 abort(405, 'not allowed.'); 
             }
         }
-        if ($apiKey && $apiKey === 'iSqQiR68eFhYnYQ1CwZJgCxdnUMNdqJiUcIHq4Gg') {
-            return $next($request);
-        }
-        abort(403, 'Access Denied.');
+        return $next($request);
+        // if ($apiKey && $apiKey === 'iSqQiR68eFhYnYQ1CwZJgCxdnUMNdqJiUcIHq4Gg') {
+        //     return $next($request);
+        // }
+        // abort(403, 'Access Denied.');
     }
 }

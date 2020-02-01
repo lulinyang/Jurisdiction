@@ -176,9 +176,11 @@ class CommonController extends Controller
                 return $record;
             }
         }
+       
         $url = 'https://www.tianqiapi.com/api/?appid='. $appid .'&appsecret='. $appsecret .'&version='.$version.'&cityid='. $cityid;
         $res = doCurl($url);
         $weather = json_decode($res, true);
+        // dd($weather);
         $arr = [
             'city_id' => $weather['cityid'],
             'city_name' => $weather['city'],
@@ -353,31 +355,26 @@ class CommonController extends Controller
         return collection(returnArr($paginate));
     }
 
-    // https://www.merchant.com/receive_notify.htm?
-    //notify_type=trade_status_sync&
-    //notify_id=91722adff935e8cfa58b3aabf4dead6ibe&
-    //notify_time=2017-02-16 21:46:15&sign_type=RSA2&
-    //sign=WcO+t3D8Kg71dTlKwN7r9PzUOXeaBJwp8/FOuSxcuSkXsoVYxBpsAidprySCjHCjmaglNcjoKJQLJ28/Asl93joTW39FX6i07lXhnbPknezAlwmvPdnQuI01HZsZF9V1i6ggZjBiAd5lG8bZtTxZOJ87ub2i9GuJ3Nr/NUc9VeY=&trade_no=null&
-    //app_id=null&
-    //out_trade_no=null&
-    //seller_id=null&
-    //trade_status=null&
-    //total_amount=null&
-    //refund_fee=null&subject=null&
-    //body=null&gmt_create=null&
-    //gmt_payment=null&
-    //gmt_refund=null&
-    //gmt_close=null&buyer_id=null&
-    //fund_bill_list=[{"amount":"50.00","fundChannel":"ALIPAYACCOUNT"}]&
-    //receipt_amount=null&
-    //invoice_amount=null&buyer_pay_amount=null&
-    //point_amount=null&voucher_detail_list=null&
-    //buyer_logon_id=null&seller_email=null&
-    //out_biz_no=null&passback_params=null&
-    //out_channel_type=null&mdiscount_amount=88.88&
-    //discount_amount=88.88&
-    //charge_amount=8.88&charge_flags=bluesea_1&
-    //settlement_id=2018101610032004620239146945&industry_sepc_detail={"registration_order_pay":{"brlx":"1","cblx":"1"}}
+    public function readSysMessage(Request $request)
+    {
+        $params = $request->all();
+		if (!isset($params['uid'])) {
+			return returnArr(false, 20000, '请先登录！');
+        }
+
+        if (!isset($params['id'])) {
+			return returnArr(false, 20001, '缺少参数ID！');
+        }
+        $arr = [
+            'isRead' => 1,
+            'created_at' => date('Y-m-d H:i:s', time()),
+            'updated_at' => date('Y-m-d H:i:s', time())
+        ];
+        $res = DB::table('cms_system_message')->where('id', $params['id'])->update($arr);
+
+        return returnArr($res);
+    }
+    
     
 }
 
