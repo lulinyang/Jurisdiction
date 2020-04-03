@@ -71,7 +71,7 @@ class ConversationRepository extends Repository
 				'u.sex', 
 				'u.headUrl',
 				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
-				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num"),
+				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id AND deleted=0 AND pid=0) as comment_num"),
 				DB::raw("(SELECT name FROM cms_ancestral_hall WHERE id = c.ancestral_id) as ancestral_name")
 			)
 			// ->toSql();
@@ -101,7 +101,7 @@ class ConversationRepository extends Repository
 				'u.sex', 
 				'u.headUrl',
 				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
-				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num")
+				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id AND deleted=0) as comment_num")
 			)
 			// ->toSql();
 			->first();
@@ -166,7 +166,7 @@ class ConversationRepository extends Repository
 				'u.sex', 
 				'u.headUrl',
 				DB::raw("(SELECT COUNT(id) FROM cms_fabulous WHERE type = 3 AND theme_id = c.id) as fabulous_num"),
-				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id) as comment_num"),
+				DB::raw("(SELECT COUNT(id) FROM cms_comment WHERE type = 3 AND theme_id = c.id AND deleted=0) as comment_num"),
 				DB::raw("(SELECT name FROM cms_ancestral_hall WHERE id = c.ancestral_id) as ancestral_name")
 			)
 			->paginate($pageSize);

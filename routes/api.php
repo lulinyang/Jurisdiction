@@ -258,14 +258,6 @@ Route::post('/upEditImage', 'Controller@upEditImage');
 // Route::any('/getToken', 'WeChatController@getToken');
 // Route::any('/createMenu', 'WeChatController@createMenu');
 Route::any('/paySuccess', 'HomeController@paySuccess');
-// IS_INTERNAL=false
-// ALIOSS_CITY=北京
-// ALIOSS_NETWORK_TYPE=经典网络
-// ALIOSS_SERVER=http://oss-cn-beijing.aliyuncs.com
-// ALIOSS_SERVERINTERNAL=http://oss-cn-beijing-internal.aliyuncs.com
-// ALIOSS_KEYID=LTAIc6zdQq5DpxTv
-// ALIOSS_KEYSECRET=V2KHD8jHYJZmPEDVzGOvLWTqC5CRuy
-// ALIOSS_BUCKETNAME=lulinyang
 
 Route::get('/test', 'WebSocketController@test');
 
